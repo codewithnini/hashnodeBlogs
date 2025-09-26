@@ -56,6 +56,7 @@ In Selenium, XPath is widely used to locate elements when `id`, `name`, or `clas
     //input[@id='username']
     ```
     
+
     ## **1\. XPath Node Types**
     
     | **Node Type** | **Description** | **Example** |
