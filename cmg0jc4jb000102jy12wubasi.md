@@ -124,3 +124,76 @@ Selenium supports multiple languages via **language bindings**:
 * Existing tech stack
     
 * CI/CD environment
+    
+
+### **1\. Selenium WebDriver Basics**
+
+Selenium WebDriver is a browser automation framework that allows you to execute your tests against different browsers. Unlike Selenium IDE, WebDriver directly communicates with the browser without requiring a separate server.
+
+**Key Points:**
+
+* Supports multiple browsers (Chrome, Firefox, Edge, Safari, etc.).
+    
+* Uses browser-specific drivers (e.g., `chromedriver`, `geckodriver`).
+    
+* Works with multiple programming languages (Java, Python, C#, JavaScript, etc.).
+    
+* Enables automation of web applications for testing purposes.
+    
+
+---
+
+### **2\. WebDriver Architecture & W3C Protocol**
+
+**WebDriver Architecture:**
+
+```bash
+Test Script (Java/Python/JS)
+        |
+   Selenium WebDriver API
+        |
+  Browser-specific Driver
+        |
+      Browser
+```
+
+**Details:**
+
+* **Test Script**: Written in your preferred language (Java, Python, etc.).
+    
+* **WebDriver API**: Provides methods to interact with web elements and browsers.
+    
+* **Browser Driver**: Acts as a bridge between your script and the browser.
+    
+* **Browser**: Executes the commands and returns the response.
+    
+
+**W3C WebDriver Protocol:**
+
+* Standard protocol that defines how commands are sent to the browser.
+    
+* Ensures uniform behavior across different browsers.
+    
+* Selenium 4 uses the W3C WebDriver protocol by default.
+    
+
+---
+
+### **3\. Launching Browsers**
+
+To automate browsers, you need to initialize a WebDriver instance for that browser.
+
+**Example in Java:**
+
+```java
+// Chrome
+WebDriver driver = new ChromeDriver();
+
+// Firefox
+WebDriver driver = new FirefoxDriver();
+
+// Edge
+WebDriver driver = new EdgeDriver();
+```
+
+> Make sure the respective browser driver (chromedriver/geckodriver/msedgedriver) is in your system PATH or set using `System.setProperty()`.
