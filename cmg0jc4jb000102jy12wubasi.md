@@ -984,3 +984,305 @@ System.out.println(element.toString());
 3. **Form elements** like checkboxes, radio buttons, and input fields use `isSelected()`, `clear()`, `sendKeys()`, `submit()` heavily.
     
 4. `getScreenshotAs()` is available for Selenium 4+ and allows capturing a specific element instead of the whole page.
+    
+
+### `By`
+
+> Locator class used to find elements.  
+> ✅ Static methods:
+
+* [`By.id`](http://by.id/)`(String id)`
+    
+* [`By.name`](http://by.name/)`(String name)`
+    
+* `By.className(String className)`
+    
+* `By.tagName(String tag)`
+    
+* `By.linkText(String text)`
+    
+* `By.partialLinkText(String partial)`
+    
+* `By.cssSelector(String css)`
+    
+* `By.xpath(String xpath)`
+    
+
+---
+
+### `Alert`
+
+> Handle JavaScript popups.
+
+**Key Methods:**
+
+* `accept()`
+    
+* `dismiss()`
+    
+* `getText()`
+    
+* `sendKeys(String keys)`
+    
+
+---
+
+### `Navigation` (`driver.navigate()`)
+
+* `to(String url)`
+    
+* `back()`
+    
+* `forward()`
+    
+* `refresh()`
+    
+
+---
+
+### `Options` (`driver.manage()`)
+
+* `window()` → returns `Window` interface
+    
+* `timeouts()` → returns `Timeouts` interface
+    
+* `deleteAllCookies()`
+    
+* `deleteCookieNamed(String name)`
+    
+
+---
+
+### `Window` (sub-interface of Options)
+
+* `maximize()`
+    
+* `minimize()`
+    
+* `fullscreen()`
+    
+* `setSize(Dimension size)`
+    
+* `getSize()`
+    
+* `setPosition(Point position)`
+    
+* `getPosition()`
+    
+
+---
+
+### `Timeouts`
+
+* `implicitlyWait(Duration time)`
+    
+* `pageLoadTimeout(Duration time)`
+    
+* `scriptTimeout(Duration time)`
+    
+
+---
+
+### `TargetLocator` (`driver.switchTo()`)
+
+* `frame(int index)`
+    
+* `frame(String nameOrId)`
+    
+* `frame(WebElement frameElement)`
+    
+* `parentFrame()`
+    
+* `defaultContent()`
+    
+* `alert()`
+    
+* `window(String handle)`
+    
+
+---
+
+## **🔹 Supporting Interfaces / Classes**
+
+### `TakesScreenshot`
+
+* `getScreenshotAs(OutputType<T> target)`
+    
+
+---
+
+### `JavascriptExecutor`
+
+* `executeScript(String script, Object... args)`
+    
+* `executeAsyncScript(String script, Object... args)`
+    
+
+---
+
+### `Actions` (Class)
+
+Used for mouse & keyboard actions.
+
+**Methods (all return** `Actions` so you can chain):
+
+* `moveToElement(WebElement target)`
+    
+* `click()`
+    
+* `click(WebElement target)`
+    
+* `doubleClick()`
+    
+* `doubleClick(WebElement target)`
+    
+* `contextClick()`
+    
+* `contextClick(WebElement target)`
+    
+* `dragAndDrop(WebElement source, WebElement target)`
+    
+* `dragAndDropBy(WebElement source, int xOffset, int yOffset)`
+    
+* `keyDown(Keys key)`
+    
+* `keyUp(Keys key)`
+    
+* `sendKeys(CharSequence... keys)`
+    
+* `build()`
+    
+* `perform()`
+    
+
+---
+
+### `Select` (Class)
+
+For dropdowns.
+
+**Key Methods:**
+
+* `selectByIndex(int index)`
+    
+* `selectByValue(String value)`
+    
+* `selectByVisibleText(String text)`
+    
+* `deselectByIndex(int index)`
+    
+* `deselectByValue(String value)`
+    
+* `deselectByVisibleText(String text)`
+    
+* `deselectAll()`
+    
+* `getOptions()`
+    
+* `getAllSelectedOptions()`
+    
+* `getFirstSelectedOption()`
+    
+* `isMultiple()`
+    
+
+---
+
+### `WebDriverWait` (extends FluentWait)
+
+* `until(ExpectedCondition<T> condition)`
+    
+
+---
+
+### `FluentWait<T>`
+
+* `withTimeout(Duration time)`
+    
+* `pollingEvery(Duration interval)`
+    
+* `ignoring(Class<? extends Throwable> exceptionType)`
+    
+
+---
+
+### `ExpectedConditions` (Class)
+
+Common ready-made conditions:
+
+* `visibilityOfElementLocated(By locator)`
+    
+* `elementToBeClickable(By locator)`
+    
+* `alertIsPresent()`
+    
+* `frameToBeAvailableAndSwitchToIt(By locator)`
+    
+* `titleIs(String title)`
+    
+* `urlContains(String fraction)`
+    
+
+---
+
+### `Keys` (Enum)
+
+Keyboard keys.
+
+* `Keys.ENTER`
+    
+* [`Keys.TAB`](http://keys.tab/)
+    
+* `Keys.CONTROL`
+    
+* `Keys.ARROW_DOWN` etc.
+    
+
+---
+
+## **🔹 Driver Classes (implement WebDriver)**
+
+* `ChromeDriver`
+    
+* `FirefoxDriver`
+    
+* `EdgeDriver`
+    
+* `SafariDriver`
+    
+* `InternetExplorerDriver` (deprecated)
+    
+
+All inherit WebDriver’s methods.
+
+---
+
+## **🔹 Utility Classes**
+
+* `Dimension` → window size (`new Dimension(1024, 768)`)
+    
+* `Point` → window position (`new Point(100, 200)`)
+    
+* `Rectangle` → element position + size
+    
+* `Cookie` → browser cookies handling
+    
+
+---
+
+# **✅ Summary Table**
+
+| **Category** | **Classes/Interfaces** | **Example Methods** |
+| --- | --- | --- |
+| Browser Control | WebDriver | get(), close(), quit() |
+| Elements | WebElement | click(), sendKeys(), getText() |
+| Locators | By | id(), name(), xpath() |
+| Navigation | Navigation | back(), forward(), refresh() |
+| Alerts | Alert | accept(), dismiss(), getText() |
+| Windows/Frames | TargetLocator | frame(), alert(), window() |
+| Manage | Options, Window, Timeouts | maximize(), implicitlyWait() |
+| Screenshot | TakesScreenshot | getScreenshotAs() |
+| JS Execution | JavascriptExecutor | executeScript() |
+| User Actions | Actions | dragAndDrop(), doubleClick() |
+| Dropdown | Select | selectByValue(), getOptions() |
+| Waits | WebDriverWait, FluentWait, ExpectedConditions | until(), visibilityOfElement() |
