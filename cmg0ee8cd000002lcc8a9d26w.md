@@ -7,6 +7,10 @@ tags: codewithnini
 
 ---
 
+## link for Xpath PlayGround below
+
+[Click on Xpath Playground Link](https://xpath-by-nini.netlify.app/)
+
 ## **What is XPath?**
 
 **XPath (XML Path Language)** is a query language used to navigate and select nodes in an XML or HTML document.  
