@@ -235,3 +235,6 @@ Here are some extra details about Java access modifiers that weren't on the slid
 * **Encapsulation:** The primary purpose of the `private` modifier is to enforce **encapsulation**. It hides a class's internal state and implementation details from the outside world. This is a core principle of object-oriented programming.
     
 * **Getters and Setters:** You often access `private` variables through public methods called **getters** and **setters**. This gives you control over how the data is read and modified, allowing you to add validation or other logic.
+    
+
+next
