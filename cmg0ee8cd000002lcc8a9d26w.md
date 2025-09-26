@@ -21,6 +21,15 @@ In Selenium, XPath is widely used to locate elements when `id`, `name`, or `clas
 * Supports complex conditions.
     
 
+In automation, XPath is often used when:
+
+* No **unique ID, name, or CSS selector** is available.
+    
+* You need to locate **dynamic elements**.
+    
+* You want to traverse **parent/child/sibling** relationships.
+    
+
 ---
 
 ## **2\. Types of XPath**
@@ -56,7 +65,6 @@ In Selenium, XPath is widely used to locate elements when `id`, `name`, or `clas
     //input[@id='username']
     ```
     
-
     ## **1\. XPath Node Types**
     
     | **Node Type** | **Description** | **Example** |
@@ -214,6 +222,15 @@ In Selenium, XPath is widely used to locate elements when `id`, `name`, or `clas
     ```
     
     ---
+    
+    ## 🔹 Limitations of XPath 1.0
+    
+    * No advanced string functions like `matches()` (available in XPath 2.0).
+        
+    * Cannot directly use **regular expressions**.
+        
+    * Limited numeric and date handling.
+        
     
     ### **✅ Key Notes**
     
