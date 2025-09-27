@@ -1451,19 +1451,9 @@ A screenshot is a **picture of the page or element**.
 
 ## 🔹 1. **TakesScreenshot Interface** (Most Common)
 
-```java
-File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-FileUtils.copyFile(src, new File("./screenshot.png"));
-```
-
 ---
 
 ## 🔹 2. **As Base64 String** (useful in reports like Extent/Allure)
-
-```java
-String base64Screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-System.out.println("Base64 Screenshot: " + base64Screenshot);
-```
 
 ➡ Advantage: Easy to **embed directly** into HTML/PDF reports without saving a file.
 
@@ -1471,9 +1461,88 @@ System.out.println("Base64 Screenshot: " + base64Screenshot);
 
 ## 🔹 3. **As Byte Array** (useful in APIs / custom reports)
 
+**All 3 ways code you can see below.**
+
 ```java
-byte[] bytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-// Can be stored in DB or attached in reports
+package screenshotsWay;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Base64;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class ScreenshotTest {
+
+	// using File output commonScreenShot
+	@Test
+	public void commonScreenShot() throws Throwable {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+		driver.get("https://www.google.com/");
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File src = ts.getScreenshotAs(OutputType.FILE);
+		File dest = new File("./screenshots/commonScreenShot.png");
+		org.openqa.selenium.io.FileHandler.copy(src, dest);
+
+		driver.close();
+		driver.quit();
+	}
+
+	// using Base64 output base64ScreenShot
+	@Test
+	public void base64ScreenShot() throws Throwable {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+		driver.get("https://www.google.com/");
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		String src = ts.getScreenshotAs(OutputType.BASE64);
+
+		byte[] dest = Base64.getDecoder().decode(src); // Base64 class from (java.util) decode to byte Array
+
+		System.out.println(Arrays.toString(dest)); // this only for checking what the output in console
+
+		FileOutputStream fos = new FileOutputStream(new File("./screenshots/base64ScreenShot.png"));
+		fos.write(dest);
+		fos.close();
+
+		driver.close();
+		driver.quit();
+	}
+
+	// using byte[] output ByteArrayScreenShot
+	@Test
+	public void ByteArrayScreenShot() throws Throwable {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+		driver.get("https://www.google.com/");
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		byte[] src = ts.getScreenshotAs(OutputType.BYTES);
+
+		System.out.println(Arrays.toString(src)); // this only for checking what the output in console
+
+		FileOutputStream fos = new FileOutputStream(new File("./screenshots/ByteArrayScreenShot.png"));
+		fos.write(src);
+		fos.close();
+
+		driver.close();
+		driver.quit();
+	}
+
+}
+
 ```
 
 ---
