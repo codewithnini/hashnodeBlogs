@@ -203,7 +203,7 @@ WebDriver driver = new EdgeDriver();
 > Base interface for controlling browsers.  
 > ✅ Implemented by `ChromeDriver`, `FirefoxDriver`, `EdgeDriver`, etc.
 
-## **1\.** `get(String url)`
+## **1.** `get(String url)`
 
 * **Description:** Opens the specified URL in the browser.
     
@@ -225,7 +225,7 @@ driver.get("https://example.com");
 
 ---
 
-## **2\.** `getTitle()`
+## **2.** `getTitle()`
 
 * **Description:** Returns the title of the current page.
     
@@ -245,7 +245,7 @@ String title = driver.getTitle();
 
 ---
 
-## **3\.** `getCurrentUrl()`
+## **3.** `getCurrentUrl()`
 
 * **Description:** Returns the URL of the current page as a `String`.
     
@@ -265,7 +265,7 @@ String url = driver.getCurrentUrl();
 
 ---
 
-## **4\.** `getPageSource()`
+## **4.** `getPageSource()`
 
 * **Description:** Returns the source code of the current page.
     
@@ -285,7 +285,7 @@ String source = driver.getPageSource();
 
 ---
 
-## **5\.** `close()`
+## **5.** `close()`
 
 * **Description:** Closes the current browser window.
     
@@ -305,7 +305,7 @@ driver.close();
 
 ---
 
-## **6\.** `quit()`
+## **6.** `quit()`
 
 * **Description:** Closes all browser windows and ends the WebDriver session.
     
@@ -325,7 +325,7 @@ driver.quit();
 
 ---
 
-## **7\.** `findElement(By by)`
+## **7.** `findElement(By by)`
 
 * **Description:** Finds the first element using the given locator.
     
@@ -349,7 +349,7 @@ WebElement button = driver.findElement(By.id("submitBtn"));
 
 ---
 
-## **8\.** `findElements(By by)`
+## **8.** `findElements(By by)`
 
 * **Description:** Finds all elements matching the locator.
     
@@ -369,7 +369,7 @@ List<WebElement> links = driver.findElements(By.tagName("a"));
 
 ---
 
-## **9\.** `getWindowHandle()`
+## **9.** `getWindowHandle()`
 
 * **Description:** Returns the unique identifier (handle) of the current window.
     
@@ -389,7 +389,7 @@ String mainWindow = driver.getWindowHandle();
 
 ---
 
-## **10\.** `getWindowHandles()`
+## **10.** `getWindowHandles()`
 
 * **Description:** Returns a `Set<String>` of all open window handles.
     
@@ -409,7 +409,7 @@ Set<String> allWindows = driver.getWindowHandles();
 
 ---
 
-## **11\.** `switchTo()`
+## **11.** `switchTo()`
 
 * **Description:** Returns a `TargetLocator` to switch between windows, frames, or alerts.
     
@@ -435,7 +435,7 @@ driver.switchTo().alert().accept();   // Switch to alert
 
 ---
 
-## **12\.** `manage()`
+## **12.** `manage()`
 
 * **Description:** Returns an `Options` interface to manage cookies, timeouts, and window.
     
@@ -457,7 +457,7 @@ driver.manage().deleteAllCookies();
 
 ---
 
-## **13\.** `navigate()`
+## **13.** `navigate()`
 
 * **Description:** Returns a `Navigation` interface to control browser history.
     
@@ -514,7 +514,7 @@ Here’s a **complete Selenium WebDriver Methods Cheat-Sheet** with **method, de
 > Represents an element on the webpage.  
 > ✅ Returned by `findElement()`.
 
-### **1\.** `getText()`
+### **1.** `getText()`
 
 * **Description:** Returns the visible text of the element.
     
@@ -534,7 +534,7 @@ String text = element.getText();
 
 ---
 
-### **2\.** `getAttribute(String name)`
+### **2.** `getAttribute(String name)`
 
 * **Description:** Returns the value of the specified attribute of the element.
     
@@ -554,7 +554,7 @@ String value = element.getAttribute("value");
 
 ---
 
-### **3\.** `getCssValue(String propertyName)`
+### **3.** `getCssValue(String propertyName)`
 
 * **Description:** Returns the value of a CSS property of the element.
     
@@ -574,7 +574,7 @@ String color = element.getCssValue("color");
 
 ---
 
-### **4\.** `getTagName()`
+### **4.** `getTagName()`
 
 * **Description:** Returns the tag name of the element (e.g., "input", "button").
     
@@ -594,7 +594,7 @@ String tag = element.getTagName();
 
 ---
 
-### **5\.** `isDisplayed()`
+### **5.** `isDisplayed()`
 
 * **Description:** Checks if the element is visible on the page.
     
@@ -614,7 +614,7 @@ boolean visible = element.isDisplayed();
 
 ---
 
-### **6\.** `isEnabled()`
+### **6.** `isEnabled()`
 
 * **Description:** Checks if the element is enabled (e.g., input field or button).
     
@@ -634,7 +634,7 @@ boolean enabled = element.isEnabled();
 
 ---
 
-### **7\.** `isSelected()`
+### **7.** `isSelected()`
 
 * **Description:** Checks if a checkbox, radio button, or option is selected.
     
@@ -654,7 +654,7 @@ boolean selected = element.isSelected();
 
 ---
 
-### **8\.** `click()`
+### **8.** `click()`
 
 * **Description:** Clicks on the element.
     
@@ -676,7 +676,7 @@ element.click();
 
 ---
 
-### **9\.** `sendKeys(CharSequence...)`
+### **9.** `sendKeys(CharSequence...)`
 
 * **Description:** Types text into the element.
     
@@ -698,7 +698,7 @@ element.sendKeys("Hello World");
 
 ---
 
-### **10\.** `clear()`
+### **10.** `clear()`
 
 * **Description:** Clears the content of an input field.
     
@@ -720,7 +720,7 @@ element.clear();
 
 ---
 
-### **11\.** `submit()`
+### **11.** `submit()`
 
 * **Description:** Submits a form element.
     
@@ -742,7 +742,7 @@ element.submit();
 
 ---
 
-### **12\.** `getLocation()`
+### **12.** `getLocation()`
 
 * **Description:** Returns the location (x, y) of the element on the page.
     
@@ -762,7 +762,7 @@ Point location = element.getLocation();
 
 ---
 
-### **13\.** `getSize()`
+### **13.** `getSize()`
 
 * **Description:** Returns the width and height of the element.
     
@@ -782,7 +782,7 @@ Dimension size = element.getSize();
 
 ---
 
-### **14\.** `getRect()`
+### **14.** `getRect()`
 
 * **Description:** Returns the element’s size and position as a rectangle.
     
@@ -802,7 +802,7 @@ Rectangle rect = element.getRect();
 
 ---
 
-### **15\.** `getScreenshotAs(OutputType<T>)`
+### **15.** `getScreenshotAs(OutputType<T>)`
 
 * **Description:** Captures screenshot of the element.
     
@@ -822,7 +822,7 @@ File src = element.getScreenshotAs(OutputType.FILE);
 
 ---
 
-### **16\.** `getDomProperty(String name)`
+### **16.** `getDomProperty(String name)`
 
 * **Description:** Returns the DOM property of the element.
     
@@ -842,7 +842,7 @@ String prop = element.getDomProperty("value");
 
 ---
 
-### **17\.** `getDomAttribute(String name)`
+### **17.** `getDomAttribute(String name)`
 
 * **Description:** Returns the DOM attribute of the element.
     
@@ -862,7 +862,7 @@ String attr = element.getDomAttribute("id");
 
 ---
 
-### **18\.** `equals(Object obj)`
+### **18.** `equals(Object obj)`
 
 * **Description:** Compares two elements.
     
@@ -882,7 +882,7 @@ boolean same = element.equals(otherElement);
 
 ---
 
-### **19\.** `hashCode()`
+### **19.** `hashCode()`
 
 * **Description:** Returns hash code of the element.
     
@@ -902,7 +902,7 @@ int code = element.hashCode();
 
 ---
 
-### **20\.** `toString()`
+### **20.** `toString()`
 
 * **Description:** Returns string representation of the element.
     
@@ -1286,3 +1286,186 @@ All inherit WebDriver’s methods.
 | User Actions | Actions | dragAndDrop(), doubleClick() |
 | Dropdown | Select | selectByValue(), getOptions() |
 | Waits | WebDriverWait, FluentWait, ExpectedConditions | until(), visibilityOfElement() |
+
+# Syntax Cheatsheet
+
+---
+
+## 1️⃣ **Browser Launch**
+
+```java
+WebDriver driver = new ChromeDriver();   // Launch Chrome
+WebDriver driver = new FirefoxDriver();  // Launch Firefox
+WebDriver driver = new EdgeDriver();     // Launch Edge
+driver.get("https://www.google.com");    // Open URL
+driver.manage().window().maximize();     // Maximize window
+driver.quit();                           // Close browser (all windows)
+driver.close();                          // Close current window
+```
+
+---
+
+## 2️⃣ **Find Elements**
+
+```java
+driver.findElement(By.id("username"));
+driver.findElement(By.name("password"));
+driver.findElement(By.className("btn-login"));
+driver.findElement(By.tagName("input"));
+driver.findElement(By.linkText("Forgot Password?"));
+driver.findElement(By.partialLinkText("Forgot"));
+driver.findElement(By.cssSelector("input[type='text']"));
+driver.findElement(By.xpath("//input[@id='username']"));
+```
+
+Multiple elements:
+
+```java
+List<WebElement> links = driver.findElements(By.tagName("a"));
+```
+
+---
+
+## 3️⃣ **Send Keys / Click / Get Text**
+
+```java
+driver.findElement(By.id("username")).sendKeys("admin");
+driver.findElement(By.id("password")).sendKeys("admin123");
+driver.findElement(By.id("loginBtn")).click();
+String text = driver.findElement(By.id("msg")).getText();
+```
+
+## 4️⃣ **Waits**
+
+```java
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+// Explicit wait
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+```
+
+---
+
+## 5️⃣ **Dropdowns (Select Class)**
+
+```java
+WebElement dropdown = driver.findElement(By.id("country"));
+Select select = new Select(dropdown);
+select.selectByVisibleText("India");
+select.selectByValue("IND");
+select.selectByIndex(2);
+```
+
+---
+
+## 6️⃣ **Alerts**
+
+```java
+Alert alert = driver.switchTo().alert();
+alert.accept();      // OK
+alert.dismiss();     // Cancel
+alert.sendKeys("text"); // Enter text
+String msg = alert.getText();
+```
+
+---
+
+## 7️⃣ **Frames**
+
+```java
+driver.switchTo().frame("frameName");
+driver.switchTo().frame(0);
+driver.switchTo().frame(driver.findElement(By.xpath("//iframe")));
+driver.switchTo().defaultContent(); // Back to main page
+```
+
+---
+
+## 8️⃣ **Windows / Tabs**
+
+```java
+String parent = driver.getWindowHandle();
+Set<String> allWindows = driver.getWindowHandles();
+for (String win : allWindows) {
+    driver.switchTo().window(win);
+}
+driver.switchTo().window(parent); // Back to parent window
+```
+
+---
+
+## 9️⃣ **Actions Class (Mouse/Keyboard)**
+
+```java
+Actions actions = new Actions(driver);
+actions.moveToElement(driver.findElement(By.id("menu"))).perform(); // Hover
+actions.doubleClick(driver.findElement(By.id("btn"))).perform();
+actions.contextClick(driver.findElement(By.id("btn"))).perform();  // Right-click
+actions.dragAndDrop(src, dest).perform();
+actions.sendKeys(Keys.ENTER).perform();
+```
+
+---
+
+## 🔟 **JavaScript Executor**
+
+```java
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("window.scrollBy(0,500)");
+js.executeScript("arguments[0].click();", element);
+js.executeScript("arguments[0].value='Selenium';", element);
+```
+
+---
+
+## 1️⃣1️⃣ **Screenshots**
+
+```java
+File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+FileUtils.copyFile(src, new File("screenshot.png"));
+```
+
+---
+
+## 1️⃣2️⃣ **Navigation**
+
+```java
+driver.navigate().to("https://www.example.com");
+driver.navigate().back();
+driver.navigate().forward();
+driver.navigate().refresh();
+```
+
+---
+
+## 1️⃣3️⃣ **Check Elements**
+
+```java
+driver.findElement(By.id("chkbox")).isDisplayed();
+driver.findElement(By.id("chkbox")).isEnabled();
+driver.findElement(By.id("chkbox")).isSelected();
+```
+
+---
+
+## 1️⃣4️⃣ **Cookies**
+
+```java
+driver.manage().getCookies();
+driver.manage().addCookie(new Cookie("key", "value"));
+driver.manage().deleteCookieNamed("key");
+driver.manage().deleteAllCookies();
+```
+
+---
+
+## 1️⃣5️⃣ **Robot Class (Keyboard/Mouse events)**
+
+```java
+Robot robot = new Robot();
+robot.keyPress(KeyEvent.VK_DOWN);
+robot.keyRelease(KeyEvent.VK_DOWN);
+robot.keyPress(KeyEvent.VK_ENTER);
+robot.keyRelease(KeyEvent.VK_ENTER);
+```
