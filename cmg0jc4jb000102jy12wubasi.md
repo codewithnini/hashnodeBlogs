@@ -1382,7 +1382,7 @@ driver.switchTo().defaultContent(); // Back to main page
 
 ---
 
-# 8️⃣ **Windows / Tabs**
+# 8\. **Windows / Tabs**
 
 ```java
 String parent = driver.getWindowHandle();
@@ -1395,7 +1395,7 @@ driver.switchTo().window(parent); // Back to parent window
 
 ---
 
-# 9️⃣ **Actions Class (Mouse/Keyboard)**
+# 9\. **Actions Class (Mouse/Keyboard)**
 
 ```java
 Actions actions = new Actions(driver);
@@ -1408,7 +1408,7 @@ actions.sendKeys(Keys.ENTER).perform();
 
 ---
 
-# 🔟 **JavaScript Executor**
+# 10\. **JavaScript Executor**
 
 ```java
 JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -1419,7 +1419,7 @@ js.executeScript("arguments[0].value='Selenium';", element);
 
 ---
 
-# 1️⃣1️⃣ **Screenshots**
+# 11\. **Screenshots**
 
 A screenshot is a **picture of the page or element**.
 
@@ -1800,7 +1800,7 @@ When running in Selenium Grid / BrowserStack, you can still use:
 4. For visual/UI testing, use **AShot** or tools like **Applitools**.
     
 
-# 1️⃣2️⃣ **Navigation**
+# 12\. **Navigation**
 
 ```java
 driver.navigate().to("https://www.example.com");
@@ -1811,7 +1811,7 @@ driver.navigate().refresh();
 
 ---
 
-# 1️⃣3️⃣ **Check Elements**
+# 13\. **Check Elements**
 
 ```java
 driver.findElement(By.id("chkbox")).isDisplayed();
@@ -1821,7 +1821,7 @@ driver.findElement(By.id("chkbox")).isSelected();
 
 ---
 
-# 1️⃣4️⃣ **Cookies**
+# 14\. **Cookies**
 
 ```java
 driver.manage().getCookies();
@@ -1832,7 +1832,7 @@ driver.manage().deleteAllCookies();
 
 ---
 
-# 1️⃣5️⃣ **Robot Class (Keyboard/Mouse events)**
+# 15\. **Robot Class (Keyboard/Mouse events)**
 
 ```java
 Robot robot = new Robot();
