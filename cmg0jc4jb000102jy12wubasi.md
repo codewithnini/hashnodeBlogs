@@ -1291,7 +1291,7 @@ All inherit WebDriver’s methods.
 
 ---
 
-## 1️⃣ **Browser Launch**
+# 1️⃣ **Browser Launch**
 
 ```java
 WebDriver driver = new ChromeDriver();   // Launch Chrome
@@ -1305,7 +1305,7 @@ driver.close();                          // Close current window
 
 ---
 
-## 2️⃣ **Find Elements**
+# 2️⃣ **Find Elements**
 
 ```java
 driver.findElement(By.id("username"));
@@ -1326,7 +1326,7 @@ List<WebElement> links = driver.findElements(By.tagName("a"));
 
 ---
 
-## 3️⃣ **Send Keys / Click / Get Text**
+# 3️⃣ **Send Keys / Click / Get Text**
 
 ```java
 driver.findElement(By.id("username")).sendKeys("admin");
@@ -1335,7 +1335,7 @@ driver.findElement(By.id("loginBtn")).click();
 String text = driver.findElement(By.id("msg")).getText();
 ```
 
-## 4️⃣ **Waits**
+# 4️⃣ **Waits**
 
 ```java
 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -1347,7 +1347,7 @@ WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By
 
 ---
 
-## 5️⃣ **Dropdowns (Select Class)**
+# 5️⃣ **Dropdowns (Select Class)**
 
 ```java
 WebElement dropdown = driver.findElement(By.id("country"));
@@ -1359,7 +1359,7 @@ select.selectByIndex(2);
 
 ---
 
-## 6️⃣ **Alerts**
+# 6️⃣ **Alerts**
 
 ```java
 Alert alert = driver.switchTo().alert();
@@ -1371,7 +1371,7 @@ String msg = alert.getText();
 
 ---
 
-## 7️⃣ **Frames**
+# 7️⃣ **Frames**
 
 ```java
 driver.switchTo().frame("frameName");
@@ -1382,7 +1382,7 @@ driver.switchTo().defaultContent(); // Back to main page
 
 ---
 
-## 8️⃣ **Windows / Tabs**
+# 8️⃣ **Windows / Tabs**
 
 ```java
 String parent = driver.getWindowHandle();
@@ -1395,7 +1395,7 @@ driver.switchTo().window(parent); // Back to parent window
 
 ---
 
-## 9️⃣ **Actions Class (Mouse/Keyboard)**
+# 9️⃣ **Actions Class (Mouse/Keyboard)**
 
 ```java
 Actions actions = new Actions(driver);
@@ -1408,7 +1408,7 @@ actions.sendKeys(Keys.ENTER).perform();
 
 ---
 
-## 🔟 **JavaScript Executor**
+# 🔟 **JavaScript Executor**
 
 ```java
 JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -1449,19 +1449,45 @@ A screenshot is a **picture of the page or element**.
 * **CI/CD:** In automated pipelines (like Jenkins), screenshots help find out why a test failed without opening the computer manually.
     
 
-## 🔹 1. **TakesScreenshot Interface** (Most Common)
+## **TakesScreenshot Interface Can Take 3 Ways**
 
----
+### 🔹 1. As ***FILE*** (Most Common) **Browser Screenshot**
 
-## 🔹 2. **As Base64 String** (useful in reports like Extent/Allure)
+* **What:** Captures the **entire visible part of the browser window**.
+    
+* **How:** Using `TakesScreenshot` interface.
+    
+
+* **Use Case:** Debugging, attaching to reports, CI/CD pipelines.
+    
+
+### 🔹 2. **As Base64 String** (useful in reports like Extent/Allure)
+
+* **What:** Captures screenshot as a **Base64-encoded string**.
+    
+
+* **Use Case:**
+    
+    * Embed directly into **Extent Reports, Allure, or HTML reports**.
+        
+    * Avoid saving a physical file.
+        
+* **Tip:** Can be converted back to a file if needed.
+    
 
 ➡ Advantage: Easy to **embed directly** into HTML/PDF reports without saving a file.
 
----
+### 🔹 3. **As Byte Array** (useful in APIs / custom reports)
 
-## 🔹 3. **As Byte Array** (useful in APIs / custom reports)
+* **What:** Captures screenshot as a **byte array**.
+    
 
-**All 3 ways code you can see below.**
+* **Use Case:**
+    
+    * Store in memory, attach to **Allure reports**, or save in **databases**.
+        
+
+### **All 3 ways code you can see below.**
 
 ```java
 package screenshotsWay;
@@ -1545,36 +1571,142 @@ public class ScreenshotTest {
 
 ```
 
+## 📸 **Types of Screenshots in Selenium**
+
+### 1\. **Full Page / Browser Screenshot**
+
+* **What:** Captures the **entire visible part of the browser window**.
+    
+* **How:** Using `TakesScreenshot` interface.
+    
+
+* **Use Case:** Debugging, attaching to reports, CI/CD pipelines.
+    
+
 ---
 
-## 🔹 4. **Capture Element Screenshot** (Only a WebElement, not full page)
+### 2\. **Element Screenshot**
 
-```java
-WebElement element = driver.findElement(By.id("logo"));
-File src = element.getScreenshotAs(OutputType.FILE);
-FileUtils.copyFile(src, new File("./element.png"));
-```
+* **What:** Captures **only a specific web element** (like a button, logo, or form).
+    
+* **How:** Call `getScreenshotAs` on the WebElement.
+    
 
-➡ Useful when you only want part of the page (logo, button, form, etc.).
+* **Use Case:** When only part of the page matters (e.g., validating a form or logo).
+    
 
 ---
 
-## 🔹 5. **With Event Listeners (on failure automatically)**
-
-Using **TestNG ITestListener**:
-
 ```java
-public void onTestFailure(ITestResult result) {
-    File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-    FileUtils.copyFile(src, new File("./screenshots/" + result.getName() + ".png"));
+package screenshotsTypes;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Base64;
+
+import javax.imageio.ImageIO;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v137.page.model.Screenshot;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Test;
+
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
+
+public class ScreenshotTypesTest {
+
+	// using File output commonScreenShot viewPortScreenShot
+	@Test
+	public void viewPortScreenShot() throws Throwable {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+		driver.get("https://www.flipkart.com/");
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File src = ts.getScreenshotAs(OutputType.FILE);
+		File dest = new File("./screenshots/types/viewPortScreenShot.png");
+		org.openqa.selenium.io.FileHandler.copy(src, dest);
+
+		driver.close();
+		driver.quit();
+	}
+	
+	// using File output   commonScreenShot elementScreenShot
+		@Test
+		public void elementScreenShot() throws Throwable {
+			RemoteWebDriver driver = new ChromeDriver();
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+			driver.get("https://www.flipkart.com/");
+			WebElement eleemnt = driver.findElement(By.xpath("//img[@src='https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/f16ce51e6dd8a20c.jpg?q=90']"));
+			File src = eleemnt.getScreenshotAs(OutputType.FILE);
+			File dest = new File("./screenshots/types/elementScreenShot.png");
+			org.openqa.selenium.io.FileHandler.copy(src, dest);
+
+			driver.close();
+			driver.quit();
+		}
+
+	// using File output  and RempoteWebdriver Class Take viewPortScreenShot
+	@Test
+	public void viewPortScreenShotWithRemoteWebdriverClass() throws Throwable {
+		RemoteWebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://www.flipkart.com/");
+		File viewPort = driver.getScreenshotAs(OutputType.FILE);
+		File dest = new File("./screenshots/types/viewPortScreenShotWithRemoteWebdriverClass.png");
+		org.openqa.selenium.io.FileHandler.copy(viewPort, dest);
+
+		driver.close();
+		driver.quit();
+	}
+	
+	// using File output  and RempoteWebdriver Class Take elementScreenShot
+		@Test
+		public void elementScreenShotWithRemoteWebdriverClass() throws Throwable {
+			RemoteWebDriver driver = new ChromeDriver();
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+			driver.get("https://www.flipkart.com/");
+			
+			WebElement eleemnt = driver.findElement(By.xpath("//img[@src='https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/f16ce51e6dd8a20c.jpg?q=90']"));
+			File src = eleemnt.getScreenshotAs(OutputType.FILE);
+			File dest = new File("./screenshots/types/elementScreenShotWithRemoteWebdriverClass.png");
+			org.openqa.selenium.io.FileHandler.copy(src, dest);
+
+			driver.close();
+			driver.quit();
+		}
+		
 }
 ```
 
-➡ This way, every failed test automatically generates a screenshot.
-
 ---
 
-## 🔹 6. **With AShot Library (Full Page Screenshot)**
+## 📸 **Other use cases of Screenshots in Selenium**
+
+### 3\. **Full Page Screenshot Using AShot**
+
+* **What:** Captures the **entire web page**, including parts **not visible** on the screen.
+    
+* **How:** Using **AShot library**.
+    
+
+* **Use Case:** Long pages with scroll, visual testing, layout validation.
+    
 
 Selenium’s native `TakesScreenshot` only captures the visible viewport.  
 For **full-page screenshots**:
@@ -1596,34 +1728,55 @@ ImageIO.write(screenshot.getImage(), "PNG", new File("./fullpage.png"));
 
 ---
 
-## 🔹 7. **RemoteWebDriver (Selenium Grid / Cloud providers like BrowserStack)**
+### 4\. **OS-Level Screenshot Using Robot Class**
 
-When running in Selenium Grid / BrowserStack, you can still use:
-
-```java
-File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-```
-
-➡ Screenshot will be captured from the remote machine.
-
----
-
-## 🔹 8. **With Robot Class (Java Native API)**
-
-If Selenium fails (like OS popups), use Java’s `Robot` class:
+* **What:** Captures **the entire screen**, including **OS popups, alerts, or dialogs**.
+    
+* **How:** Using Java’s `Robot` class.
+    
 
 ```java
 Robot robot = new Robot();
 Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
-ImageIO.write(screenFullImage, "png", new File("./robot_screenshot.png"));
+ImageIO.write(screenFullImage, "png", new File("robot_screenshot.png"));
 ```
 
-➡ Useful for **OS-level popups** (file upload/download windows).
+* **Use Case:** For **file upload/download dialogs**, system alerts, or anything outside the browser.
+    
 
 ---
 
-# 📌 Where Screenshots Are Used in Frameworks
+### 5\. **Screenshots With Event Listeners (on failure automatically)**
+
+* **What:** Capture screenshots automatically whenever a test fails using **TestNG Listeners**.
+    
+* **How:** Call screenshot methods in `onTestFailure()` in `ITestListener`.
+    
+* **Use Case:** Debugging failed tests, CI/CD reporting.
+    
+
+---
+
+### 6\. **RemoteWebDriver (Selenium Grid / Cloud providers like BrowserStack)**
+
+When running in Selenium Grid / BrowserStack, you can still use:
+
+➡ Screenshot will be captured from the remote machine.
+
+## 📌 Summary Table
+
+| Screenshot Type | Captures | Output Type | Use Case |
+| --- | --- | --- | --- |
+| Full Page / Browser | Entire visible browser window | File, Base64, Bytes | Debugging, Reports |
+| Element | Specific WebElement | File, Base64, Bytes | Element validation |
+| Base64 | Entire page / element | Base64 String | Embed in reports |
+| Byte Array | Entire page / element | byte\[\] | Reports, DB, in-memory |
+| Full Page (AShot) | Entire scrollable page | BufferedImage/File | Visual testing |
+| OS-Level (Robot) | Full screen including OS popups | BufferedImage/File | Alerts, dialogs, system testing |
+| Auto on Test Failure | Page at point of failure | File/Base64/Bytes | CI/CD & reporting |
+
+## 🔹📌 Where Screenshots Are Used in Frameworks
 
 * **TestNG Listeners / @AfterMethod** → Capture screenshot on failure.
     
@@ -1636,7 +1789,7 @@ ImageIO.write(screenFullImage, "png", new File("./robot_screenshot.png"));
 
 ---
 
-# ✅ Best Practices
+## ✅ Best Practices
 
 1. Always store screenshots in a separate `screenshots/` folder.
     
@@ -1647,7 +1800,7 @@ ImageIO.write(screenFullImage, "png", new File("./robot_screenshot.png"));
 4. For visual/UI testing, use **AShot** or tools like **Applitools**.
     
 
-## 1️⃣2️⃣ **Navigation**
+# 1️⃣2️⃣ **Navigation**
 
 ```java
 driver.navigate().to("https://www.example.com");
@@ -1658,7 +1811,7 @@ driver.navigate().refresh();
 
 ---
 
-## 1️⃣3️⃣ **Check Elements**
+# 1️⃣3️⃣ **Check Elements**
 
 ```java
 driver.findElement(By.id("chkbox")).isDisplayed();
@@ -1668,7 +1821,7 @@ driver.findElement(By.id("chkbox")).isSelected();
 
 ---
 
-## 1️⃣4️⃣ **Cookies**
+# 1️⃣4️⃣ **Cookies**
 
 ```java
 driver.manage().getCookies();
@@ -1679,7 +1832,7 @@ driver.manage().deleteAllCookies();
 
 ---
 
-## 1️⃣5️⃣ **Robot Class (Keyboard/Mouse events)**
+# 1️⃣5️⃣ **Robot Class (Keyboard/Mouse events)**
 
 ```java
 Robot robot = new Robot();
