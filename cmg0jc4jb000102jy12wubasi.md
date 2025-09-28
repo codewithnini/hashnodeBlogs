@@ -1410,6 +1410,169 @@ actions.sendKeys(Keys.ENTER).perform();
 
 # 10\. **JavaScript Executor**
 
+---
+
+## 1️⃣ What is JavascriptExecutor?
+
+**JavascriptExecutor** is an **interface** provided by Selenium WebDriver that allows us to **run JavaScript code directly within the browser** from our Java (or other language) Selenium code.
+
+---
+
+## 2️⃣ Why Use JavascriptExecutor?
+
+Sometimes **normal WebDriver methods fail**, especially in cases like:
+
+* Elements are **hidden, disabled, or behind overlays**
+    
+* Scrolling is needed to bring an element **into view**
+    
+* A click doesn't work due to **JavaScript event handling**
+    
+* WebDriver **cannot access certain DOM elements** directly
+    
+
+In these situations, **JavaScriptExecutor gives direct access to the webpage's DOM**, allowing more control.
+
+---
+
+## 3️⃣ How to Use JavascriptExecutor
+
+> JavascriptExecutor is an **interface**, not a class.  
+> You need to **cast your WebDriver instance** to JavascriptExecutor.
+
+**Syntax:**
+
+```java
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("your JavaScript code here");
+```
+
+You can also **pass arguments** to your script:
+
+```java
+js.executeScript("arguments[0].click();", element);
+```
+
+---
+
+## 4️⃣ Common JavascriptExecutor Use Cases
+
+### 4.1 Clicking an Element
+
+Sometimes [`element.click`](http://element.click)`()` **doesn't work** (like hidden buttons).
+
+```java
+WebElement element = driver.findElement(By.id("submit"));
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("arguments[0].click();", element);
+```
+
+---
+
+### 4.2 Typing Text into Input Field
+
+```java
+WebElement input = driver.findElement(By.id("username"));
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("arguments[0].value='testuser';", input);
+```
+
+---
+
+### 4.3 Scrolling the Page
+
+**Scroll down by pixels:**
+
+```java
+js.executeScript("window.scrollBy(0,500)");
+```
+
+**Scroll to the bottom of the page:**
+
+```java
+js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+```
+
+**Scroll to a specific element:**
+
+```java
+
+// Scroll down by 500px
+js.executeScript("window.scrollBy(0,500)");
+
+// Scroll to bottom
+js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+// Scroll to element
+WebElement element = driver.findElement(By.id("footer"));
+js.executeScript("arguments[0].scrollIntoView(true);", element);
+```
+
+---
+
+### 4.4 Getting the Page Title
+
+```bash
+String title = (String) js.executeScript("return document.title;");
+System.out.println("Page title is: " + title);
+```
+
+---
+
+### 4.5 Getting the Entire Page Text
+
+```bash
+String text = (String) js.executeScript("return document.documentElement.innerText;");
+System.out.println(text);
+```
+
+---
+
+### 4.6 Highlighting an Element (For Debugging)
+
+```bash
+WebElement button = driver.findElement(By.id("login"));
+js.executeScript("arguments[0].style.border='3px solid red';", button);
+```
+
+---
+
+## Common Use Cases (With Visuals)
+
+| Use Case | Java Code | Visual Explanation |
+| --- | --- | --- |
+| **Click Element** | `js.executeScript("arguments[0].click();", element);` | Element clicked even if hidden/overlayed |
+| **Type in Input** | `js.executeScript("arguments[0].value='testuser';", input);` | Input box filled via JS |
+| **Scroll Page** | `js.executeScript("window.scrollBy(0,500)");` | Scroll page down by 500px |
+| **Scroll to Element** | `js.executeScript("arguments[0].scrollIntoView(true);", element);` | Scroll page to element |
+| **Get Page Title** | `String title = (String) js.executeScript("return document.title;");` | Retrieve browser title |
+| **Get Page Text** | `String text = (String) js.executeScript("return document.documentElement.innerText;");` | Full page text |
+| **Highlight Element** | `js.executeScript("arguments[0].style.border='3px solid red';", element);` | For debugging visual cue |
+
+## 5️⃣ What Happens Behind the Scenes?
+
+* The `executeScript()` method sends **JavaScript code** to the browser.
+    
+* The **browser runs it**, just like in the console.
+    
+* You can **read, write, and modify DOM elements directly** using this method.
+    
+* **Mastering JavascriptExecutor** can unlock hidden power in Selenium automation.
+    
+
+---
+
+## 6️⃣ Best Practices
+
+* Use JavascriptExecutor **only when WebDriver methods fail**.
+    
+* Avoid overusing it; prefer **WebDriver native methods** first.
+    
+* Always **pass elements as arguments** instead of hardcoding them in JS.
+    
+* Combine with **Explicit Waits** for better stability.
+    
+
 ```java
 JavascriptExecutor js = (JavascriptExecutor) driver;
 js.executeScript("window.scrollBy(0,500)");
@@ -1457,7 +1620,6 @@ A screenshot is a **picture of the page or element**.
     
 * **How:** Using `TakesScreenshot` interface.
     
-
 * **Use Case:** Debugging, attaching to reports, CI/CD pipelines.
     
 
@@ -1465,7 +1627,6 @@ A screenshot is a **picture of the page or element**.
 
 * **What:** Captures screenshot as a **Base64-encoded string**.
     
-
 * **Use Case:**
     
     * Embed directly into **Extent Reports, Allure, or HTML reports**.
@@ -1481,7 +1642,6 @@ A screenshot is a **picture of the page or element**.
 
 * **What:** Captures screenshot as a **byte array**.
     
-
 * **Use Case:**
     
     * Store in memory, attach to **Allure reports**, or save in **databases**.
@@ -1568,7 +1728,6 @@ public class ScreenshotTest {
 	}
 
 }
-
 ```
 
 ## 📸 **Types of Screenshots in Selenium**
@@ -1579,7 +1738,6 @@ public class ScreenshotTest {
     
 * **How:** Using `TakesScreenshot` interface.
     
-
 * **Use Case:** Debugging, attaching to reports, CI/CD pipelines.
     
 
@@ -1591,7 +1749,6 @@ public class ScreenshotTest {
     
 * **How:** Call `getScreenshotAs` on the WebElement.
     
-
 * **Use Case:** When only part of the page matters (e.g., validating a form or logo).
     
 
@@ -1704,7 +1861,6 @@ public class ScreenshotTypesTest {
     
 * **How:** Using **AShot library**.
     
-
 * **Use Case:** Long pages with scroll, visual testing, layout validation.
     
 
