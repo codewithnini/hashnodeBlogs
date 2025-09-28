@@ -53,6 +53,8 @@ tags: codewithnini
 
 1. **Differentiate instance variables from local variables**
     
+    [Click on Link to Contribute](https://github.com/codewithnini/java/blob/main/CoreJava/src/a_06_Classes_And_Objects/a_5_This_And_Static_Keyword/01_Differentiate_instance_variables_from_local_variables.java)
+    
     ```java
     class Student {
         String name;
@@ -88,6 +90,17 @@ tags: codewithnini
 ---
 
 2. **Call methods of the current class**
+    
+    [Click on Link to Contribute](https://github.com/codewithnini/java/blob/main/CoreJava/src/a_06_Classes_And_Objects/a_5_This_And_Static_Keyword/02_Call_methods_of_the_current_class.java)
+    
+    👍.If you want to **call methods of the current class**, you can use the `this` keyword.
+    
+    ### 📌 Why use `this`?
+    
+    * To make it **explicit** that we are calling a method of the current object.
+        
+    * Useful when a **local variable shadows** (hides) a method parameter.
+        
     
     ```java
     class Students {
@@ -128,6 +141,26 @@ tags: codewithnini
 
 3. **Pass current object as a parameter**
     
+    [Click on Link to Contribute](https://github.com/codewithnini/java/blob/main/CoreJava/src/a_06_Classes_And_Objects/a_5_This_And_Static_Keyword/03_Pass_Current_Object_to_a_Method.java)
+    
+    you can use `this` keyword to pass the current object as a parameter to another method or constructor.
+    
+    This is useful when:
+    
+    * You want to give a reference of the **current object** to another class.
+        
+    * You want methods/constructors to **use the same object** instead of creating a new one.
+        
+    
+    🔑 **Summary**:
+    
+    * `this` can be passed to methods, constructors, or other class objects.
+        
+    * It gives **reference of the current object** to another method/class.
+        
+    * Avoids unnecessary object creation and helps with better object communication.
+        
+    
     ```java
     class Animal {
         String name;
@@ -165,6 +198,21 @@ tags: codewithnini
 ---
 
 4. **Return current object**
+    
+    [Click on Link to Contribute](https://github.com/codewithnini/java/blob/main/CoreJava/src/a_06_Classes_And_Objects/a_5_This_And_Static_Keyword/04_Return_Current_Object.java)
+    
+    👌. Another powerful use of `this` keyword is to **return the current object** from a method.
+    
+    This is very common in **method chaining** (like in Selenium `driver.manage().window().maximize().deleteAllCookies();`).
+    
+    🔑 **Why return** `this`?
+    
+    * Supports **method chaining**.
+        
+    * Makes code more **readable and compact**.
+        
+    * Common in frameworks like **Selenium, TestNG, AssertJ, Extent Reports**.
+        
     
     ```java
     class Car {
