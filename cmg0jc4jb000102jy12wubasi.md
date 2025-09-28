@@ -3,6 +3,7 @@ title: "Selenium With Java"
 datePublished: Fri Sep 26 2025 07:43:25 GMT+0000 (Coordinated Universal Time)
 cuid: cmg0jc4jb000102jy12wubasi
 slug: selenium-with-java
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1759081249818/197acbd8-0b6d-462b-880f-28dc74e83318.png
 tags: codewithnini
 
 ---
