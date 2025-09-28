@@ -9,6 +9,294 @@ tags: codewithnini
 
 # **🟢 Java**
 
+# **6\. Classes & Objects**
+
+1. **Process vs Object Oriented**
+    
+2. **Instance Variables and Methods**
+    
+3. **Declaring and Using Objects**
+    
+4. **Class vs Object**
+    
+5. **This & Static Keyword**
+    
+6. **Constructors & Code Blocks**
+    
+7. **Stack vs Heap Memory**
+    
+8. **Primitive vs Reference Types**
+    
+9. **Variable Scopes**
+    
+10. **Garbage Collection & Finalize**
+    
+
+## **6.1 Process vs Object Oriented**
+
+## **6.2 Instance Variables and Methods**
+
+## 6.3 **Declaring and Using Objects**
+
+## 6.4 **Class vs Object**
+
+## 6.5 **This & Static Keyword**
+
+### 🔑 1. `this` keyword
+
+* `this` is a **reference variable** in Java.
+    
+* Refers to the **current object** (the object whose method or constructor is being invoked).
+    
+
+### 📌 Uses of `this`:
+
+1. **Differentiate instance variables from local variables**
+    
+    ```java
+    class Student {
+        String name;
+        int age;
+    
+        Student(String name, int age) {
+            this.name = name;  // left: instance variable, right: constructor parameter
+            this.age = age;
+        }
+    
+        void display() {
+            System.out.println("Name: " + this.name + ", Age: " + this.age);
+        }
+    }
+    
+    class StudentTest {
+        public static void main(String[] args) {
+            Student s1 = new Student("Nini", 24);
+            s1.display();
+        }
+    }
+    ```
+    
+    **Output:**
+    
+    ```bash
+    Name: Nini, Age: 24
+    ```
+    
+    ✅ Without `this`, Java would think you are just reassigning the **constructor parameters** to themselves.
+    
+
+---
+
+2. **Call methods of the current class**
+    
+    ```java
+    class Students {
+    
+     void display() {
+      System.out.println("Display method called");
+     }
+    
+     void show() {
+      System.out.println("Show method called");
+    
+      // calling current class method
+      this.display();  // calls display()
+    
+      // can also call directly without this
+      display();
+     }
+    }
+    
+     class StudentsTest {
+     public static void main(String[] args) {
+      Students s = new Students();
+      s.show();
+     }
+    }
+    ```
+    
+    **Output:**
+    
+    ```bash
+    Show method called
+    Display method called
+    Display method called
+    ```
+    
+
+---
+
+3. **Pass current object as a parameter**
+    
+    ```java
+    class Animal {
+        String name;
+    
+        Animal(String name) {
+            this.name = name;
+        }
+    
+        // method that accepts a Animal object
+        void printDetails(Animal s) {
+            System.out.println("Animal Name: " + s.name);
+        }
+    
+        // method that passes current object
+        void display() {
+            printDetails(this);  // passing current object
+        }
+    }
+    
+    class AnimalTest {
+        public static void main(String[] args) {
+            Animal s1 = new Animal("Tiger");
+            s1.display();
+        }
+    }
+    ```
+    
+    **Output:**
+    
+    ```bash
+    Animal Name: Tiger
+    ```
+    
+
+---
+
+4. **Return current object**
+    
+    ```java
+    class Car {
+       String name;
+    
+       Car setName(String name) {
+        this.name = name;
+        return this;  // returning current object
+       }
+    
+       Car printName() {
+        System.out.println("Car name: " + name);
+        return this;  // returning current object
+       }
+      }
+    
+       class Test {
+       public static void main(String[] args) {
+        Car s = new Car();
+        s.setName("BMW").printName();  // method chaining
+       }
+      }
+    ```
+    
+    **Output:**
+    
+    ```bash
+    Car name: BMW
+    ```
+    
+
+---
+
+# 🔑 2. `this()` keyword
+
+* `this()` is **NOT the same as** `this`.
+    
+* It is a **constructor call** (used to call another constructor of the same class).
+    
+* Must be the **first statement** inside a constructor.
+    
+
+---
+
+### 📌 Uses of `this()`
+
+1. **Constructor chaining (within the same class)**
+    
+
+```java
+class Student {
+    String name;
+    int age;
+
+    // Default constructor
+    Student() {
+        this("Unknown", 0);  // calling parameterized constructor
+        System.out.println("Default constructor called");
+    }
+
+    // Parameterized constructor
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+        System.out.println("Parameterized constructor called");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Student s1 = new Student();         // calls default → parameterized
+        Student s2 = new Student("Nini", 22); // directly calls parameterized
+    }
+}
+```
+
+✅ Output:
+
+```java
+Parameterized constructor called
+Default constructor called
+Parameterized constructor called
+```
+
+---
+
+2. **Avoid duplicate code**  
+    Instead of writing initialization logic in multiple constructors, you call one constructor from another using `this()`.
+    
+
+```java
+class Car {
+    String model;
+    int year;
+
+    Car() {
+        this("Tesla", 2025); // calling another constructor
+    }
+
+    Car(String model, int year) {
+        this.model = model;
+        this.year = year;
+    }
+
+    void display() {
+        System.out.println("Model: " + model + ", Year: " + year);
+    }
+}
+```
+
+---
+
+# ⚠️ Rules & Differences
+
+| Feature | `this` | `this()` |
+| --- | --- | --- |
+| Meaning | Refers to current object | Calls another constructor in the same class |
+| Usage | Inside methods or constructors | Only inside constructors |
+| Position | Anywhere in method/constructor | Must be the **first line** in constructor |
+| Example | [`this.name`](http://this.name) `= name;` | `this("Nini", 22);` |
+
+---
+
+# 📝 Summary
+
+* `this` → reference to the current object (used for variables, methods, passing/returning object).
+    
+* `this()` → calls another constructor of the same class (used for constructor chaining, avoids duplication).
+    
+
+## 6.6 **Constructors & Code Blocks**
+
 ### **Import & Packages 📦**
 
 Here's a breakdown of the key concepts related to packages and imports in Java:
