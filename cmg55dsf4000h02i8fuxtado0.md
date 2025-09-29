@@ -3,6 +3,7 @@ title: "Basics Before Learning Web Automation Testing"
 datePublished: Mon Sep 29 2025 13:11:39 GMT+0000 (Coordinated Universal Time)
 cuid: cmg55dsf4000h02i8fuxtado0
 slug: basics-before-learning-web-automation-testing
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1759151977945/da843099-0d42-440e-b651-50188601e8ff.png
 tags: codewithnini
 
 ---
