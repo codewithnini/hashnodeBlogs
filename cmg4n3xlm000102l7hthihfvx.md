@@ -65,6 +65,8 @@ We use Singleton when we want:
 
 ---
 
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1759168351970/1872aae1-8884-4227-bded-e60077d615b2.png align="center")
+
 ## **4️⃣ Types of Singleton in Java**
 
 ### **A. Eager Initialization**
