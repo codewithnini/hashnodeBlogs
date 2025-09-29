@@ -63,9 +63,15 @@ We use Singleton when we want:
 | Lazy/Eager Init | Can initialize instance when needed or at class loading. |
 | Thread-Safe | Can make thread-safe for multi-threaded apps. |
 
+## **Singleton pattern example:**
+
 ---
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1759168351970/1872aae1-8884-4227-bded-e60077d615b2.png align="center")
+
+## **Singleton pattern used in Selenium**
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1759173213296/ae09e682-507d-4b83-ba1d-d8f7fc5dcc9c.png align="center")
 
 ## **4️⃣ Types of Singleton in Java**
 
