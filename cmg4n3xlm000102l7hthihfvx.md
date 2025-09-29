@@ -71,7 +71,259 @@ We use Singleton when we want:
 
 ## **Singleton pattern used in Selenium**
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1759173213296/ae09e682-507d-4b83-ba1d-d8f7fc5dcc9c.png align="center")
+## Example:
+
+```java
+package SingletonPatternWebDriver;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DriverManager {
+	 // 1️ Private static instance of WebDriver
+    private static WebDriver driver;
+
+    // 2️ Private constructor so no one can create object
+    private DriverManager() {}
+
+    // 3️ Public static method to provide global access
+    public static WebDriver getDriver() {
+        if (driver == null) {
+//            System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe"); // // No need to set System.setProperty in Selenium >4.6 versio 
+            driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        }
+        return driver;
+    }
+
+    // 4️  Quit driver and reset instance
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
+}
+```
+
+```java
+package SingletonPatternWebDriver;
+
+import org.openqa.selenium.WebDriver;
+
+public class LoginTest {
+    public static void main(String[] args) {
+        // Get driver from Singleton class
+        WebDriver driver = DriverManager.getDriver();
+        driver.get("https://codewithnini-web-modules.netlify.app/");
+        System.out.println("Page Title: " + driver.getTitle());
+
+        // Quit after test
+        DriverManager.quitDriver();
+    }
+}
+```
+
+```bash
+Sep 30, 2025 12:42:00 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 140, returning the closest version; found: 139; Please update to a Selenium version that supports CDP version 140
+
+Page Title: CodeWithNini-Web-Automation-Module
+```
+
+## **Note:**
+
+## ⚡ If You’re Using Selenium &lt; 4.6
+
+You **still need** the `System.setProperty()` line:
+
+```java
+System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+```
+
+Make sure:
+
+* Your `chromedriver.exe` is **compatible with Chrome version**.
+    
+* Path is correct (`drivers/chromedriver.exe` should exist).
+    
+
+---
+
+## 🔧 If Error Still Persists
+
+1. Check Selenium version:
+    
+    ```java
+    <!-- pom.xml -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.24.0</version> <!-- or latest -->
+    </dependency>
+    ```
+    
+2. Ensure Chrome is installed and updated.
+    
+3. Run a simple test to confirm driver works without Singleton:
+    
+
+```java
+public class TestChrome {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://google.com");
+        System.out.println(driver.getTitle());
+        driver.quit();
+    }
+}
+```
+
+---
+
+## **⚡ Extra Note for Frameworks:**
+
+  
+In **hybrid/data-driven frameworks**, instead of hardcoding `ChromeDriver`, you usually read the browser type (`chrome`, `firefox`, `edge`) from a [`config.properties`](http://config.properties) file, and create driver accordingly.
+
+Let’s make a **production-ready Singleton WebDriver** that supports **multiple browsers (Chrome, Firefox, Edge)** using a [`config.properties`](http://config.properties) file. This is **exactly how automation frameworks implement it** and interviewers love this answer.
+
+---
+
+# **1️⃣** [**config.properties**](http://config.properties)
+
+Create a file in your project (`src/test/resources/`[`config.properties`](http://config.properties)):
+
+```java
+browser=chrome
+url=https://google.com
+```
+
+---
+
+# **2️⃣ ConfigReader Utility**
+
+Reads values from the [`config.properties`](http://config.properties) file.
+
+```java
+package com.framework.utils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class ConfigReader {
+    private static Properties properties;
+
+    static {
+        try {
+            FileInputStream fis = new FileInputStream("src/test/resources/config.properties");
+            properties = new Properties();
+            properties.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+}
+```
+
+---
+
+# **3️⃣ DriverManager (Singleton WebDriver)**
+
+```java
+package com.framework.driver;
+
+import com.framework.utils.ConfigReader;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class DriverManager {
+
+    private static WebDriver driver;
+
+    // private constructor
+    private DriverManager() {}
+
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            String browser = ConfigReader.getProperty("browser").toLowerCase();
+
+            switch (browser) {
+                case "chrome":
+                    driver = new ChromeDriver();  // Selenium Manager auto-handles driver
+                    break;
+
+                case "firefox":
+                    driver = new FirefoxDriver();
+                    break;
+
+                case "edge":
+                    driver = new EdgeDriver();
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("Invalid browser: " + browser);
+            }
+
+            driver.manage().window().maximize();
+        }
+        return driver;
+    }
+
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
+}
+```
+
+---
+
+# **4️⃣ Usage in Test**
+
+```java
+package com.framework.tests;
+
+import com.framework.driver.DriverManager;
+import com.framework.utils.ConfigReader;
+import org.openqa.selenium.WebDriver;
+
+public class SampleTest {
+    public static void main(String[] args) {
+        WebDriver driver = DriverManager.getDriver();
+
+        driver.get(ConfigReader.getProperty("url"));
+        System.out.println("Page Title: " + driver.getTitle());
+
+        DriverManager.quitDriver();
+    }
+}
+```
+
+---
+
+# **5️⃣ How It Works**
+
+* `ConfigReader` reads `browser=chrome` (or firefox, edge).
+    
+* `DriverManager` creates the **singleton WebDriver** only once.
+    
+* If tests request `getDriver()`, they all share the **same instance**.
+    
+* After execution, `quitDriver()` closes and resets it.
+    
 
 ## **4️⃣ Types of Singleton in Java**
 
