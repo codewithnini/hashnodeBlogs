@@ -8,6 +8,8 @@ tags: codewithnini
 
 ---
 
+[Click Here to see in My Blog](https://hashnode.com/post/cmg55dsf4000h02i8fuxtado0)
+
 ## **What is software?**
 
 • A Software is a collection of computer programs that helps us to perform a task.
@@ -699,7 +701,7 @@ As we know Testing the functionallity of an application according to **CRS (Cust
 
 ---
 
-# 🔑 Example: E-Commerce Web Application Flow
+## 🔑 Example: E-Commerce Web Application Flow
 
 1. **Requirement** → Users should register, browse products, add to cart, pay online.
     
