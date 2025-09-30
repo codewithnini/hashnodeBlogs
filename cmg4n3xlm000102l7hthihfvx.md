@@ -7,9 +7,9 @@ tags: codewithnini
 
 ---
 
-# **Singleton in Java**
+# **Topic\_01: Singleton Class in Java**
 
-## **1️⃣ What is Singleton in Java**
+## **1.What is Singleton in Java**
 
 A **Singleton Class** is a class that **can have only one instance/object** in the **entire Java application**.  
 It provides a **global point of access** to that instance.
@@ -25,7 +25,7 @@ It provides a **global point of access** to that instance.
 
 ---
 
-## **2️⃣ Why Use Singleton?**
+## **2\. Why Use Singleton?**
 
 We use Singleton when we want:
 
@@ -53,7 +53,7 @@ We use Singleton when we want:
 
 ---
 
-## **3️⃣ Features of Singleton**
+## **3\. Features of Singleton**
 
 | Feature | Description |
 | --- | --- |
@@ -193,7 +193,7 @@ Let’s make a **production-ready Singleton WebDriver** that supports **multiple
 
 ## Example: UseCase 02
 
-## **1️⃣** [**config.properties**](http://config.properties)
+### **1️⃣** [**config.properties**](http://config.properties)
 
 Create a file in your project (`src/test/resources/`[`config.properties`](http://config.properties)):
 
@@ -204,7 +204,7 @@ url=https://codewithnini-web-modules.netlify.app/
 
 ---
 
-## **2️⃣ Config Reader Utility**
+### **2️⃣ Config Reader Utility**
 
 Reads values from the [`config.properties`](http://config.properties) file.
 
@@ -236,7 +236,7 @@ public class ConfigReader {
 
 ---
 
-## **3️⃣ DriverManager (Singleton WebDriver)**
+### **3️⃣ DriverManager (Singleton WebDriver)**
 
 ```java
 package SingletonPatternWedDriverWithDataDrivenAproach;
@@ -296,7 +296,7 @@ public class DriverManager {
 
 ---
 
-## **4️⃣ Usage in Test**
+### **4️⃣ Usage in Test**
 
 ```java
 package SingletonPatternWedDriverWithDataDrivenAproach;
@@ -323,7 +323,7 @@ public class BrowserTest {
 Page Title: CodeWithNini-Web-Automation-Module
 ```
 
-# **5️⃣ How It Works**
+### **5️⃣ How It Works**
 
 * `ConfigReader` reads `browser=chrome` (or firefox, edge).
     
@@ -334,7 +334,7 @@ Page Title: CodeWithNini-Web-Automation-Module
 * After execution, `quitDriver()` closes and resets it.
     
 
-## **4️⃣ Types of Singleton in Java**
+## **4\. Types of Singleton in Java**
 
 ### **A. Eager Initialization**
 
@@ -568,3 +568,393 @@ true
 3. Enum singleton **best avoids serialization issues**, others may need `readResolve()` for serialization.
     
 4. Not suitable if **multiple instances** are needed in the future.
+    
+
+# **Topic\_02: Serializable Interface in Java**
+
+`Serializable` interface is a Java core concept, and in automation frameworks (Selenium, TestNG, Cucumber), it has some **very practical use cases**. Let’s break it down clearly for **interview + real framework usage**.
+
+---
+
+# **1️⃣ What is** `Serializable` Interface in Java?
+
+* `Serializable` is a **marker interface** (i.e., no methods inside).
+    
+* It tells the **JVM** that objects of a class can be **converted into a byte stream**.
+    
+* This byte stream can then be:
+    
+    * Stored in a **file** (persistence)
+        
+    * Sent over a **network**
+        
+    * Transferred between **JVMs/threads**
+        
+
+👉 Once serialized, the object can later be **deserialized** (reconstructed back into an object).
+
+---
+
+# **2️⃣ Why use** `Serializable`?
+
+* Needed when we want to **share objects across different layers** of a framework or across JVMs.
+    
+* Prevents **loss of object state**.
+    
+* Especially useful in frameworks where objects are **passed around during parallel execution** (TestNG, Selenium Grid, Cucumber).
+    
+
+---
+
+# **3️⃣ How to Use** `Serializable`?
+
+### Example: Making a class serializable
+
+```bash
+import java.io.Serializable;
+
+public class UserData implements Serializable {
+    private static final long serialVersionUID = 1L;  // version control
+
+    private String username;
+    private String password;
+
+    public UserData(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() { return username; }
+    public String getPassword() { return password; }
+}
+```
+
+👉 This class can now be **serialized and deserialized**.
+
+---
+
+# **4️⃣ Serialization Example**
+
+```bash
+import java.io.*;
+
+public class SerializationDemo {
+    public static void main(String[] args) throws Exception {
+        UserData user = new UserData("nini", "pass123");
+
+        // Serialize (write object to file)
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("user.ser"));
+        oos.writeObject(user);
+        oos.close();
+
+        // Deserialize (read object back)
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("user.ser"));
+        UserData deserializedUser = (UserData) ois.readObject();
+        ois.close();
+
+        System.out.println("Username: " + deserializedUser.getUsername());
+        System.out.println("Password: " + deserializedUser.getPassword());
+    }
+}
+```
+
+---
+
+# **5️⃣ Use Cases in Automation Frameworks**
+
+### ✅ (a) **TestNG Parallel Execution**
+
+* TestNG allows passing custom parameters using `ITestContext` or `@DataProvider`.
+    
+* If you pass a **custom object** (like `UserData`), it must be `Serializable` so TestNG can move it across threads safely.
+    
+
+---
+
+### ✅ (b) **Selenium Grid / RemoteWebDriver**
+
+* When tests run on a **remote Selenium Grid**, commands and objects are **serialized to JSON** and sent over the network.
+    
+* Example: `Capabilities` objects implement `Serializable`.
+    
+
+---
+
+### ✅ (c) **Cucumber Scenario Context**
+
+* In BDD frameworks, testers often create a **ScenarioContext** (to share test data across steps).
+    
+* If Cucumber runs scenarios in parallel, the context object should be `Serializable` so it can be passed between threads safely.
+    
+
+---
+
+### ✅ (d) **Page Objects / Data Models**
+
+* Sometimes frameworks persist **page states, test data, or API responses** into files.
+    
+* If your POJO (Plain Old Java Object) implements `Serializable`, you can easily **save and reload** states.
+    
+
+---
+
+# **6️⃣ Why It’s Important in Interviews**
+
+* Interviewers ask this to test **your understanding of parallel execution, object handling, and test data sharing**.
+    
+* Best way to answer:
+    
+    > "`Serializable` is a marker interface in Java that allows converting objects into a byte stream. In automation frameworks, it’s used in parallel test execution (TestNG), Selenium Grid for remote communication, and in Cucumber to share test context safely between steps or threads."
+    
+
+---
+
+# **7️⃣ Key Notes**
+
+* Always add `serialVersionUID` → prevents version mismatch issues.
+    
+* Not all objects should be serialized (e.g., WebDriver itself is not serializable). Instead, you serialize supporting objects (data, configs).
+    
+
+---
+
+Perfect 👌 — now let’s see how `Serializable` comes into play in **RestAssured frameworks**.  
+You won’t often see people talk about it directly, but it’s hidden under the hood in many cases.
+
+---
+
+# **1️⃣ Why** `Serializable` in RestAssured?
+
+* RestAssured uses **POJOs** (Plain Old Java Objects) to:
+    
+    * Send request payloads (`.body(object)`)
+        
+    * Deserialize responses into objects (`.as(Class<T>)`)
+        
+* These POJOs sometimes need to be `Serializable` if:
+    
+    * You want to **cache/save request/response** for debugging or reporting
+        
+    * You are **reusing objects across threads** in parallel test execution
+        
+    * You need to **log/persist request/response** into a file (JSON, .ser, etc.)
+        
+
+---
+
+# **2️⃣ Example: POJO with Serializable for Request Body**
+
+### [`User.java`](http://User.java)
+
+```bash
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String name;
+    private String job;
+
+    public User(String name, String job) {
+        this.name = name;
+        this.job = job;
+    }
+
+    public String getName() { return name; }
+    public String getJob() { return job; }
+}
+```
+
+---
+
+# **3️⃣ Using Serializable POJO in RestAssured**
+
+### [`RestAssuredTest.java`](http://RestAssuredTest.java)
+
+```bash
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class RestAssuredTest {
+    public static void main(String[] args) {
+        User user = new User("Nini", "QA Automation");
+
+        // Send request with Serializable POJO
+        Response res = RestAssured.given()
+                .baseUri("https://reqres.in")
+                .basePath("/api/users")
+                .contentType("application/json")
+                .body(user)   // <-- POJO used as body
+                .post();
+
+        System.out.println("Response: " + res.asPrettyString());
+
+        // Deserialize response back into User class
+        User responseUser = res.as(User.class);
+        System.out.println("Deserialized Name: " + responseUser.getName());
+    }
+}
+```
+
+✔️ Here, the **POJO (**`User`) is serializable →
+
+* Can be written to a file for debugging (`ObjectOutputStream`)
+    
+* Can be shared across **parallel tests** if needed
+    
+
+---
+
+# **4️⃣ Use Cases in Automation Frameworks (RestAssured)**
+
+✅ **a. Request/Response Logging & Saving**
+
+* Sometimes we log full request/response objects into reports (Extent, Allure).
+    
+* If POJOs are `Serializable`, we can easily **save them in files** (`.ser`, JSON, etc.) for later debugging.
+    
+
+✅ **b. Test Data Reuse**
+
+* If your test data comes from an external file (Excel/JSON), you load it into a POJO.
+    
+* Marking it `Serializable` allows **storing and reusing** across multiple test cases.
+    
+
+✅ **c. Parallel Execution in TestNG**
+
+* When running multiple API tests in parallel, TestNG may pass POJOs (test data) to different threads.
+    
+* Making them `Serializable` avoids **thread-safety issues**.
+    
+
+✅ **d. Distributed Execution (Jenkins + Selenium Grid)**
+
+* If API + UI tests are combined, `Serializable` allows **sending POJOs between modules**.
+    
+
+---
+
+# **5️⃣ Quick Example: Save RestAssured Response as Serialized Object**
+
+```bash
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import java.io.*;
+
+public class SaveResponse {
+    public static void main(String[] args) throws Exception {
+        Response res = RestAssured.get("https://reqres.in/api/users/2");
+
+        // Serialize response body into a file
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("response.ser"));
+        oos.writeObject(res.asString());  // saving as serialized string
+        oos.close();
+
+        // Deserialize later
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("response.ser"));
+        String responseBody = (String) ois.readObject();
+        ois.close();
+
+        System.out.println("Recovered Response: " + responseBody);
+    }
+}
+```
+
+---
+
+✅ **Interview Answer (RestAssured context):**
+
+> "`Serializable` in RestAssured is mainly used when we create POJOs for request/response payloads. Marking them serializable ensures we can save them, transfer them across threads in parallel execution, or log them for debugging. For example, if I create a `User` POJO for request body, making it `Serializable` allows me to reuse it across tests, save response objects in files, and ensure thread safety during parallel API testing."
+
+---
+
+Got it 👍 Let’s make it very **simple English** for you.
+
+---
+
+## 🔹 What is `Serializable`?
+
+* `Serializable` is a **marker interface** in Java.
+    
+* It tells Java: *“This object can be converted into a byte stream (saved into a file, sent over network, or reused later).”*
+    
+
+Think of it like **packing your object into a box** so you can store it or send it anywhere.
+
+---
+
+## 🔹 Why do we use it in **RestAssured**?
+
+In API automation we often create **POJO classes** (simple Java classes with variables) to send or receive JSON data.  
+Example:
+
+```bash
+{ "name": "Nini", "job": "QA" }
+```
+
+We create a `User` POJO for this.  
+If we mark it as `Serializable`:
+
+* We can **save it** in a file for debugging.
+    
+* We can **reuse it** in multiple test cases.
+    
+* We can **share it safely** when running tests in parallel (multi-threading).
+    
+
+---
+
+## 🔹 How do we use it?
+
+Example:
+
+### 1\. Create POJO
+
+```bash
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private String job;
+
+    public User(String name, String job) {
+        this.name = name;
+        this.job = job;
+    }
+}
+```
+
+### 2\. Use it in RestAssured
+
+```bash
+User user = new User("Nini", "QA Engineer");
+
+RestAssured.given()
+        .baseUri("https://reqres.in")
+        .contentType("application/json")
+        .body(user)  // POJO as request body
+        .post("/api/users")
+        .then()
+        .statusCode(201);
+```
+
+---
+
+## 🔹 Use cases in automation framework
+
+1. **Request Payloads** – Send API request body as a `Serializable` POJO.
+    
+2. **Response Mapping** – Convert API response JSON into a `Serializable` POJO.
+    
+3. **Parallel Execution** – Share test data across threads safely.
+    
+4. **Save/Log Data** – Save request/response objects into a file or report.
+    
+
+---
+
+✅ **Simple Interview Answer**
+
+> In RestAssured, we often use POJO classes for request and response bodies. If we make them `Serializable`, we can store, reuse, or share them easily across multiple tests or threads. It helps in saving responses for debugging, running tests in parallel, and keeping data reusable.
