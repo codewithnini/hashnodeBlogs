@@ -1,5 +1,5 @@
 ---
-title: "java Basic to Advance"
+title: "Java Basic to Advance"
 datePublished: Thu Sep 25 2025 16:56:08 GMT+0000 (Coordinated Universal Time)
 cuid: cmfznn29b000102jy9mhqb9f5
 slug: java-basic-to-advance
