@@ -71,7 +71,7 @@ We use Singleton when we want:
 
 ## **Singleton pattern used in Selenium**
 
-## Example:
+## Example: UseCase 01
 
 ```java
 package SingletonPatternWebDriver;
@@ -128,8 +128,6 @@ public class LoginTest {
 ```
 
 ```bash
-Sep 30, 2025 12:42:00 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find an exact match for CDP version 140, returning the closest version; found: 139; Please update to a Selenium version that supports CDP version 140
 
 Page Title: CodeWithNini-Web-Automation-Module
 ```
@@ -184,7 +182,7 @@ public class TestChrome {
 
 ---
 
-## **⚡ Extra Note for Frameworks:**
+## **⚡ Extra Note for Frameworks: hybrid/data-driven frameworks**
 
   
 In **hybrid/data-driven frameworks**, instead of hardcoding `ChromeDriver`, you usually read the browser type (`chrome`, `firefox`, `edge`) from a [`config.properties`](http://config.properties) file, and create driver accordingly.
@@ -193,59 +191,64 @@ Let’s make a **production-ready Singleton WebDriver** that supports **multiple
 
 ---
 
-# **1️⃣** [**config.properties**](http://config.properties)
+## Example: UseCase 02
+
+## **1️⃣** [**config.properties**](http://config.properties)
 
 Create a file in your project (`src/test/resources/`[`config.properties`](http://config.properties)):
 
 ```java
 browser=chrome
-url=https://google.com
+url=https://codewithnini-web-modules.netlify.app/
 ```
 
 ---
 
-# **2️⃣ ConfigReader Utility**
+## **2️⃣ Config Reader Utility**
 
 Reads values from the [`config.properties`](http://config.properties) file.
 
 ```java
-package com.framework.utils;
+package SingletonPatternWedDriverWithDataDrivenAproach;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
-    private static Properties properties;
+	private static Properties properties;
 
-    static {
-        try {
-            FileInputStream fis = new FileInputStream("src/test/resources/config.properties");
-            properties = new Properties();
-            properties.load(fis);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	static {
+		try {
+			FileInputStream fis = new FileInputStream("./src/main/resources/config.properties");
+			properties = new Properties();
+			properties.load(fis);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public static String getProperty(String key) {
-        return properties.getProperty(key);
-    }
+	public static String getProperty(String key) {
+		return properties.getProperty(key);
+	}
 }
 ```
 
 ---
 
-# **3️⃣ DriverManager (Singleton WebDriver)**
+## **3️⃣ DriverManager (Singleton WebDriver)**
 
 ```java
-package com.framework.driver;
+package SingletonPatternWedDriverWithDataDrivenAproach;
 
-import com.framework.utils.ConfigReader;
+
+
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverManager {
 
@@ -276,6 +279,7 @@ public class DriverManager {
             }
 
             driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
         return driver;
     }
@@ -287,20 +291,19 @@ public class DriverManager {
         }
     }
 }
+
 ```
 
 ---
 
-# **4️⃣ Usage in Test**
+## **4️⃣ Usage in Test**
 
 ```java
-package com.framework.tests;
+package SingletonPatternWedDriverWithDataDrivenAproach;
 
-import com.framework.driver.DriverManager;
-import com.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 
-public class SampleTest {
+public class BrowserTest {
     public static void main(String[] args) {
         WebDriver driver = DriverManager.getDriver();
 
@@ -313,6 +316,12 @@ public class SampleTest {
 ```
 
 ---
+
+**OUTPUT:**
+
+```bash
+Page Title: CodeWithNini-Web-Automation-Module
+```
 
 # **5️⃣ How It Works**
 
