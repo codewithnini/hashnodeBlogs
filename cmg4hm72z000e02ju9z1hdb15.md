@@ -596,3 +596,387 @@ pipeline {
 * It makes your Selenium framework **stakeholder-friendly**.
     
 * With **screenshots, tagging, CI/CD integration**, it becomes **standard in automation frameworks**.
+    
+
+# Hybrid framework (**Modular Driven Framework+Data Driven Framework) testNG+Selenium**
+
+# Components
+
+## 1.Generic Utility
+
+* Common reusable functions across the entire framework.
+    
+* Not tied to any single module.
+    
+
+**Examples:**
+
+* [`WaitUtils.java`](http://WaitUtils.java) → Explicit wait, Fluent wait.
+    
+* [`ScreenshotUtils.java`](http://ScreenshotUtils.java) → Capture screenshot.
+    
+* [`ExcelUtils.java`](http://ExcelUtils.java) → Read/write Excel.
+    
+* [`PropertyUtils.java`](http://PropertyUtils.java) → Read [config.properties](http://config.properties).
+    
+
+**Sample:**
+
+```java
+public class WaitUtils {
+    public static void waitForElement(WebDriver driver, WebElement element, int time) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+}
+```
+
+---
+
+## 1.1 Sub Utility
+
+**What:**
+
+* Specific utilities for **sub-areas** of the framework.
+    
+* These extend or use generic utilities but focus on **particular functionality**.
+    
+
+**Examples:**
+
+* [`APIUtils.java`](http://APIUtils.java) → handles RestAssured requests, response parsing.
+    
+* [`DBUtils.java`](http://DBUtils.java) → DB connections & queries.
+    
+* [`ExtentUtils.java`](http://ExtentUtils.java) → setup ExtentReports.
+    
+* [`JSUtils.java`](http://JSUtils.java) → JavaScriptExecutor actions.
+    
+
+**Sample:**
+
+```java
+public class APIUtils {
+    public static Response postRequest(String endpoint, String body) {
+        return RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .post(endpoint);
+    }
+}
+```
+
+## **2.Page Object Model or POM (Object Utility)**
+
+**What:**
+
+* Helps manage **objects in Page Object Model (POM)**.
+    
+* Deals with WebElements, PageFactory, Driver initialization.
+    
+
+**Examples:**
+
+* [`DriverManager.java`](http://DriverManager.java) → Singleton WebDriver instance.
+    
+* [`PageFactoryUtils.java`](http://PageFactoryUtils.java) → initializes Page Objects.
+    
+* [`ObjectRepo.java`](http://ObjectRepo.java) → central location for object references.
+    
+
+Page Object Model, or **POM**, is a design pattern used in Selenium where we create separate classes for each page of the application. Each class stores the locators of the elements on that page and the methods to interact with them. This way, instead of writing locators directly inside test script, we keep them in one place, which makes the code cleaner, reusable, and easier to maintain. If anything changes in the UI, we just update the locator in the page class and don’t need to touch the test logic.
+
+In short, POM helps in reducing code duplication and makes the framework more scalable.
+
+To implement the Page Object Model (POM) in Selenium, first we declare a **WebDriver** variable in the page class to hold the browser instance.
+
+Then, we create a constructor that takes the WebDriver as a parameter and assigns it to the class variable using **this.driver = driver;.**
+
+Inside the constructor, we call **PageFactory.initElements(driver, this)** to initialize all the web elements defined in the class.
+
+**Next**, we define web elements using **annotations**.
+
+For a single element, we use @FindBy.
+
+For multiple locators with an OR condition, we use **@FindAll**, and for multiple locators with an AND condition, we use **@FindBys**. We can also define lists of elements like checkboxes or links using List.
+
+After defining elements, we create **getter methods** to access them if needed.
+
+Then, we write action methods that perform operations on the elements, such as login(), selectAllCheckboxes(), or printAllLinks(). In the test class, we simply create an object of this page class and call its methods. This approach separates locators and actions from test logic, makes the code reusable, easier to maintain, and allows us to handle UI changes by updating only the page class.
+
+```java
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage2 {
+
+    WebDriver driver;
+
+    public LoginPage2(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    // Single element
+    @FindBy(xpath = "//button[text()='Login']")
+    private WebElement loginBtn;
+
+    // OR condition using FindAll
+    @FindAll({
+        @FindBy(id = "email"),
+        @FindBy(name = "userEmail")
+    })
+    private WebElement emailField;
+
+    // AND condition using FindBys (all conditions must match)
+    @FindBys({
+        @FindBy(className = "input-field"),
+        @FindBy(name = "password")
+    })
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//input[@type='checkbox']")
+    private List<WebElement> checkboxes;
+
+    @FindBy(tagName = "a")
+    private List<WebElement> allLinks;
+
+    // Getters
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    public WebElement getLoginBtn() {
+        return loginBtn;
+    }
+
+    public WebElement getEmailField() {
+        return emailField;
+    }
+
+    public WebElement getPasswordField() {
+        return passwordField;
+    }
+
+    public List<WebElement> getCheckboxes() {
+        return checkboxes;
+    }
+
+    public List<WebElement> getAllLinks() {
+        return allLinks;
+    }
+
+    // Example Action: login
+    public void login(String email, String password) {
+        emailField.sendKeys(email);
+        passwordField.sendKeys(password);
+        loginBtn.click();
+    }
+
+    // Example Action: check all checkboxes
+    public void selectAllCheckboxes() {
+        for (WebElement checkbox : checkboxes) {
+            if (!checkbox.isSelected()) {
+                checkbox.click();
+            }
+        }
+    }
+
+    // Example Action: print all link texts
+    public void printAllLinks() {
+        for (WebElement link : allLinks) {
+            System.out.println(link.getText());
+        }
+    }
+}
+```
+
+👉 And just to keep your quick notes ready:
+
+@FindBy → Single locator
+
+@FindBys → AND condition (all locators must match)
+
+@FindAll → OR condition (any locator can match)
+
+findElement(By) → Finds first matching element
+
+findElements(By) → Finds all matching elements
+
+| **Component / Feature** | **Type / Annotation** | **Purpose / Usefulness** |
+| --- | --- | --- |
+| `WebDriver driver;` | Class Variable | Holds the browser driver instance for the page; used across page methods. |
+| `public LoginPage2(WebDriver driver)` | Constructor | Initializes the page class; `this.driver = driver;` assigns local driver to class. |
+| `PageFactory.initElements(driver, this)` | Method Call | Initializes all WebElements with locators defined in the class. |
+| `@FindBy` | Annotation | Single element locator. |
+| `@FindAll` | Annotation | Multiple locators (OR condition). |
+| `@FindBys` | Annotation | Multiple locators (AND condition). |
+| `WebElement / List<WebElement>` | Variable Type | Stores page elements (single or multiple) for actions like click, sendKeys, etc. |
+| `login(String email, String password)` | Method / Action | Example action method using page elements to perform login. |
+| `selectAllCheckboxes()` | Method / Action | Example method to perform action on list of elements. |
+| `printAllLinks()` | Method / Action | Example method to iterate and read all links on the page. |
+
+## 3.TestData
+
+* **What**: External data (Excel, CSV, JSON, Properties, DB).
+    
+* **Why**: To support **Data-Driven Testing (DDT)** → run the same test with multiple data sets.
+    
+* **How**:
+    
+    * Use **Apache POI / Jackson / Properties** to read data.
+        
+    * Store login credentials, product details, API payloads, etc.
+        
+
+## 4.Resources
+
+* **What**: Common reusable files (utilities, constants, config, drivers, log4j, etc.).
+    
+* **Why**: To avoid code duplication.
+    
+* **How**:
+    
+    * [`Config.properties`](http://Config.properties) → base URL, username, password.
+        
+    * `Log4j.xml` → logging.
+        
+    * Utility classes → ExcelReader, APIUtils, WaitUtils.
+        
+
+## 5.TestScrips
+
+* **What**: The actual **test cases** (UI + API).
+    
+* **Why**: To validate business functionality.
+    
+* **How**:
+    
+    * For Selenium → login test, checkout test.
+        
+    * For RestAssured → create user API test, get user API test.
+        
+    * Uses **Page Objects + Test Data**.
+        
+
+## 6.TesNG Driver File
+
+* **What**: `testng.xml` file.
+    
+* **Why**: Entry point for running test suites.
+    
+* **How**:
+    
+    * Define suite, test groups, parallel execution.
+        
+    * Example:
+        
+        ```java
+        <suite name="Regression Suite" parallel="tests" thread-count="2">
+            <test name="UI Tests">
+                <classes>
+                    <class name="tests.LoginTest"/>
+                    <class name="tests.CheckoutTest"/>
+                </classes>
+            </test>
+            <test name="API Tests">
+                <classes>
+                    <class name="tests.UserAPITest"/>
+                </classes>
+            </test>
+        </suite>
+        ```
+        
+
+## 7.HTML Repots
+
+* **What**: Execution results in readable format.
+    
+* **Why**: Easy to share with stakeholders.
+    
+* **How**:
+    
+    * **TestNG Default Report**
+        
+    * **ExtentReports / Allure Reports** → screenshots, logs.
+        
+    * Integrated with Jenkins for CI.
+        
+
+## 8.Screenshots
+
+* **What**: Captures when a test fails or for documentation.
+    
+* **Why**: Debugging proof.
+    
+* **How**:
+    
+    * Selenium:
+        
+        ```java
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        ```
+        
+    * Save under `target/screenshots/`.
+        
+    * Linked in ExtentReport.
+        
+
+## 9.POM.xml / MAVEN BUILD FILE
+
+* **What**: Maven project configuration file.
+    
+* **Why**: Dependency management + build tool.
+    
+* **How**:
+    
+    * Add dependencies: Selenium, RestAssured, TestNG, ExtentReports, Apache POI.
+        
+    * Run build/tests:
+        
+        ```java
+        mvn clean test
+        mvn surefire-report:report
+        ```
+        
+
+## 10.git & Github
+
+* **What**: Version control system.
+    
+* **Why**: Collaboration, code backup, branching.
+    
+* **How**:
+    
+    * Push framework to GitHub repo.
+        
+    * Create feature branches for new tests.
+        
+    * Review code via Pull Requests.
+        
+    * Example workflow: `git clone → git checkout -b branch → git add → git commit → git push`.
+        
+
+## 11.Jenkins
+
+* **What**: CI/CD tool.
+    
+* **Why**: To automate execution → scheduled runs, integration with Git.
+    
+* **How**:
+    
+    * Create **Jenkins Job** for Maven project.
+        
+    * Configure `mvn clean test` as build step.
+        
+    * Integrate with GitHub webhook → auto-trigger on push.
+        
+    * Publish **ExtentReports + Screenshots** after build.
+        
+    * Schedule nightly builds with cron (`H 0 * * *`).
