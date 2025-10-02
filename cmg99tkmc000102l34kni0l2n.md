@@ -99,7 +99,7 @@ A **Scrum Team = Product Owner + Scrum Master + Developers**, working together i
     
 * **Developer 2** – Lucky
     
-* **Tester** \- YOU(Nini)
+* **Tester** - YOU(Nini)
     
 
 # 🗓 What is Sprint Planning?
@@ -433,23 +433,23 @@ Sprint 0 is **the preparation Sprint**. It helps the team get ready so future Sp
 
 | Day | Activities |
 | --- | --- |
-| **Day 1** | **Team Introduction & Kickoff**  
-\- Meet team members  
-\- Introduce roles: PO, SM, Developers  
-\- Understand project goals |
-| **Day 2** | **Tool & Environment Setup**  
-\- Install IDE, code repository (Git)  
-\- Setup development and testing environment |
-| **Day 3** | **Product Backlog Creation**  
-\- PO lists high-level features / user stories  
-\- Team discusses tasks and clarifies doubts |
-| **Day 4** | **Architecture & Design**  
-\- Decide tech stack, frameworks, database  
-\- Create basic system design if needed |
-| **Day 5** | **Sprint 1 Planning**  
-\- Select initial backlog items for Sprint 1  
-\- Break into tasks, estimate work  
-\- Define Sprint Goal |
+| **Day 1** | **Team Introduction & Kickoff** |
+| \- Meet team members |  |
+| \- Introduce roles: PO, SM, Developers |  |
+| \- Understand project goals |  |
+| **Day 2** | **Tool & Environment Setup** |
+| \- Install IDE, code repository (Git) |  |
+| \- Setup development and testing environment |  |
+| **Day 3** | **Product Backlog Creation** |
+| \- PO lists high-level features / user stories |  |
+| \- Team discusses tasks and clarifies doubts |  |
+| **Day 4** | **Architecture & Design** |
+| \- Decide tech stack, frameworks, database |  |
+| \- Create basic system design if needed |  |
+| **Day 5** | **Sprint 1 Planning** |
+| \- Select initial backlog items for Sprint 1 |  |
+| \- Break into tasks, estimate work |  |
+| \- Define Sprint Goal |  |
 
 ---
 
@@ -803,43 +803,43 @@ A **Story Point = a number that represents the relative effort, complexity, and 
 
 | **Epic** | **User Story** | **Tasks** |
 | --- | --- | --- |
-| 🛒 **E1: Online Shopping Experience (User Panel)** | **US1: As a customer, I want to register and log in so that I can access my account.** | \- Create user DB table  
-\- Build registration API  
-\- Build login API  
-\- Frontend UI for login/register  
-\- Write test cases |
-|  | **US2: As a customer, I want to browse products so that I can select what to buy.** | \- Create product catalog DB  
-\- Build product listing API  
-\- Frontend product grid UI  
-\- Implement search & filter  
-\- Test product listing |
-|  | **US3: As a customer, I want to add items to my cart so that I can purchase multiple items together.** | \- Create cart DB  
-\- Develop “Add to Cart” API  
-\- Frontend cart page UI  
-\- Handle quantity updates  
-\- Test add/remove cart items |
-|  | **US4: As a customer, I want to checkout and pay so that I can complete my order.** | \- Create order DB  
-\- Build checkout API  
-\- Integrate payment gateway  
-\- Frontend checkout flow  
-\- Write payment test cases |
-| ⚙️ **E2: Admin Panel – Manage Inventory** | **US5: As an admin, I want to add/edit/delete products so that stock stays updated.** | \- Create product management UI  
-\- Add product CRUD API  
-\- Implement image upload  
-\- Test product management |
-|  | **US6: As an admin, I want to track stock levels so that I know when to reorder items.** | \- Create stock DB table  
-\- Build stock report API  
-\- Develop stock dashboard UI  
-\- Test stock alerts |
-|  | **US7: As an admin, I want to see sales reports so that I can analyze business performance.** | \- Design sales report DB schema  
-\- Build reporting API  
-\- Frontend reports dashboard  
-\- Export to Excel/PDF  
-\- Write report test cases |
-|  | **US8: As an admin, I want to manage users so that I can block or activate accounts.** | \- Create user management UI  
-\- Build user control API  
-\- Add roles/permissions  
-\- Test user blocking/activation |
+| 🛒 **E1: Online Shopping Experience (User Panel)** | **US1: As a customer, I want to register and log in so that I can access my account.** | \- Create user DB table |
+| \- Build registration API |  |  |
+| \- Build login API |  |  |
+| \- Frontend UI for login/register |  |  |
+| \- Write test cases |  |  |
+|  | **US2: As a customer, I want to browse products so that I can select what to buy.** | \- Create product catalog DB |
+| \- Build product listing API |  |  |
+| \- Frontend product grid UI |  |  |
+| \- Implement search & filter |  |  |
+| \- Test product listing |  |  |
+|  | **US3: As a customer, I want to add items to my cart so that I can purchase multiple items together.** | \- Create cart DB |
+| \- Develop “Add to Cart” API |  |  |
+| \- Frontend cart page UI |  |  |
+| \- Handle quantity updates |  |  |
+| \- Test add/remove cart items |  |  |
+|  | **US4: As a customer, I want to checkout and pay so that I can complete my order.** | \- Create order DB |
+| \- Build checkout API |  |  |
+| \- Integrate payment gateway |  |  |
+| \- Frontend checkout flow |  |  |
+| \- Write payment test cases |  |  |
+| ⚙️ **E2: Admin Panel – Manage Inventory** | **US5: As an admin, I want to add/edit/delete products so that stock stays updated.** | \- Create product management UI |
+| \- Add product CRUD API |  |  |
+| \- Implement image upload |  |  |
+| \- Test product management |  |  |
+|  | **US6: As an admin, I want to track stock levels so that I know when to reorder items.** | \- Create stock DB table |
+| \- Build stock report API |  |  |
+| \- Develop stock dashboard UI |  |  |
+| \- Test stock alerts |  |  |
+|  | **US7: As an admin, I want to see sales reports so that I can analyze business performance.** | \- Design sales report DB schema |
+| \- Build reporting API |  |  |
+| \- Frontend reports dashboard |  |  |
+| \- Export to Excel/PDF |  |  |
+| \- Write report test cases |  |  |
+|  | **US8: As an admin, I want to manage users so that I can block or activate accounts.** | \- Create user management UI |
+| \- Build user control API |  |  |
+| \- Add roles/permissions |  |  |
+| \- Test user blocking/activation |  |  |
 
 ---
 
@@ -864,43 +864,43 @@ A **Story Point = a number that represents the relative effort, complexity, and 
 
 | **Epic** | **User Story** | **Story Points** | **Tasks** |
 | --- | --- | --- | --- |
-| 🛒 **E1: Online Shopping Experience (User Panel)** | **US1: As a customer, I want to register and log in so that I can access my account.** | **3** | \- Create user DB table  
-\- Build registration API  
-\- Build login API  
-\- Frontend UI for login/register  
-\- Write test cases |
-|  | **US2: As a customer, I want to browse products so that I can select what to buy.** | **5** | \- Create product catalog DB  
-\- Build product listing API  
-\- Frontend product grid UI  
-\- Implement search & filter  
-\- Test product listing |
-|  | **US3: As a customer, I want to add items to my cart so that I can purchase multiple items together.** | **5** | \- Create cart DB  
-\- Develop “Add to Cart” API  
-\- Frontend cart page UI  
-\- Handle quantity updates  
-\- Test add/remove cart items |
-|  | **US4: As a customer, I want to checkout and pay so that I can complete my order.** | **8** | \- Create order DB  
-\- Build checkout API  
-\- Integrate payment gateway  
-\- Frontend checkout flow  
-\- Write payment test cases |
-| ⚙️ **E2: Admin Panel – Manage Inventory** | **US5: As an admin, I want to add/edit/delete products so that stock stays updated.** | **5** | \- Create product management UI  
-\- Add product CRUD API  
-\- Implement image upload  
-\- Test product management |
-|  | **US6: As an admin, I want to track stock levels so that I know when to reorder items.** | **8** | \- Create stock DB table  
-\- Build stock report API  
-\- Develop stock dashboard UI  
-\- Test stock alerts |
-|  | **US7: As an admin, I want to see sales reports so that I can analyze business performance.** | **8** | \- Design sales report DB schema  
-\- Build reporting API  
-\- Frontend reports dashboard  
-\- Export to Excel/PDF  
-\- Write report test cases |
-|  | **US8: As an admin, I want to manage users so that I can block or activate accounts.** | **3** | \- Create user management UI  
-\- Build user control API  
-\- Add roles/permissions  
-\- Test user blocking/activation |
+| 🛒 **E1: Online Shopping Experience (User Panel)** | **US1: As a customer, I want to register and log in so that I can access my account.** | **3** | \- Create user DB table |
+| \- Build registration API |  |  |  |
+| \- Build login API |  |  |  |
+| \- Frontend UI for login/register |  |  |  |
+| \- Write test cases |  |  |  |
+|  | **US2: As a customer, I want to browse products so that I can select what to buy.** | **5** | \- Create product catalog DB |
+| \- Build product listing API |  |  |  |
+| \- Frontend product grid UI |  |  |  |
+| \- Implement search & filter |  |  |  |
+| \- Test product listing |  |  |  |
+|  | **US3: As a customer, I want to add items to my cart so that I can purchase multiple items together.** | **5** | \- Create cart DB |
+| \- Develop “Add to Cart” API |  |  |  |
+| \- Frontend cart page UI |  |  |  |
+| \- Handle quantity updates |  |  |  |
+| \- Test add/remove cart items |  |  |  |
+|  | **US4: As a customer, I want to checkout and pay so that I can complete my order.** | **8** | \- Create order DB |
+| \- Build checkout API |  |  |  |
+| \- Integrate payment gateway |  |  |  |
+| \- Frontend checkout flow |  |  |  |
+| \- Write payment test cases |  |  |  |
+| ⚙️ **E2: Admin Panel – Manage Inventory** | **US5: As an admin, I want to add/edit/delete products so that stock stays updated.** | **5** | \- Create product management UI |
+| \- Add product CRUD API |  |  |  |
+| \- Implement image upload |  |  |  |
+| \- Test product management |  |  |  |
+|  | **US6: As an admin, I want to track stock levels so that I know when to reorder items.** | **8** | \- Create stock DB table |
+| \- Build stock report API |  |  |  |
+| \- Develop stock dashboard UI |  |  |  |
+| \- Test stock alerts |  |  |  |
+|  | **US7: As an admin, I want to see sales reports so that I can analyze business performance.** | **8** | \- Design sales report DB schema |
+| \- Build reporting API |  |  |  |
+| \- Frontend reports dashboard |  |  |  |
+| \- Export to Excel/PDF |  |  |  |
+| \- Write report test cases |  |  |  |
+|  | **US8: As an admin, I want to manage users so that I can block or activate accounts.** | **3** | \- Create user management UI |
+| \- Build user control API |  |  |  |
+| \- Add roles/permissions |  |  |  |
+| \- Test user blocking/activation |  |  |  |
 
 ---
 
@@ -1019,12 +1019,76 @@ Stories selected: **US1, US2, US3, US5, US8**
 
 # **Welcome to** Sprint **1 of your Scrum Testing.**
 
+## **Assume Theis real-time project 4 days of sprint.**
+
 ## 📅 Day 01 Activities for a Scrum Team
 
-* The **Product Owner** has invited you to check the **product backlog .**your first real glimpse into what drives every sprint.
+* The **Product Owner** has invited you to check the \*\*product backlog .\*\*your first real glimpse into what drives every sprint.
     
 * The **Scrum Master** initiates **Sprint Planning** and invites **you (Nini)** to examine the **Sprint Backlog**.
     
 * **Your task?** **Provide effort estimates** to test the User Stories selected for this sprint.
     
 * **Here** Scrum Master also invites **developers** to estimate coding effort using experience, functional decomposition, or any estimation technique that feels right.
+    
+* Go ahead—study those **user stories** and quote your estimate. Let's assume you estimate **1.5 days**. Based on feedback from all team members, the Scrum Master assigns **2 days** to the current Sprint, and the cycle begins!
+    
+* Don't overthink your first estimates! Even experienced testers adjust as they learn. Your **1.5-day estimate** might feel uncertain, but that's perfectly normal.
+    
+* | Focus on understanding each User Story's **Test Case** requirements—break them down, visualize the testing flow, and trust your instincts. |
+    | --- |
+    | **Remember**: estimation gets sharper with each sprint. You're building real skills today! |
+    
+* | **Project Insight** |
+    | --- |
+    | Every estimate you provide shapes the sprint's success. Your testing perspective helps the team deliver quality software that users will actually love. This isn't just practice—it's the foundation of how real Scrum teams operate worldwide.So **study the user-stories** in product and sprint backlog thoroughly. |
+    
+
+## 📅 Day 02 Activities for a Scrum Team
+
+* Before you begin work, the **Scrum Master** invites the team for **Daily Standup**—a **15-minute meeting** where you mention: **What work you did yesterday? What issues you faced? What will you work on Today?**
+    
+* | **Here's what the team members had to say:** |
+    | --- |
+    | **Developer 1**: Worked on the **login module**, faced problems with **validations**, today will work on more **validations for the login module**. |
+    | **Developer 2**: Worked on **Mini Statement Module**, faced problem **fetching existing records** for a customer from **Database** and showing them in **dropdown** (now resolved!), today will work on **Balance Enquiry Module**. |
+    
+* **Tester (Nini):** I worked on **studying product and sprint backlog** and **sprint estimates**. I found an issue with **password modification user story**—it's not secure and needs a **2-step verification process**.
+    
+* **Today Task:**, I will [test the current version of the site](https://elink7a0.daily.guru99.com/ss/c/u001.3mBJaQ6VjHud11qag8iJ8BqPK41kR9pwQrqBAV-IkBy_T0QdnUlMoUx9h81N-lpRJioB1DXAoZL3ciorRJQsyg/4k8/GDhQAMFBTpmPLCZE0qBWuw/h4/h001.RmnGnu3msABeSPrnfuEAAHGVD80ZXpOW81n3KzliEYk) .
+    
+* **Remember**, **Scrum doesn't focus on documentation**—so **no documentation is required!** This might feel strange at first, but it's liberating. Focus on **hands-on testing**. When you find bugs, report them directly to the **Developer**. Your **Test Case** execution becomes the living proof of quality!
+    
+
+## 📅 Day 03 Activities for a Scrum Team
+
+* The **Scrum Master** again assembles your team for **Daily Standup Meeting**—but first, he asks you to **update the** [Scrum Board](https://elink7a0.daily.guru99.com/ss/c/u001.3mBJaQ6VjHud11qag8iJ8BqPK41kR9pwQrqBAV-IkBwDUl7NtjAPLr3ROi0UVWJ8bXiws4bpZhA6XJgiJyOvJbm_AX3r9r8nI55UPqSdWHc/4k9/6nKB2i5PTuqInQbVCgN2-A/h7/h001.fnekoeGvEc23L1dCeGRbXHmTBSga7uTZYKgJ8LPIF00). [This is wh](https://elink7a0.daily.guru99.com/ss/c/u001.3mBJaQ6VjHud11qag8iJ8BqPK41kR9pwQrqBAV-IkBwDUl7NtjAPLr3ROi0UVWJ8bXiws4bpZhA6XJgiJyOvJbm_AX3r9r8nI55UPqSdWHc/4k9/6nKB2i5PTuqInQbVCgN2-A/h7/h001.fnekoeGvEc23L1dCeGRbXHmTBSga7uTZYKgJ8LPIF00)ere your testing magic becomes visible to everyone!.
+    
+* Go ahead and **move user stories** as per their current **testing status**. Feel that ownership? You're managing real project flow now! .
+    
+* | Here's today's **Daily StandUp Meeting** rundown: |
+    | --- |
+    | **Developer 1**: Completed the **login module**, faced problems with **SQL**, today will work on **Bugs**. |
+    | **Developer 2**: Completed **Balance Enquiry Module**, faced problems with **SQL Calls**, today will work on **Bugs**. |
+    | **Tester (Nini)**: I worked on **testing MiniStatement** and **Login!** I found an issue with **MiniStatement**—it displays only **3 records** instead of expected **5**. Issue was reported to developer who will fix it. |
+    
+    **Today Task:** I'll **test Balance Inquiry**.
+    
+* **Your mission:** **test the** [latest version of the site](https://elink7a0.daily.guru99.com/ss/c/u001.3mBJaQ6VjHud11qag8iJ8BqPK41kR9pwQrqBAV-IkBy_T0QdnUlMoUx9h81N-lpR87Iu8XtJyJCcM8AEXqnZOw/4k9/6nKB2i5PTuqInQbVCgN2-A/h9/h001.JNs3S-c0Agd0BPP9_SkXUTan1vWGA34fvmuu_gDZCfw) [before **close of Sprint**. Ev](https://elink7a0.daily.guru99.com/ss/c/u001.3mBJaQ6VjHud11qag8iJ8BqPK41kR9pwQrqBAV-IkBy_T0QdnUlMoUx9h81N-lpR87Iu8XtJyJCcM8AEXqnZOw/4k9/6nKB2i5PTuqInQbVCgN2-A/h9/h001.JNs3S-c0Agd0BPP9_SkXUTan1vWGA34fvmuu_gDZCfw)ery **Test Case** you execute brings the team closer to delivery!.
+    
+
+## 📅 Day 04 Activities for a Scrum Team
+
+* the grand finale!
+    
+    ![🎉](https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/72.png align="left")
+    
+    The **Sprint is officially closed**, and you've journeyed from newcomer to confident tester. What an incredible transformation!
+    
+* The **Product Owner** checks the **development work done so far** and runs a few **acceptance tests**. Here's the exciting part: he **invites you to help him with acceptance testing** in the **next sprint cycle!** He may even give a **demo of the current development** to the **customer**—your testing contributions will be showcased!
+    
+* The **Scrum Master** convenes a **Sprint Retrospective/Review Meeting** where your voice matters most. **Ideas on Improvements** are invited, and you're ready to shine:
+    
+* You'll see suggestions like **arranging Database and SQL training** for developers since both struggled with **Queries**. But here's your moment: **you suggest use of automation tool** like [HP QTP](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI5yZeGr2qBW0QoWb5o2_8QzdB6alWtGIZXL6CE3dgNppWCAVCekKfKUhqsWX05JAs9Vsp0pDyZ9c8HNm9lZJaZT8/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h4/h001.Dxz3MPD7vWGvG3Ez4uVjlbIDl97rMUgbLJQf-j13mZ0) [or Sel](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI5yZeGr2qBW0QoWb5o2_8QzdB6alWtGIZXL6CE3dgNppWCAVCekKfKUhqsWX05JAs9Vsp0pDyZ9c8HNm9lZJaZT8/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h4/h001.Dxz3MPD7vWGvG3Ez4uVjlbIDl97rMUgbLJQf-j13mZ0)[enium](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI51dQu9UgpEy2iuLwoqOHZjf2gU758vplH5PpJYey1uhykHYGRtYVFGnDywENIv7uww/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h5/h001.ifUGmrw4H5_makx6-S2Lf-BEtfCv6cv9elpYMtlVPVI) t[o **automat**](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI51dQu9UgpEy2iuLwoqOHZjf2gU758vplH5PpJYey1uhykHYGRtYVFGnDywENIv7uww/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h5/h001.ifUGmrw4H5_makx6-S2Lf-BEtfCv6cv9elpYMtlVPVI)**e regression tests**.
+    
+* **That's all to Scrum/Agile Testing**—but it's really just the beginning! You now have a **good idea on roles and responsibilities of a tester in Scrum**. You've lived it, breathed it, and mastered it!
