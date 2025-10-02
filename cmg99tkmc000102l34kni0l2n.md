@@ -1081,8 +1081,6 @@ Stories selected: **US1, US2, US3, US5, US8**
 
 * the grand finale!
     
-    ![🎉](https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/72.png align="left")
-    
     The **Sprint is officially closed**, and you've journeyed from newcomer to confident tester. What an incredible transformation!
     
 * The **Product Owner** checks the **development work done so far** and runs a few **acceptance tests**. Here's the exciting part: he **invites you to help him with acceptance testing** in the **next sprint cycle!** He may even give a **demo of the current development** to the **customer**—your testing contributions will be showcased!
@@ -1092,3 +1090,142 @@ Stories selected: **US1, US2, US3, US5, US8**
 * You'll see suggestions like **arranging Database and SQL training** for developers since both struggled with **Queries**. But here's your moment: **you suggest use of automation tool** like [HP QTP](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI5yZeGr2qBW0QoWb5o2_8QzdB6alWtGIZXL6CE3dgNppWCAVCekKfKUhqsWX05JAs9Vsp0pDyZ9c8HNm9lZJaZT8/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h4/h001.Dxz3MPD7vWGvG3Ez4uVjlbIDl97rMUgbLJQf-j13mZ0) [or Sel](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI5yZeGr2qBW0QoWb5o2_8QzdB6alWtGIZXL6CE3dgNppWCAVCekKfKUhqsWX05JAs9Vsp0pDyZ9c8HNm9lZJaZT8/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h4/h001.Dxz3MPD7vWGvG3Ez4uVjlbIDl97rMUgbLJQf-j13mZ0)[enium](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI51dQu9UgpEy2iuLwoqOHZjf2gU758vplH5PpJYey1uhykHYGRtYVFGnDywENIv7uww/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h5/h001.ifUGmrw4H5_makx6-S2Lf-BEtfCv6cv9elpYMtlVPVI) t[o **automat**](https://elink7a0.daily.guru99.com/ss/c/u001.UE73K3FWsUX4yYEvQrOI51dQu9UgpEy2iuLwoqOHZjf2gU758vplH5PpJYey1uhykHYGRtYVFGnDywENIv7uww/4ka/xrsB3Aa8S5meaYNfBqSIvQ/h5/h001.ifUGmrw4H5_makx6-S2Lf-BEtfCv6cv9elpYMtlVPVI)**e regression tests**.
     
 * **That's all to Scrum/Agile Testing**—but it's really just the beginning! You now have a **good idea on roles and responsibilities of a tester in Scrum**. You've lived it, breathed it, and mastered it!
+    
+
+# **Sales & Inventory Project**
+
+I’ll base this on the **Sales & Inventory Project** (modules: Customer, Employee, Product, Inventory, Supplier, Transaction, Accounts, User/Admin Panel).
+
+We’ll estimate the **maximum possible manual test cases** for **Frontend** (UI, usability, navigation) and **Backend** (API, DB, business logic, security).
+
+---
+
+# 🧪 Maximum Test Case Count (Estimated)
+
+## 🎨 Frontend (UI/User/Admin Panel)
+
+Covers: Forms, navigation, validations, usability, role-based access.
+
+**Possible Areas & Case Counts**
+
+1. **Login/Authentication** → ~30
+    
+    * Valid login, invalid login, session expiry, role-based access.
+        
+2. **Customer Module** → ~50
+    
+    * Add/Edit/Delete customer, field validations, search/filter, duplicate prevention.
+        
+3. **Employee Module** → ~40
+    
+    * Add/Edit employees, assign roles, validate permissions.
+        
+4. **Product Module** → ~60
+    
+    * Add/Edit/Delete product, upload images, category selection, search/sort, filter.
+        
+5. **Inventory Module** → ~50
+    
+    * Stock updates, low-stock alerts, search, filters, export.
+        
+6. **Supplier Module** → ~40
+    
+    * Add/Edit/Delete supplier, link to products, search.
+        
+7. **Transaction (Invoice)** → ~70
+    
+    * Create invoices, discounts, taxes, payment methods, validations.
+        
+8. **Accounts & Roles** → ~50
+    
+    * User roles, access control, permission validation.
+        
+9. **Reports/Dashboard** → ~40
+    
+    * Sales report generation, export PDF/Excel, chart validations.
+        
+10. **General UI/UX Tests** → ~30
+    
+
+* Navigation, responsiveness (mobile/desktop), error messages.
+    
+
+👉 **Frontend Total ≈ 460 test cases**
+
+---
+
+## ⚙️ Backend (API, Database, Business Logic)
+
+Covers: API responses, DB integrity, performance, security.
+
+**Possible Areas & Case Counts**
+
+1. **Authentication API** → ~20
+    
+    * Token generation, expiry, refresh, invalid credentials.
+        
+2. **Customer API** → ~30
+    
+    * Add/Edit/Delete customers, DB validation, duplicate check.
+        
+3. **Employee API** → ~20
+    
+    * Role assignment, role restrictions, data integrity.
+        
+4. **Product API** → ~40
+    
+    * CRUD operations, category validation, bulk upload.
+        
+5. **Inventory API** → ~40
+    
+    * Stock update, reorder level triggers, audit logs.
+        
+6. **Supplier API** → ~20
+    
+    * CRUD supplier data, linking supplier to products.
+        
+7. **Transaction API** → ~50
+    
+    * Create invoice, calculate totals, apply tax/discount rules, DB commit/rollback.
+        
+8. **Accounts & Permissions API** → ~30
+    
+    * Role-based API restrictions, unauthorized access, logging.
+        
+9. **Reports API** → ~30
+    
+    * Generate reports, export formats, large data performance.
+        
+10. **Database Validation & Integrity** → ~40
+    
+
+* Foreign keys, null constraints, duplicate entries, rollback.
+    
+
+11. **Performance & Load Tests** → ~20
+    
+
+* API response time, DB query optimization.
+    
+
+12. **Security Tests** → ~30
+    
+
+* SQL injection, XSS, CSRF, API key security, brute force.
+    
+
+👉 **Backend Total ≈ 370 test cases**
+
+---
+
+# 📊 Combined Test Case Estimate
+
+* **Frontend:** ~460
+    
+* **Backend:** ~370  
+    ✅ **Grand Total ≈ 830 manual test cases** (maximum coverage).
+    
+
+---
+
+⚡ These are **estimated maximum counts** based on project modules. Actual count may vary depending on requirements and complexity.
