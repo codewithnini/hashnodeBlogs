@@ -434,7 +434,8 @@ Using the playground page, one can craft questions against its HTML structure (l
 1. Username input
     
 
-```json
+```bash
+//input[@id='username']
 //*[normalize-space()='Username']/following::input[1]
 ```
 
