@@ -7,9 +7,11 @@ tags: codewithnini
 
 ---
 
-## link for Xpath PlayGround below
+## Link for Xpath PlayGround below
 
 [Click on Xpath Playground Link](https://xpath-by-nini.netlify.app/)
+
+## **1\. Introduction**
 
 ## **What is XPath?**
 
@@ -56,130 +58,613 @@ In automation, XPath is often used when:
     * Use **normalize-space()**, `contains()`, `starts-with()` for dynamic XPath.
         
     
-
-# 📘 **XPath 1.0 Operators – Detailed Table**
-
-| Operator Type | Operator | Description | Example | Notes / Automation Tips |
-| --- | --- | --- | --- | --- |
-| **Arithmetic** | `+` | Addition | `//price + 10` | Add numbers from node values |
-|  | `-` | Subtraction | `//price - 5` | Subtract numeric value |
-|  | `*` | Multiplication | `//price * 2` | Multiply numeric values |
-|  | `div` | Division | `//price div 2` | Use `div` for division |
-|  | `mod` | Modulus | `//price mod 10` | Get remainder |
-| **Comparison** | `=` | Equal | `//button[@id='submit'] = 'Submit'` | Compare node or string values |
-|  | `!=` | Not equal | `//input[@type!='hidden']` | Useful for filtering |
-|  | `<` | Less than | `//price < 100` | Compare numeric values |
-|  | `>` | Greater than | `//price > 50` | Numeric comparison |
-|  | `<=` | Less than or equal | `//price <= 50` | Numeric comparison |
-|  | `>=` | Greater than or equal | `//price >= 50` | Numeric comparison |
-| **Logical** | `and` | Logical AND | `//input[@type='text' and @name='username']` | Combine multiple conditions |
-|  | `or` | Logical OR | `//input[@type='text' or @type='email']` | Either condition true |
-|  | `not()` | Logical NOT | `//input[not(@disabled)]` | Select nodes where condition is false |
-| **Union / Node-set** | \` | \` | Union of node-sets | \`//div |
+    ### **History and Versions**
+    
+    | Version | Year | Key Features | Notes |
+    | --- | --- | --- | --- |
+    | XPath 1.0 | 1999 | Basic node selection, axes, string/boolean/numeric functions | Supported in browsers & Selenium/Playwright |
+    | XPath 2.0 | 2007 | Sequences, regex, FLWOR expressions | Not supported in browsers/automation |
+    | XPath 3.0 | 2014 | Higher-order functions, conditional expressions | Not supported in browsers/automation |
+    | XPath 3.1 | 2017 | JSON support, arrays, maps | Only XML/XQuery processors |
+    
+    ### **Importance in Automation**
+    
+    * Used in **Selenium, Playwright, Cypress** for **robust locators**.
+        
+    * Can handle **dynamic IDs, classes, and complex hierarchies**.
+        
+    * Essential for **table data extraction and nested elements**.
+        
+    
+    ---
+    
+    ## **2\. XPath Basics**
+    
+    ### **Syntax and Rules**
+    
+    # 📘 **XPath Syntax & Rules – Detailed Table**
+    
+    | **Concept** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Basic Syntax** | XPath uses `/`, `//`, `@`, `[]`, `()`, `*`, `text()`, `node()`, and functions to navigate XML/HTML | `//div[@id='main']/ul/li[2]/a` | Combines node selection, attributes, and predicates |
+    | **Case Sensitivity** | XPath is **case-sensitive** | `//div` ≠ `//Div` | Always use correct tag and attribute case in HTML |
+    | **Quotes in Strings** | Use single `' '` or double `" "` quotes | `//input[@type='text']` or `//input[@type="text"]` | If string contains single quotes, wrap with double quotes |
+    | **Use of** `/` | Single `/` selects from **root** | `/html/body/div` | Absolute path; rarely used in dynamic automation |
+    | **Use of** `//` | Double `//` selects **anywhere** in DOM | `//div[@class='container']` | Preferred in automation; finds node regardless of depth |
+    | **Predicates** `[]` | Used to filter nodes by position, attribute, or text | `//ul/li[1]`, `//input[@id='username']` | Can combine multiple predicates for robust locators |
+    | **Wildcard** `*` | Matches any element | `//div/*` | Useful when tag names are unknown or dynamic |
+    | **Attribute Selection** `@` | Selects attribute of an element | `//input[@type='text']` | Most common method for locating elements in automation |
+    | **Text Selection** | `text()` selects **text node** | `//button[text()='Submit']` | Useful for verifying button, label, or link text |
+    | **Node Selection** | `node()` selects **any type of node** | `//div/node()` | Can select element, text, comment, etc. |
+    | **Function Usage** | XPath functions can be used in predicates | `//a[contains(@href,'login')]` | Functions make locators **dynamic and robust** |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. Always **start with** `//` for relative XPath to make scripts more reliable.
+        
+    2. Combine **attributes, text, and functions** to handle dynamic elements.
+        
+    3. Use **wildcards (**`*`, `@*`) and `node()` when DOM structure is complex or dynamic.
+        
+    4. **Test all XPath in browser DevTools** before using in Selenium/Playwright.
+        
+    5. Remember **XPath is case-sensitive**; HTML tag names and attributes must match exactly.
+        
+    
+    ### **Absolute vs Relative XPath**
+    
+    # 📘 **XPath – Absolute vs Relative – Detailed Table**
+    
+    | **Type** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Absolute XPath** | Starts from the **root node** `/` and follows the full path to the element | `/html/body/div[2]/div[1]/ul/li[3]/a` | Fragile for automation; breaks if page structure changes |
+    | **Relative XPath** | Starts from **anywhere in the document** `//` | `//div[@id='main']/ul/li[3]/a` | Preferred in automation; more robust for dynamic pages |
+    | **Advantages of Absolute XPath** | Precise path from root | `/html/body/div[1]` | Useful for **quick testing or learning DOM hierarchy** |
+    | **Disadvantages of Absolute XPath** | Very brittle; depends on exact DOM structure | `/html/body/div[2]/div[1]/ul/li[3]/a` | Not recommended for dynamic websites or production automation |
+    | **Advantages of Relative XPath** | Flexible and reliable | `//button[text()='Submit']` | Works even if DOM structure changes, as long as attributes or text remain the same |
+    | **Disadvantages of Relative XPath** | Slightly slower in very large DOMs | `//div[@class='container']//input[@type='text']` | Usually negligible; modern browsers handle it efficiently |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Prefer relative XPath** (`//`) over absolute (`/`) in Selenium/Playwright.
+        
+    2. **Use attributes, text, or functions** to make relative XPath **robust and dynamic**:
+        
+    
+    ```bash
+    //button[contains(@class,'submit')]
+    //input[@type='text' and @name='username']
+    ```
+    
+    3. **Absolute XPath** is useful for **learning DOM structure** or quickly locating elements in static pages.
+        
+    4. Always **test XPath in DevTools** before using in automation scripts.
+        
+    
+    ### **Selecting Nodes**
+    
+    # 📘 **XPath – Selecting Nodes – Detailed Table**
+    
+    | **Selection Method** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Absolute Path** | Starts from the root node `/` | `/html/body/div` | Rarely used in automation; fragile if page structure changes |
+    | **Relative Path** | Starts from anywhere in the document `//` | `//div[@id='main']` | Preferred in automation; more robust for dynamic pages |
+    | **Current Node** | Refers to the current context node `.` | `.` | Useful inside predicates or axes for relative selection |
+    | **Select All Elements** | Wildcard `*` matches any element | `//div/*` | Selects all child elements of a parent node |
+    | **Select Any Attribute** | `@*` matches all attributes of a node | `//input/@*` | Useful when attribute names are dynamic or unknown |
+    | **Select Any Node** | `node()` matches any node type | `//div/node()` | Selects all child nodes including elements, text, and comments |
+    | **Select by Tag Name** | Matches specific element tags | `//p` | Commonly used to select headings, paragraphs, table rows, etc. |
+    | **Select by Attribute** | Matches nodes with specific attributes | `//input[@id='username']` | Most common method in automation |
+    | **Select by Text** | Matches nodes by exact text | `//button[text()='Submit']` | Useful for buttons, links, and labels |
+    | **Select by Partial Text** | Matches nodes containing text | `//a[contains(text(),'Login')]` | Handles dynamic text or partial matches |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Relative XPath (**`//`) is preferred over absolute (`/`) for robust automation locators.
+        
+    2. **Attribute-based selection** is the most reliable method to locate elements.
+        
+    3. **Text-based selection** is useful for buttons, labels, and dynamic UI text.
+        
+    4. **Wildcards (**`*`, `@*`, `node()`) make locators flexible when tags or attributes are dynamic.
+        
+    5. Always **test XPath expressions** in browser DevTools before using them in Selenium/Playwright.
+        
+    
+    ### **Wildcards**
+    
+    # 📘 **XPath Wildcards – Detailed Table**
+    
+    | **Wildcard** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | `*` | Matches **any element node** | `//div/*` → selects all child elements of `<div>` | Useful when the exact tag is unknown or dynamic |
+    | `@*` | Matches **any attribute** of an element | `//input/@*` → selects all attributes of `<input>` | Helps when attribute names are dynamic or unknown |
+    | `node()` | Matches **any type of node** (element, text, comment, etc.) | `//div/node()` → selects all child nodes of `<div>` | Useful to iterate over all children regardless of type |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. `*` is commonly used in **dynamic locators** when element tag may change:
+        
+    
+    ```
+    //*[@class='btn-primary']  // matches any element with class 'btn-primary'
+    ```
+    
+    2. `@*` is useful when **any attribute** might be required for validation or extraction:
+        
+    
+    ```bash
+    //input[@*]  // selects input elements with any attribute
+    ```
+    
+    3. `node()` can be combined with **predicates** to process all child nodes:
+        
+    
+    ```bash
+    //div[node()[position()=1]]  // first child node of div
+    ```
+    
+    4. Wildcards help make **XPath locators robust** for **dynamic web pages**.
+        
+    
+    ---
+    
+    ## **3\. XPath Node Types**
+    
+    # 📘 **XPath Node Types – Detailed Table**
+    
+    | **Node Type** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Element Node** | Represents HTML/XML elements | `<div>` → `//div` | Most commonly used in automation; select by tag, class, or ID |
+    | **Attribute Node** | Represents element attributes | `@id` → `//input/@id` | Essential for locating elements by ID, class, name, type, etc. |
+    | **Text Node** | Represents text content inside elements | `<p>Hello</p>` → `//p/text()` | Use to verify text or extract values in tables, labels, buttons |
+    | **Comment Node** | Represents comments in HTML/XML | `<!-- Comment -->` → `//comment()` | Rarely used in automation, mostly for debugging |
+    | **Root Node** | Top-level node of the document | `/` or `/html` | Absolute XPath starts from root; used to select the whole document |
+    | **Namespace Node** | Represents XML namespace declarations | `xmlns:ns="..."` | Important in XML; rarely used in HTML automation |
+    | **Processing Instruction Node** | Represents XML processing instructions | `<?xml-stylesheet ... ?>` | Used in XML; not common in UI automation |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Element nodes** are the primary target in Selenium/Playwright automation.
+        
+    2. **Attribute nodes** are widely used for dynamic locators:
+        
+    
+    ```
+    //input[@id='username']
+    //button[@class='btn-primary']
+    ```
+    
+    3. **Text nodes** help verify UI text or extract values from tables and labels.
+        
+    4. **Root node** `/` is rarely used directly in automation; relative XPath `//` is preferred.
+        
+    5. **Comment, namespace, and processing instruction nodes** are mostly for XML testing or debugging.
+        
+    
+    ---
+    
+    ## **4\. XPath Axes**
+    
+    # 📘 **XPath Axes – Detailed Table**
+    
+    | **Axis** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | `child::` | Selects **direct children** of the current node | `//ul/child::li` | Equivalent to `//ul/li`; use when you need explicit axis |
+    | `parent::` | Selects the **parent node** of the current node | `//li/parent::ul` | Useful to navigate upward in DOM |
+    | `ancestor::` | Selects **all ancestors** of the current node | `//li/ancestor::div` | Helpful to find container divs or forms |
+    | `descendant::` | Selects **all descendants** (children, grandchildren, etc.) | `//div/descendant::p` | Use to locate nested elements inside a container |
+    | `following-sibling::` | Selects all **sibling nodes after** the current node | `//li/following-sibling::li` | Useful for lists or menus where you want elements after a specific node |
+    | `preceding-sibling::` | Selects all **sibling nodes before** the current node | `//li/preceding-sibling::li` | Useful for selecting previous elements in a list |
+    | `self::` | Selects the **current node itself** | `//li/self::li` | Rarely used alone; often combined in complex XPath |
+    | `descendant-or-self::` | Selects the **current node and all descendants** | `//div/descendant-or-self::p` | Helps when you want to include the container itself plus nested elements |
+    | `ancestor-or-self::` | Selects the **current node and all ancestors** | `//span/ancestor-or-self::div` | Useful to include the node plus its containing hierarchy |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Use** `child::` and `descendant::` to navigate through nested containers and lists.
+        
+    2. `ancestor::` and `parent::` are helpful to locate a container dynamically based on a child element.
+        
+    3. **Sibling axes** (`following-sibling::` and `preceding-sibling::`) are very useful in **tables, menus, and lists**.
+        
+    4. **Combine axes with predicates** for robust locators:
+        
+    
+    ```
+    //div[@class='container']/descendant::li[position()=2]
+    ```
+    
+    5. `self::` and `descendant-or-self::` are useful in complex hierarchical selections.
+        
+    
+    ---
+    
+    ## **5\. XPath Predicates**
+    
+    # 📘 **XPath Predicates – Detailed Table**
+    
+    | **Predicate Type** | **Example** | **Description** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Position-based** | `[position()=1]` | Selects the **first node** in a node-set | Use for first element in a list or table row |
+    |  | `[last()]` | Selects the **last node** in a node-set | Handy for dynamic lists or last table row |
+    | **Attribute-based** | `[@id='username']` | Filters nodes by **specific attribute value** | Most commonly used for locating elements by ID, class, type |
+    |  | `[@class='active']` | Filters nodes by class attribute | Can combine multiple attributes for precise selection |
+    | **Text-based** | `[text()='Submit']` | Filters nodes based on **exact text** | Use for buttons, links, labels |
+    |  | `[contains(text(),'Login')]` | Filters nodes containing partial text | Useful when text is dynamic or has extra spaces |
+    | **Logical / Negation** | `[not(@disabled)]` | Selects nodes where condition is false | Often used to ignore disabled fields or buttons |
+    | **Combined / Multiple Predicates** | `//input[@type='text'][position()<=3]` | Apply multiple filters on a single node | Combine position, attributes, and text for robust locators |
+    | **Complex Predicates** | `//div[@class='container']//ul/li[position()>=2 and contains(@class,'active')]` | Combines multiple conditions and axes | Powerful for selecting nested or dynamic elements |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Always test predicates in browser dev tools** before using in automation.
+        
+    2. **Combine attributes and text** to make locators robust against dynamic pages.
+        
+    3. **Position functions** like `position()` and `last()` are essential for lists, tables, and repeated elements.
+        
+    4. **Negation with** `not()` ensures you interact only with enabled/visible elements.
+        
+    5. **Use multiple predicates** carefully; order matters:
+        
+    
+    ```
+    //ul/li[@class='active'][position()=1]
+    ```
+    
+    ---
+    
+    # **6\. XPath Functions**
+    
+    ## 📘 XPath 1.0 String Functions – Detailed Table
+    
+    | **Function** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | `contains()` | Checks if a string contains a substring | `//a[contains(@href,'github')]` | Useful for dynamic classes, IDs, or partial text matches |
+    | `starts-with()` | Checks if a string starts with a specific prefix | `//input[starts-with(@id,'user')]` | Helps handle dynamic IDs or prefixes in locators |
+    | `string()` | Converts a node or value to a string | `string(//p[1])` | Use when node value might be numeric but you want to treat as text |
+    | `concat()` | Concatenates multiple strings | `concat('Hello ','World')` → `Hello World` | Can dynamically combine text or attributes in XPath |
+    | `substring()` | Extracts part of a string | `substring('Hello',2,3)` → `ell` | Useful to match partial text in complex locators |
+    | `normalize-space()` | Trims leading/trailing spaces and normalizes inner spaces | `normalize-space(//p)` | Ideal for ignoring extra spaces in UI text during automation |
+    | `translate()` | Replaces characters in a string | `translate('Hello','e','a')` → `Hallo` | Useful for simple character replacement or case normalization |
+    | `string-length()` | Returns the length of a string | `string-length(//p)` | Can be used to validate text length or presence |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. `contains()` and `starts-with()` are **widely used in Selenium/Playwright** for dynamic XPath.
+        
+    
+    ```bash
+    //div[contains(@class,'active')]
+    ```
+    
+    2. `normalize-space()` helps when **UI text has extra spaces or newlines**.
+        
+    3. `translate()` can be used for **case-insensitive matching**:
+        
+    
+    ```bash
+    //span[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')='submit']
+    ```
+    
+    4. `concat()` is useful for **combining dynamic strings** in advanced locators.
+        
+    5. `string-length()` can **validate if a text node exists** or is empty.
+        
+    
+    ## 📘 XPath 1.0 Boolean Functions – Detailed Table
+    
+    | **Function** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | `boolean()` | Converts a value or node-set to `true` or `false` | `boolean(//div[@id='main'])` | Returns `true` if node exists; commonly used to check element presence |
+    | `not()` | Returns the logical NOT of a boolean expression | `//input[not(@disabled)]` | Select nodes **where a condition is false**, e.g., enabled input fields |
+    | `true()` | Returns the boolean value `true` | `//div[true()]` | Rarely used directly, mainly in advanced XPath conditions |
+    | `false()` | Returns the boolean value `false` | `//div[false()]` | Rarely used directly; can be combined in complex conditions |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. `boolean()` is very useful in **Selenium or Playwright** to check if an element exists:
+        
+    
+    ```bash
+    const exists = await page.locator('xpath=boolean(//div[@id="main"])').evaluate(el => el);
+    ```
+    
+    2. `not()` is handy for **ignoring disabled, hidden, or inactive elements**:
+        
+    
+    ```bash
+    //button[not(@disabled)]
+    ```
+    
+    3. `true()` and `false()` are less commonly used but can **simplify conditional predicates** in complex XPath expressions.
+        
+    4. Boolean functions can be **combined with logical operators** (`and`, `or`) for robust locators.
+        
+    
+    ## 📘 **XPath 1.0 Numeric Functions – Detailed Table**
+    
+    | **Function** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | `number()` | Converts a string or node value to a numeric value | `number(//span[@id='price'])` | Useful for performing arithmetic or comparisons on element text |
+    | `sum()` | Returns the sum of a node-set of numeric values | `sum(//td[@class='amount'])` | Commonly used for summing table column values |
+    | `floor()` | Returns the largest integer less than or equal to a number | `floor(3.7)` → `3` | Can be used for rounding down prices, counts, or indices |
+    | `ceiling()` | Returns the smallest integer greater than or equal to a number | `ceiling(3.2)` → `4` | Can be used for rounding up |
+    | `round()` | Rounds a number to the nearest integer | `round(3.5)` → `4` | Useful for rounding prices, totals, or indices |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. `number()` helps **convert text nodes** to numeric values for calculations.
+        
+    2. `sum()` is very handy for **verifying total amounts in tables or invoices**.
+        
+    3. `floor()` and `ceiling()` are used to **normalize numbers** in comparisons or loops.
+        
+    4. `round()` is useful for **financial calculations or UI validations** in tests.
+        
+    5. Always ensure the **node contains numeric text**, otherwise `number()` may return `NaN`.
+        
+        ---
+        
+    
+    ## 📘 **XPath 1.0 Node-set Functions – Detailed Table**
+    
+    | **Function** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | `last()` | Returns the **last node** in the current node-set | `//ul/li[last()]` | Useful to select the last item in a list or table row |
+    | `position()` | Returns the **position of a node** in a node-set | `//ul/li[position()=2]` | Select a specific node by its order |
+    | `count()` | Returns the **number of nodes** in a node-set | `count(//table[@id='data']//tr)` | Useful for counting table rows or list items |
+    | `id()` | Selects elements by their **unique ID** | `id('username')` | Can directly locate elements with ID in XML/HTML |
+    | `name()` | Returns the **name of the node** | `name(//div[1])` → `'div'` | Helps identify element type or debug node selection |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. `last()` is **commonly used** to interact with the last row or last element in a dynamic list.
+        
+    2. `position()` allows you to **iterate or select nodes by index**, e.g., first, second, third item.
+        
+    3. `count()` helps in **validation**, like verifying table row count.
+        
+    4. `id()` can simplify XPath when elements have **unique IDs**.
+        
+    5. `name()` is useful for **debugging or conditional selection** when you need to check node types.
+        
+    
+    ---
+    
+    ## 📘 **XPath 1.0 Operators – Detailed Table**
+    
+    | **Operator Type** | **Operator** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- | --- |
+    | **Arithmetic** | `+` | Addition of numbers | `//price + 10` | Add numeric values from node text or attributes |
+    |  | `-` | Subtraction | `//price - 5` | Subtract numeric values from node text or attributes |
+    |  | `*` | Multiplication | `//price * 2` | Multiply numeric node values |
+    |  | `div` | Division | `//price div 2` | Divide numeric node values; use `div` instead of `/` |
+    |  | `mod` | Modulus | `//price mod 10` | Get remainder of numeric node values |
+    | **Comparison** | `=` | Equal to | `//button[@id='submit']='Submit'` | Compare string or numeric values of nodes |
+    |  | `!=` | Not equal | `//input[@type!='hidden']` | Filter nodes not matching a value |
+    |  | `<` | Less than | `//price < 100` | Compare numeric values |
+    |  | `>` | Greater than | `//price > 50` | Compare numeric values |
+    |  | `<=` | Less than or equal | `//price <= 50` | Compare numeric values |
+    |  | `>=` | Greater than or equal | `//price >= 50` | Compare numeric values |
+    | **Logical** | `and` | Logical AND | `//input[@type='text' and @name='username']` | Both conditions must be true for the node to match |
+    |  | `or` | Logical OR | `//input[@type='text' or @type='email']` | Either condition can be true |
+    |  | `not()` | Logical NOT | `//input[not(@disabled)]` | Select nodes where the condition is false |
+    | **Union / Node-set** | \` | \` | Combines multiple node-sets | \`//div |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Combine logical operators with predicates** for robust locators:
+        
+    
+    ```bash
+    //button[@type='submit' and contains(@class,'primary')]
+    ```
+    
+    2. **Use arithmetic operators** when working with numeric node values (like table data).
+        
+    3. **Union operator** `|` helps select multiple types of elements at once.
+        
+    4. **Logical NOT** is useful for ignoring disabled or hidden elements.
+        
+    5. Always **test XPath in browser dev tools** before using in Selenium or Playwright.
+        
+    
+    ---
+    
+    # **8\. XPath Expressions**
+    
+    ## 📘 **XPath Expressions – Detailed Table**
+    
+    | **Expression Type** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Absolute Path Expression** | Starts from the root `/` and follows the full DOM hierarchy | `/html/body/div[2]/ul/li[1]/a` | Fragile; breaks if DOM structure changes; rarely used in automation |
+    | **Relative Path Expression** | Starts from anywhere in the document `//` | `//div[@id='main']/ul/li[1]/a` | Preferred in automation; more robust for dynamic pages |
+    | **Select by Tag** | Matches elements by tag name | `//p` → selects all `<p>` tags | Useful for headings, paragraphs, table rows, or lists |
+    | **Select by Attribute** | Matches elements with a specific attribute | `//input[@type='text']` | Most common and reliable method in automation |
+    | **Select by Text** | Matches elements containing exact text | `//button[text()='Submit']` | Useful for buttons, links, and labels |
+    | **Select by Partial Text** | Matches elements containing partial text | `//a[contains(text(),'Login')]` | Handles dynamic text or labels |
+    | **Using Functions** | XPath functions in predicates for dynamic selection | `//div[contains(@class,'active')]` | Functions like `contains()`, `starts-with()`, `normalize-space()` make locators robust |
+    | **Using Axes** | Navigate elements relative to current node | `//li/ancestor::ul` | Axes like `parent::`, `child::`, `following-sibling::` are powerful for nested or dynamic elements |
+    | **Using Predicates** | Filter nodes by position, attribute, or conditions | `//ul/li[position()=2]` | Multiple predicates can be combined for precise selection |
+    | \*\*Union Operator \` | \`\*\* | Combines multiple XPath expressions | \`//div |
+    | **Dynamic XPath** | Combines functions, predicates, and axes for robust locators | `//ul/li[contains(@class,'active')][last()]` | Essential for automation on dynamic pages with changing IDs, classes, or positions |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. Prefer **relative XPath (**`//`) over absolute (`/`) for dynamic pages.
+        
+    2. Combine **attributes, text, and functions** for robust locators:
+        
+    
+    ```bash
+    //button[contains(@class,'submit') and text()='Login']
+    ```
+    
+    3. Use **axes** to navigate to parent, child, sibling, or ancestor elements when structure is complex.
+        
+    4. Use **predicates** to select specific nodes by position or condition.
+        
+    5. Test all XPath in **browser DevTools** before using in Selenium/Playwright scripts.
+        
+    
+    ---
+    
+    ## **9\. XPath 1.0 vs 2.0 vs 3.0**
+    
+    | Feature | XPath 1.0 | XPath 2.0/3.0 | Notes for Automation |
+    | --- | --- | --- | --- |
+    | Functions | Basic | Regex, sequences, FLWOR | XPath 1.0 only supported in browsers |
+    | Browser Support | ✅ | ❌ | Selenium/Playwright use 1.0 |
+    | Complexity | Simple | Complex | Use 1.0 for UI automation |
+    
+    ---
+    
+    ## **10\. Advanced XPath Topics**
+    
+    # 📘 **Advanced XPath Topics – Detailed Table**
+    
+    | **Topic** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Complex Predicates** | Use multiple conditions inside `[ ]` to filter nodes | `//input[@type='text' and @name='username']` | Combine attributes, text, or functions for precise element selection |
+    | **Multiple Conditions** | Combine `and` / `or` inside predicates | `//button[@type='submit' or @id='loginBtn']` | Useful when an element may have dynamic attributes |
+    | **Selecting Nested Nodes** | Use hierarchy to locate children or descendants | `//div[@class='container']/ul/li/span` | Helps locate deeply nested elements in tables, lists, or menus |
+    | **Selecting First Node** | Use `position()` or `[1]` | `//ul/li[position()=1]` | Select the first item in a list or table row |
+    | **Selecting Last Node** | Use `last()` | `//ul/li[last()]` | Useful for last element in dynamic lists or tables |
+    | **Selecting Middle Node** | Combine `position()` and `last()` | `//ul/li[position()=last()-1]` | Select elements relative to the last node |
+    | **Combining Axes and Functions** | Use axes like `ancestor::`, `descendant::` with functions | `//span[contains(text(),'Price')]/ancestor::tr` | Helps locate container or row of a specific element |
+    | **Dynamic XPath for Automation** | Handles changing IDs, classes, or text | `//div[contains(@class,'card')][position()=2]//button` | Essential for testing dynamic web pages |
+    | **Handling Nested Lists or Tables** | Use axes, predicates, and functions together | `//table[@id='orders']/tbody/tr[position()>1]/td[2]` | Extract or interact with specific cells in tables |
+    | **Using Logical Predicates** | Combine `not()`, `and`, `or` | `//input[not(@disabled) and @type='text']` | Ensures only valid, interactable elements are selected |
+    | **XPath for SVG or XML** | Use `local-name()` for namespaced elements | `//*[local-name()='svg']/*[local-name()='circle']` | Required for SVG elements in HTML pages or XML files |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Use predicates with multiple conditions** to make locators precise:
+        
+    
+    ```bash
+    //button[@type='submit' and contains(@class,'primary')]
+    ```
+    
+    2. **Combine axes with functions** to navigate dynamically generated content.
+        
+    3. **Use** `last()` and `position()` for selecting first, last, or specific nodes in lists/tables.
+        
+    4. **Dynamic XPath** is critical for modern web applications where IDs or classes frequently change.
+        
+    5. **Use** `local-name()` for namespaced tags like SVG, XML, or custom elements.
+        
+    6. Always **test advanced XPath** in browser DevTools before automation.
+        
+    
+    ---
+    
+    ## **11\. Practical XPath for Automation**
+    
+    # 📘 **Practical XPath for Automation – Detailed Table**
+    
+    | **Scenario** | **XPath Example** | **Description / Notes** |
+    | --- | --- | --- |
+    | **Locate element by ID** | `//input[@id='username']` | Most reliable method in automation |
+    | **Locate element by Class** | `//button[contains(@class,'submit-btn')]` | Use `contains()` for dynamic class names |
+    | **Locate element by Text** | `//button[text()='Login']` | Exact match of visible text |
+    | **Locate element by Partial Text** | `//a[contains(text(),'Forgot')]` | Handles dynamic or partial text |
+    | **Locate first element in list** | `//ul/li[1]` | Use `position()` or `[1]` for first element |
+    | **Locate last element in list** | `//ul/li[last()]` | Select the last item in a list or table row |
+    | **Locate nth element in list** | `//ul/li[position()=3]` | Selects the 3rd element in a list or table row |
+    | **Locate element with multiple attributes** | `//input[@type='text' and @name='username']` | Combine attributes for robust locators |
+    | **Locate enabled element** | `//button[not(@disabled)]` | Ignore disabled buttons or inputs |
+    | **Locate nested element** | `//div[@class='container']//span[@class='price']` | Handles elements deeply nested inside parent containers |
+    | **Locate element in dynamic table** | `//table[@id='orders']/tbody/tr[position()=2]/td[3]` | Extracts or interacts with specific table cells |
+    | **Locate element using axes** | `//span[text()='Price']/ancestor::tr//input` | Navigate from a known child element to its container or related nodes |
+    | **Locate SVG element** | `//*[local-name()='svg']/*[local-name()='circle']` | Use `local-name()` for namespaced SVG tags |
+    | **Dynamic XPath with contains** | `//div[contains(@class,'card')][position()=2]//button` | Handles changing IDs, classes, or positions |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Prefer relative XPath (**`//`) over absolute (`/`) for dynamic pages.
+        
+    2. **Combine attributes, text, and functions** to make locators robust.
+        
+    3. **Use** `contains()`, `starts-with()`, and `normalize-space()` for dynamic text or attributes.
+        
+    4. **Use axes (**`ancestor::`, `descendant::`, `following-sibling::`) for nested or related elements.
+        
+    5. **Use** `position()` and `last()` for selecting first, last, or specific nodes in lists or tables.
+        
+    6. **Test XPath in DevTools** before using in Selenium/Playwright scripts.
+        
+    
+    ---
+    
+    ## **12\. XPath Best Practices**
+    
+    # 📘 **XPath Best Practices – Detailed Table**
+    
+    | **Best Practice** | **Description** | **Example** | **Notes / Automation Tips** |
+    | --- | --- | --- | --- |
+    | **Prefer Relative XPath** | Use `//` instead of `/` for dynamic pages | `//div[@id='main']/ul/li[2]` | Absolute XPath `/html/body/div/...` is fragile |
+    | **Use Attributes Over Text** | Select elements using attributes rather than visible text | `//input[@name='username']` | More reliable, especially when text changes dynamically |
+    | **Use Functions for Dynamic Elements** | Functions like `contains()`, `starts-with()`, `normalize-space()` help with dynamic IDs or text | `//button[contains(@class,'submit')]` | Handles dynamic or partially changing attributes/text |
+    | **Avoid Overly Long XPath** | Keep XPath concise | `//div[@id='main']//li[3]` | Very long XPaths break easily if DOM changes |
+    | **Combine Predicates** | Use multiple conditions for robustness | `//input[@type='text' and @name='username']` | Ensures accurate element selection even in complex DOM |
+    | **Use Axes When Necessary** | Use `ancestor::`, `descendant::`, `following-sibling::` for nested elements | `//span[text()='Price']/ancestor::tr//input` | Helps locate elements related to known nodes |
+    | **Test XPath in Browser DevTools** | Always verify XPath works in Chrome/Firefox DevTools before automation | `Ctrl+F` in DevTools and paste XPath | Prevents runtime errors in Selenium/Playwright scripts |
+    | **Handle Dynamic Lists/Tables** | Use `position()` and `last()` for selecting first, last, or nth element | `//ul/li[position()=last()]` | Essential for tables, dropdowns, and dynamic lists |
+    | **Use** `local-name()` for Namespaced Elements | Required for SVG or XML elements | `//*[local-name()='svg']/*[local-name()='circle']` | Ensures XPath works for namespaced tags in HTML/XML |
+    | **Keep XPath Readable** | Avoid overly complex or nested XPath | `//div[@class='container']//button[text()='Submit']` | Readable XPaths are easier to maintain in automation scripts |
+    
+    ---
+    
+    ### **Automation Tips**
+    
+    1. **Always prefer relative XPath** (`//`) over absolute for dynamic content.
+        
+    2. **Combine attributes and functions** for robust and flexible locators.
+        
+    3. **Avoid hardcoding indices** unless necessary; use `position()` or `last()` carefully.
+        
+    4. **Use axes and predicates** to navigate complex DOM structures.
+        
+    5. **Test XPath expressions** in browser DevTools before using in automation scripts.
+        
+    6. **Keep locators concise and readable** to maintain scripts easily.
+        
+    
 
 ---
-
-## **Notes for Automation (Selenium / Playwright)**
-
-1. **Use** `contains()` and `starts-with()` with operators for dynamic IDs/classes.
-    
-2. **Arithmetic operators** can be used with numeric node values (`number()` or table cells).
-    
-3. **Union operator** `|` is useful to select multiple elements at once.
-    
-4. **Logical operators** are widely used with predicates to make robust locators.
-    
-5. XPath **1.0 comparison operators** work on **node values**, so always ensure node text is extracted properly using `text()` if needed.
-    
-
-## 📘 **XPath 1.0 Functions – Expanded**
-
----
-
-## 1️⃣ **String Functions (Detailed)**
-
-| Function | Description | Example | Notes / Tips |
-| --- | --- | --- | --- |
-| `string(object)` | Converts any object to string | `string(//span[@id='name'])` | Useful to normalize node content before comparisons |
-| `concat(string1, string2, …)` | Join multiple strings | `concat('Hello ','World') → 'Hello World'` | Can be used for dynamic attribute matching in Selenium |
-| `starts-with(string, prefix)` | Checks string prefix | `//a[starts-with(@href,'https')]` | Often used to filter URLs or links |
-| `contains(string, substring)` | Checks if substring exists | `//div[contains(@class,'active')]` | Most popular in automation for dynamic IDs/classes |
-| `substring(string, start, length?)` | Extract substring | `substring('Automation',2,5) → 'utoma'` | Start index = 1 (not 0) |
-| `string-length(string?)` | Returns string length | `string-length(//input[@id='username'])` | Can validate input lengths |
-| `normalize-space(string?)` | Trim extra spaces | `normalize-space(//p)` | Useful to ignore whitespace in dynamic content |
-| `translate(string, from, to)` | Character replacement | `translate('Hello','e','a') → 'Hallo'` | Replace multiple characters in attributes or text |
-
----
-
-## 2️⃣ **Boolean Functions (Detailed)**
-
-| Function | Description | Example | Notes |
-| --- | --- | --- | --- |
-| `boolean(object)` | Convert node-set or value to boolean | `boolean(//div[@id='main']) → true/false` | Checks if element exists |
-| `not(boolean)` | Logical NOT | `not(//div[@class='inactive']) → true if no element found` | Can invert selection conditions |
-| `true()` | Returns true | `true()` | Rarely used directly, mainly in logical expressions |
-| `false()` | Returns false | `false()` | Same as above |
-
-**Example Usage:**
-
-```bash
-// Selenium: check if element exists using boolean
-const exists = await page.locator('xpath=boolean(//div[@id="main"])').evaluate(el => el);
-```
-
----
-
-## 3️⃣ **Numeric Functions (Detailed)**
-
-| Function | Description | Example | Notes |
-| --- | --- | --- | --- |
-| `number(object)` | Converts string to number | `number(//span[@id='price'])` | Convert text like "100" to numeric |
-| `sum(node-set)` | Sum numeric values of nodes | `sum(//td[@class='amount'])` | Used for table totals |
-| `floor(number)` | Round down | `floor(3.7) → 3` | Useful in pagination or indexing |
-| `ceiling(number)` | Round up | `ceiling(3.2) → 4` | Useful for page counts |
-| `round(number)` | Round to nearest | `round(3.5) → 4` | Standard rounding for calculations |
-
-**Example in automation:**
-
----
-
-## 4️⃣ **Node-set Functions (Detailed)**
-
-| Function | Description | Example | Notes |
-| --- | --- | --- | --- |
-| `last()` | Last node in set | `//li[last()]` | Get the last element in a list |
-| `position()` | Position of current node | `//li[position()<3]` | Select first 2 elements |
-| `count(node-set)` | Number of nodes | `count(//li)` | Useful in tables, lists |
-| `id(string)` | Select elements by ID | `id('main')` | Rarely used in HTML automation |
-| `name(node?)` | Node name | `name(//div[1]) → 'div'` | Can verify element type dynamically |
-
-## 5️⃣ **Practical Function Patterns for Automation**
-
-1. **Locate element with dynamic class/id**
-    
-
-2. **Ignore extra spaces in text**
-    
-
-3. **Select element by position**
-    
-
-4. **Count items to validate UI**
-    
-
-5. **Combine multiple functions**
-    
-
----
-
-✅ This expanded reference now covers:
-
-* **String, Boolean, Numeric, Node-set functions**
-    
-* **Detailed examples and tips for automation**
-    
-* **Combined usage for real-world selectors**
-    
 
 ## **Why XPath 1.0 is preferred in automation** (Selenium, Playwright, etc.) instead of XPath 2.0
 
@@ -293,397 +778,7 @@ const exists = await page.locator('xpath=boolean(//div[@id="main"])').evaluate(e
     
 4. Combine **predicates, axes, and positions** for robust locators.
     
-5. For regex-like filtering, use **JavaScript string methods** after selecting elements.
-    
-6. ## 2️⃣ **XPath Node Types**
-    
-
-XPath 1.0 recognizes **7 node types**:
-
-| Node Type | Description |
-| --- | --- |
-| **Root node** `/` | The top-most node, parent of the document element. |
-| **Element node** | Any element, e.g., `<div>`, `<p>`. |
-| **Attribute node** `@attr` | Attributes of an element, e.g., `@id`. |
-| **Text node** `text()` | Text inside an element. |
-| **Namespace node** | Declared namespace (rare in HTML). |
-| **Comment node** `comment()` | XML comments. |
-| **Processing instruction node** `processing-instruction()` | Special instructions in XML. |
-
----
-
-## 3️⃣ **XPath Syntax**
-
-### a) Absolute vs Relative
-
-* **Absolute XPath**: starts from root `/`  
-    Example: `/html/body/div[1]/p`
-    
-* **Relative XPath**: starts from current node `//`  
-    Example: `//div[@id='container']/p`
-    
-
----
-
-### b) Node Selection
-
-* `//tag` → all nodes with `<tag>` anywhere
-    
-* `/tag` → direct child of current node
-    
-* `.` → current node
-    
-* `..` → parent node
-    
-* `*` → any element
-    
-* `@attr` → select attribute node
-    
-
----
-
-### c) Node Relationships
-
-* `/` → direct child
-    
-* `//` → descendant (any level)
-    
-* `parent::` → select parent
-    
-* `ancestor::` → all ancestors
-    
-* `child::` → child elements
-    
-* `descendant::` → all descendant nodes
-    
-* `following-sibling::` → siblings after current node
-    
-* `preceding-sibling::` → siblings before current node
-    
-* `self::` → current node
-    
-* `descendant-or-self::` → current node + descendants
-    
-* `ancestor-or-self::` → current node + ancestors
-    
-
----
-
-## 4️⃣ **Predicates**
-
-Predicates are **conditions in square brackets** `[ ]` to filter nodes:
-
-```bash
-//div[1]            → first div
-//div[last()]        → last div
-//div[position()<3]  → first 2 divs
-//div[@id='main']    → div with id=main
-//li[@class='user'][2] → second li with class 'user'
-```
-
----
-
-## 5️⃣ **XPath Axes**
-
-Axes define **node relationships**:
-
-| Axis | Meaning |
-| --- | --- |
-| child | selects children nodes |
-| parent | selects parent node |
-| ancestor | all ancestors of current node |
-| ancestor-or-self | ancestors + self node |
-| descendant | all descendants |
-| descendant-or-self | descendants + self |
-| following-sibling | all siblings after current node |
-| preceding-sibling | all siblings before current node |
-| self | current node |
-| descendant-or-self | self + descendants |
-| ancestor-or-self | self + ancestors |
-
-Example:
-
----
-
-## 6️⃣ **XPath Functions (1.0)**
-
-| Function | Description | Example |
-| --- | --- | --- |
-| `text()` | Select text nodes | `//p/text()` |
-| `last()` | Last node in a node-set | `//div[last()]` |
-| `position()` | Position of a node in set | `//li[position()<3]` |
-| `count(node-set)` | Count nodes | `count(//li)` |
-| `name()` | Returns element name | `name(//div[1])` |
-| `string()` | Convert node to string | `string(//span)` |
-| `contains(string, substring)` | Check substring | `//a[contains(@href,'https')]` |
-| `starts-with(string, prefix)` | Starts with prefix | `//a[starts-with(@href,'https')]` |
-| `normalize-space()` | Trim spaces | `normalize-space(//p)` |
-| `boolean(node-set)` | True if node exists | `boolean(//div[@id='main'])` |
-
----
-
-## 7️⃣ **XPath Operators**
-
-| Operator | Meaning |
-| --- | --- |
-| `=` | Equals |
-| `!=` | Not equals |
-| `<, >, <=, >=` | Comparison for numbers |
-| `and` | Logical AND |
-| `or` | Logical OR |
-| \` | \` |
-
----
-
-## 8️⃣ **Wildcard Selection**
-
-* `*` → any element node
-    
-* `@*` → any attribute
-    
-* `node()` → any node (element, text, comment)
-    
-
-Example:
-
-```bash
-//*                 → all elements
-//div/*              → all children of div
-//div/@*             → all attributes of div
-```
-
----
-
-## 9️⃣ **Combining Predicates and Functions**
-
-```bash
-//div[@class='profile'][position()=1]
-//ul/li[last()]/span
-//a[starts-with(@href,'https') and contains(text(),'GitHub')]
-```
-
----
-
-## 🔹 **Example HTML & XPath**
-
-HTML:
-
-```bash
-<div id="users">
-  <ul>
-    <li class="user"><span>Alice</span></li>
-    <li class="user"><span>Bob</span></li>
-    <li class="user"><span>Charlie</span></li>
-  </ul>
-</div>
-```
-
-XPath Examples:
-
-* `//li` → all li nodes
-    
-* `//li[2]` → second li
-    
-* `//li/span/text()` → names inside span
-    
-* `//li[position()<3]/span` → first 2 users
-    
-* `//li[last()]/span` → last user “Charlie”
-    
-
----
-
-## 10️⃣ **Tips for Selenium / Automation**
-
-* Prefer **relative XPath** (`//div[@id='main']/input`) over absolute `/html/body/...`
-    
-* Use **unique attributes** like `id`, `name`, `class` to locate nodes
-    
-* Use **text()** carefully for dynamic text
-    
-* Combine **functions + axes + predicates** for robust selectors
-    
-
----
-
-## 11️⃣ **Common Interview Questions XPath 1.0**
-
-1. What is a node in XPath? Explain types.
-    
-2. Difference between `/` and `//`?
-    
-3. How to select **all attributes of a div**?
-    
-4. How to select **last li element**?
-    
-5. Explain `text()`, `position()`, `last()`.
-    
-6. How to select **parent node** using XPath?
-    
-7. Difference between **ancestor** and **ancestor-or-self**.
-    
-8. Write XPath to select all `<a>` tags where href starts with "https".
-    
-9. How to count number of `<li>` nodes?
-    
-10. Difference between `node()` and `*`?
-    
-
-* ## **1\. XPath Node Types**
-    
-    | **Node Type** | **Description** | **Example** |
-    | --- | --- | --- |
-    | Root | Top of XML/HTML | `/` |
-    | Element | HTML/XML element | `//div` |
-    | Attribute | Element attributes | `//@id` |
-    | Text | Inner text of element | `//div/text()` |
-    | Namespace | Namespace in XML | `namespace::*` |
-    
-    ## **2\. XPath Operators**
-    
-    ### **Arithmetic**
-    
-    | **Operator** | **Description** |
-    | --- | --- |
-    | `+` | Addition |
-    | `-` | Subtraction |
-    | `*` | Multiplication |
-    | `div` | Division |
-    | `mod` | Modulus |
-    
-    ### **Comparison**
-    
-    | **Operator** | **Description** |
-    | --- | --- |
-    | `=` | Equals |
-    | `!=` | Not equals |
-    | `<` | Less than |
-    | `>` | Greater than |
-    | `<=` | Less or equal |
-    | `>=` | Greater or equal |
-    
-    ### **Logical**
-    
-    | **Operator** | **Description** |
-    | --- | --- |
-    | `and` | Both conditions true |
-    | `or` | Either condition true |
-    
-    ---
-    
-    ## **3\. XPath 1.0 Functions**
-    
-    ### **String Functions**
-    
-    | **Function** | **Description** | **Example** |
-    | --- | --- | --- |
-    | `contains(string, substring)` | Checks substring | `//input[contains(@id,'user')]` |
-    | `starts-with(string, prefix)` | Checks start of string | `//a[starts-with(@href,'https')]` |
-    | `string-length(string)` | Length of string | `string-length(//input/@value)` |
-    | `normalize-space(string)` | Trim & normalize spaces | `normalize-space(//div[@id='desc'])` |
-    | `substring(string,start,length)` | Substring | `substring('HelloWorld',1,5)` → `Hello` |
-    | `substring-before(string,substr)` | Text before substring | `substring-before('`[`user@example.com`](mailto:user@example.com)`','@')` → `user` |
-    | `substring-after(string,substr)` | Text after substring | `substring-after('`[`user@example.com`](mailto:user@example.com)`','@')` → [`example.com`](http://example.com/) |
-    | `concat(string1,string2,...)` | Join strings | `concat('Hello',' ','World')` → `Hello World` |
-    | `translate(string,chars1,chars2)` | Replace characters | `translate('abc','a','x')` → `xbc` |
-    | `string(object)` | Convert object to string | `string(//div[@class='title'])` |
-    
-    ### **Numeric Functions**
-    
-    | **Function** | **Description** | **Example** |
-    | --- | --- | --- |
-    | `number(string)` | Convert string to number | `number('123')` → 123 |
-    | `sum(node-set)` | Sum node values | `sum(//price)` |
-    | `floor(number)` | Round down | `floor(3.7)` → 3 |
-    | `ceiling(number)` | Round up | `ceiling(3.2)` → 4 |
-    | `round(number)` | Round nearest | `round(3.5)` → 4 |
-    
-    ### **Boolean Functions**
-    
-    | **Function** | **Description** | **Example** |
-    | --- | --- | --- |
-    | `boolean(object)` | Convert to boolean | `boolean(//div[@id='desc'])` |
-    | `not(expression)` | Negates boolean | `not(@disabled)` |
-    | `true()` | Returns true | `//input[@enabled=true()]` |
-    | `false()` | Returns false | `//input[@checked=false()]` |
-    
-    ### **Node Functions**
-    
-    | **Function** | **Description** | **Example** |
-    | --- | --- | --- |
-    | `last()` | Last node | `//li[last()]` |
-    | `position()` | Current node | `//li[position()=2]` |
-    | `count(node-set)` | Number of nodes | `count(//div)` |
-    | `name(node)` | Node name | `name(//div)` → `div` |
-    | `local-name(node)` | Local name without namespace | `local-name(//ns:div)` → `div` |
-    
-    ---
-    
-    ## **4\. XPath 1.0 Axes**
-    
-    | **Axis** | **Description** | **Example** |
-    | --- | --- | --- |
-    | `child` | Direct children | `//div/child::p` |
-    | `parent` | Parent node | `//span/parent::div` |
-    | `ancestor` | All ancestors | `//span/ancestor::div` |
-    | `descendant` | All descendants | `//div/descendant::p` |
-    | `following-sibling` | Siblings after current | `//h2/following-sibling::p` |
-    | `preceding-sibling` | Siblings before current | `//h2/preceding-sibling::p` |
-    | `self` | Current node | `//div/self::div` |
-    | `descendant-or-self` | Self + descendants | `//div/descendant-or-self::span` |
-    | `ancestor-or-self` | Self + ancestors | `//span/ancestor-or-self::div` |
-    
-    ---
-    
-    ## **5\. XPath 1.0 Predicates**
-    
-    * Predicates are **conditions in** `[ ]` to filter nodes.
-        
-    
-    **Examples:**
-    
-    ```sql
-    //input[@type='text']                   // All text inputs
-    //li[position()=1]                      // First <li> element
-    //li[last()]                            // Last <li> element
-    //div[contains(text(),'Login')]         // Div with "Login" text
-    //a[starts-with(@href,'https')]         // Links starting with https
-    //tr[td='Admin']                        // Table row where td='Admin'
-    ```
-    
-    ---
-    
-    ## **6\. Combining Functions and Axes (Examples)**
-    
-    1. **Find last element containing text**:
-        
-    
-    ```sql
-    (//li[contains(text(),'Option')])[last()]
-    ```
-    
-    2. **Select second input inside a form**:
-        
-    
-    ```sql
-    //form/input[position()=2]
-    ```
-    
-    3. **Parent of an element containing specific text**:
-        
-    
-    ```sql
-    //span[contains(text(),'Username')]/parent::div
-    ```
-    
-    4. **Normalize spaces and compare text**:
-        
-    
-    ```sql
-    //div[normalize-space(text())='Login']
-    ```
-    
-    ---
+5. For regex-like filtering, use **JavaScript string methods** after selecting elements.2️⃣ **XPath Node Types**
     
 
 ## 🎯 Topics in XPath 1.0 (to cover via questions)
