@@ -11,6 +11,255 @@ tags: codewithnini
 
 [Click on Xpath Playground Link](https://xpath-by-nini.netlify.app/)
 
+## 1️⃣ **Introduction**
+
+* XPath (XML Path Language) is used to **navigate XML/HTML documents**.
+    
+* XPath 1.0 is the original version, widely used in **Selenium, XSLT, and XML parsing**.
+    
+* XPath selects **nodes** in a document and can return **node-sets, strings, numbers, or booleans**.
+    
+
+---
+
+## 2️⃣ **XPath Node Types**
+
+XPath 1.0 recognizes **7 node types**:
+
+| Node Type | Description |
+| --- | --- |
+| **Root node** `/` | The top-most node, parent of the document element. |
+| **Element node** | Any element, e.g., `<div>`, `<p>`. |
+| **Attribute node** `@attr` | Attributes of an element, e.g., `@id`. |
+| **Text node** `text()` | Text inside an element. |
+| **Namespace node** | Declared namespace (rare in HTML). |
+| **Comment node** `comment()` | XML comments. |
+| **Processing instruction node** `processing-instruction()` | Special instructions in XML. |
+
+---
+
+## 3️⃣ **XPath Syntax**
+
+### a) Absolute vs Relative
+
+* **Absolute XPath**: starts from root `/`  
+    Example: `/html/body/div[1]/p`
+    
+* **Relative XPath**: starts from current node `//`  
+    Example: `//div[@id='container']/p`
+    
+
+---
+
+### b) Node Selection
+
+* `//tag` → all nodes with `<tag>` anywhere
+    
+* `/tag` → direct child of current node
+    
+* `.` → current node
+    
+* `..` → parent node
+    
+* `*` → any element
+    
+* `@attr` → select attribute node
+    
+
+---
+
+### c) Node Relationships
+
+* `/` → direct child
+    
+* `//` → descendant (any level)
+    
+* `parent::` → select parent
+    
+* `ancestor::` → all ancestors
+    
+* `child::` → child elements
+    
+* `descendant::` → all descendant nodes
+    
+* `following-sibling::` → siblings after current node
+    
+* `preceding-sibling::` → siblings before current node
+    
+* `self::` → current node
+    
+* `descendant-or-self::` → current node + descendants
+    
+* `ancestor-or-self::` → current node + ancestors
+    
+
+---
+
+## 4️⃣ **Predicates**
+
+Predicates are **conditions in square brackets** `[ ]` to filter nodes:
+
+```bash
+//div[1]            → first div
+//div[last()]        → last div
+//div[position()<3]  → first 2 divs
+//div[@id='main']    → div with id=main
+//li[@class='user'][2] → second li with class 'user'
+```
+
+---
+
+## 5️⃣ **XPath Axes**
+
+Axes define **node relationships**:
+
+| Axis | Meaning |
+| --- | --- |
+| child | selects children nodes |
+| parent | selects parent node |
+| ancestor | all ancestors of current node |
+| ancestor-or-self | ancestors + self node |
+| descendant | all descendants |
+| descendant-or-self | descendants + self |
+| following-sibling | all siblings after current node |
+| preceding-sibling | all siblings before current node |
+| self | current node |
+| descendant-or-self | self + descendants |
+| ancestor-or-self | self + ancestors |
+
+Example:
+
+```bash
+//span[@class='name']/ancestor::div
+//li[@class='user'][2]/following-sibling::li
+```
+
+---
+
+## 6️⃣ **XPath Functions (1.0)**
+
+| Function | Description | Example |
+| --- | --- | --- |
+| `text()` | Select text nodes | `//p/text()` |
+| `last()` | Last node in a node-set | `//div[last()]` |
+| `position()` | Position of a node in set | `//li[position()<3]` |
+| `count(node-set)` | Count nodes | `count(//li)` |
+| `name()` | Returns element name | `name(//div[1])` |
+| `string()` | Convert node to string | `string(//span)` |
+| `contains(string, substring)` | Check substring | `//a[contains(@href,'https')]` |
+| `starts-with(string, prefix)` | Starts with prefix | `//a[starts-with(@href,'https')]` |
+| `normalize-space()` | Trim spaces | `normalize-space(//p)` |
+| `boolean(node-set)` | True if node exists | `boolean(//div[@id='main'])` |
+
+---
+
+## 7️⃣ **XPath Operators**
+
+| Operator | Meaning |
+| --- | --- |
+| `=` | Equals |
+| `!=` | Not equals |
+| `<, >, <=, >=` | Comparison for numbers |
+| `and` | Logical AND |
+| `or` | Logical OR |
+| \` | \` |
+
+---
+
+## 8️⃣ **Wildcard Selection**
+
+* `*` → any element node
+    
+* `@*` → any attribute
+    
+* `node()` → any node (element, text, comment)
+    
+
+Example:
+
+```bash
+//*                 → all elements
+//div/*              → all children of div
+//div/@*             → all attributes of div
+```
+
+---
+
+## 9️⃣ **Combining Predicates and Functions**
+
+```bash
+//div[@class='profile'][position()=1]
+//ul/li[last()]/span
+//a[starts-with(@href,'https') and contains(text(),'GitHub')]
+```
+
+---
+
+## 🔹 **Example HTML & XPath**
+
+HTML:
+
+```bash
+<div id="users">
+  <ul>
+    <li class="user"><span>Alice</span></li>
+    <li class="user"><span>Bob</span></li>
+    <li class="user"><span>Charlie</span></li>
+  </ul>
+</div>
+```
+
+XPath Examples:
+
+* `//li` → all li nodes
+    
+* `//li[2]` → second li
+    
+* `//li/span/text()` → names inside span
+    
+* `//li[position()<3]/span` → first 2 users
+    
+* `//li[last()]/span` → last user “Charlie”
+    
+
+---
+
+## 10️⃣ **Tips for Selenium / Automation**
+
+* Prefer **relative XPath** (`//div[@id='main']/input`) over absolute `/html/body/...`
+    
+* Use **unique attributes** like `id`, `name`, `class` to locate nodes
+    
+* Use **text()** carefully for dynamic text
+    
+* Combine **functions + axes + predicates** for robust selectors
+    
+
+---
+
+## 11️⃣ **Common Interview Questions XPath 1.0**
+
+1. What is a node in XPath? Explain types.
+    
+2. Difference between `/` and `//`?
+    
+3. How to select **all attributes of a div**?
+    
+4. How to select **last li element**?
+    
+5. Explain `text()`, `position()`, `last()`.
+    
+6. How to select **parent node** using XPath?
+    
+7. Difference between **ancestor** and **ancestor-or-self**.
+    
+8. Write XPath to select all `<a>` tags where href starts with "https".
+    
+9. How to count number of `<li>` nodes?
+    
+10. Difference between `node()` and `*`?
+    
+
 ## **What is XPath?**
 
 **XPath (XML Path Language)** is a query language used to navigate and select nodes in an XML or HTML document.  
@@ -68,7 +317,9 @@ In automation, XPath is often used when:
     ```sql
     //input[@id='username']
     ```
+    
     ---
+    
     ## **1\. XPath Node Types**
     
     | **Node Type** | **Description** | **Example** |
@@ -430,8 +681,7 @@ Using the playground page, one can craft questions against its HTML structure (l
     
 70. Use **complex path chaining** combining many features above.
     
-
-1. Username input
+71. Username input
     
 
 ```bash
