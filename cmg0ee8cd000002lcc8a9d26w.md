@@ -68,7 +68,7 @@ In automation, XPath is often used when:
     ```sql
     //input[@id='username']
     ```
-    
+    ---
     ## **1\. XPath Node Types**
     
     | **Node Type** | **Description** | **Example** |
