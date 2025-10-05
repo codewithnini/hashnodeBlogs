@@ -251,6 +251,8 @@ public class RestAssuredTest {
 4. API automation is **critical in testing modern applications**
     
 
+\==========================================================================================
+
 # 🧩 Understanding Different Types of APIs
 
 You might have heard about different types of APIs like **GraphQL**, **SOAP**, **REST**, **gRPC**, and others.  
@@ -515,3 +517,86 @@ So whenever you send a request or receive a response over the web using **HTTP m
 | **SSE** | Stream | Text | Server → Client | Live data |
 | **EDA** | Architecture | Event | Async | Microservices |
 | **EDI** | Data format | Plain text | B2B | Business data exchange |
+
+fsfsfsf
+
+### **Networking Protocols**
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1759661793100/fad45bf6-b25b-4916-ae99-9bad1fb7e7fc.png align="center")
+
+A **network protocol** is basically a set of **rules and standards** that computers and devices follow to **communicate over a network**.
+
+In simpler terms:
+
+* It tells devices **how to send, receive, and interpret data**.
+    
+* Think of it as a **common language** for computers to talk to each other.
+    
+* Without protocols, devices wouldn’t understand each other and communication would fail.
+    
+
+1. **HTTP (HyperText Transfer Protocol)**
+    
+    * How the web works.
+        
+    * Lets your browser fetch web pages (HTML, images, etc.) from servers.
+        
+    * Works on a client-server model.
+        
+2. **HTTP/3**
+    
+    * New version of HTTP.
+        
+    * Uses **QUIC** protocol over **UDP** instead of TCP → faster for mobile & heavy web apps.
+        
+    * Great for apps needing speed & high bandwidth (VR, interactive websites).
+        
+3. **HTTPS (HyperText Transfer Protocol Secure)**
+    
+    * Secure version of HTTP.
+        
+    * Encrypts data so no one can eavesdrop.
+        
+    * Used for banking, login pages, and private communication.
+        
+4. **WebSocket**
+    
+    * Enables **real-time communication**.
+        
+    * Works over TCP.
+        
+    * Instead of always asking for updates (pull), server can **push data** instantly.
+        
+    * Used in: online games, stock trading, chat apps.
+        
+5. **TCP (Transmission Control Protocol)**
+    
+    * Sends data reliably.
+        
+    * Ensures packets arrive in order and without loss.
+        
+    * Many web protocols (HTTP, FTP, SMTP) run on TCP.
+        
+6. **UDP (User Datagram Protocol)**
+    
+    * Sends data **without waiting for confirmation**.
+        
+    * Faster but may lose some packets.
+        
+    * Ideal for: video calls, streaming, online gaming.
+        
+7. **SMTP (Simple Mail Transfer Protocol)**
+    
+    * Standard way to send emails.
+        
+    * Transfers email from one server/user to another.
+        
+8. **FTP (File Transfer Protocol)**
+    
+    * Moves files between computers (client ↔ server).
+        
+    * Uses separate channels:
+        
+        * **Control channel** → commands
+            
+        * **Data channel** → file transfer
