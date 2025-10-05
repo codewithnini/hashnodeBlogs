@@ -792,3 +792,181 @@ Its optional information and case insensitive
 * FragmentID should always begain with “ **#** “.
     
 * **EX**: #inbox, #Draft etc in gmail.
+    
+
+## **API PROTOCOLS**
+
+### **1️⃣ REST (Representational State Transfer)**
+
+* **Type:** Architectural style
+    
+* **Uses:** HTTP methods (`GET`, `POST`, `PUT`, `DELETE`)
+    
+* **Format:** JSON / XML
+    
+* **Best for:** Web & mobile APIs
+    
+* **Example:**
+    
+    ```java
+    GET https://api.example.com/users
+    ```
+    
+    ![](https://blog.postman.com/wp-content/uploads/2023/11/02_API_protocols-1024x390.jpg align="left")
+    
+
+---
+
+### **2️⃣ Webhooks**
+
+* **Type:** Event-driven callback mechanism
+    
+* **How it works:** Server **notifies client** via HTTP POST when an event occurs
+    
+* **Example:** Payment success → triggers webhook to client app
+    
+* **Use Case:** Real-time updates (payments, GitHub push, Slack message)
+    
+
+![](https://blog.postman.com/wp-content/uploads/2023/11/03_API_protocols-1024x977.jpg align="left")
+
+---
+
+### **3️⃣ GraphQL**
+
+* **Type:** Query language for APIs
+    
+* **How it works:** Client requests **exact fields needed**
+    
+* **Advantage:** Reduces over-fetching and under-fetching
+    
+* **Example:**
+    
+    ```java
+    { user { id name email } }
+    ```
+    
+
+![](https://blog.postman.com/wp-content/uploads/2023/11/04_API_protocols-1024x695.jpg align="left")
+
+---
+
+### **4️⃣ SOAP (Simple Object Access Protocol)**
+
+* **Type:** XML-based messaging protocol
+    
+* **Transport:** HTTP / SMTP
+    
+* **Structure:** Envelope + Header + Body
+    
+* **Use Case:** Enterprise-level, strict contracts
+    
+* **Example:** Banking, payment, legacy systems
+    
+
+![](https://blog.postman.com/wp-content/uploads/2023/11/05_API_protocols-1024x779.jpg align="left")
+
+---
+
+### **5️⃣ WebSocket**
+
+* **Type:** Full-duplex communication channel
+    
+* **How it works:** Keeps a single connection open for both send & receive
+    
+* **Use Case:** Real-time apps (chat, games, stock updates)
+    
+
+![](https://blog.postman.com/wp-content/uploads/2023/11/06_API_protocols-1024x279.jpg align="left")
+
+---
+
+### **6️⃣ gRPC (Google Remote Procedure Call)**
+
+* **Type:** High-performance binary protocol
+    
+* **Format:** Protocol Buffers (`.proto` files)
+    
+* **Languages:** Cross-language (Java, Python, Go, etc.)
+    
+* **Use Case:** Microservices communication
+    
+
+![](https://blog.postman.com/wp-content/uploads/2023/11/07_API_protocols-1024x775.jpg align="left")
+
+---
+
+### **7️⃣ MQTT (Message Queuing Telemetry Transport)**
+
+* **Type:** Lightweight publish/subscribe protocol
+    
+* **Transport:** TCP/IP
+    
+* **Use Case:** IoT devices, low-bandwidth environments
+    
+* **Example:** Sensors → Broker → Subscribers
+    
+
+---
+
+### **8️⃣ AMQP (Advanced Message Queuing Protocol)**
+
+* **Type:** Open standard for messaging
+    
+* **Components:** Producer → Exchange → Queue → Consumer
+    
+* **Use Case:** Enterprise message brokers (RabbitMQ)
+    
+
+---
+
+### **9️⃣ SSE (Server-Sent Events)**
+
+* **Type:** One-way push from server to client via HTTP
+    
+* **Use Case:** Live feeds, notifications, dashboards
+    
+* **Difference from WebSocket:** One-direction (server → client only)
+    
+
+---
+
+### **🔟 EDA (Event-Driven Architecture)**
+
+* **Type:** Software design pattern
+    
+* **Flow:** Producer → Event Channel → Consumer
+    
+* **Use Case:** Scalable, async microservices (Kafka, RabbitMQ)
+    
+
+---
+
+### **1️⃣1️⃣ EDI (Electronic Data Interchange)**
+
+* **Type:** Standardized B2B data exchange format
+    
+* **Use Case:** Supply chain, invoicing, healthcare data
+    
+* **Format:** Plain text with specific structure (not JSON/XML)
+    
+
+---
+
+## 🧩 **Summary Table**
+
+| Protocol | Type | Format | Direction | Common Use |
+| --- | --- | --- | --- | --- |
+| **REST** | Architectural | JSON/XML | Request/Response | Web & Mobile APIs |
+| **Webhooks** | Event callback | JSON | Server → Client | Notifications |
+| **GraphQL** | Query language | JSON | Client ↔ Server | Custom data queries |
+| **SOAP** | Protocol | XML | Request/Response | Enterprise systems |
+| **WebSocket** | Communication | Binary/Text | Duplex | Real-time chat |
+| **gRPC** | RPC Protocol | ProtoBuf | Duplex | Microservices |
+| **MQTT** | Messaging | Binary | Pub/Sub | IoT |
+| **AMQP** | Messaging | Binary | Pub/Sub | Enterprise queues |
+| **SSE** | Stream | Text | Server → Client | Live data |
+| **EDA** | Architecture | Event | Async | Microservices |
+| **EDI** | Data format | Plain text | B2B | Business data exchange |
+
+fsfsfsf
