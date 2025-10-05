@@ -33,7 +33,7 @@ Every Java program contains at least:
 ## 🔹 **3\. Code Example**
 
 ```java
-// HelloWorld.java
+// HelloNini .java
 public class HelloNini {
     public static void main(String[] args) {
         // Print message to console
@@ -174,3 +174,216 @@ class HelloWorld {
 * main() → Door where people enter.
     
 * System.out.println() → Message board inside house.
+    
+
+# Java Variables and Data Types
+
+# 🔹 **Java Variables and Data Types — Complete Tutorial**
+
+---
+
+## 1\. **What is a Variable?**
+
+* A **variable** is a **named memory location** to store data.
+    
+* Every variable has:
+    
+    1. **Name** – identifier
+        
+    2. **Data type** – type of data it can store
+        
+    3. **Value** – actual data
+        
+
+**Example:**
+
+```java
+int age = 25;
+String name = "John";
+```
+
+---
+
+## 2\. **Types of Variables in Java**
+
+| Variable Type | Declared Where | Lifetime / Scope | Example |
+| --- | --- | --- | --- |
+| **Instance Variable** | Inside class, outside methods | Exists as long as object exists | `int age;` |
+| **Static / Class Variable** | Inside class with `static` keyword | Shared by all objects | `static String company = "OpenAI";` |
+| **Local Variable** | Inside method/block | Exists only during method execution | `double salary = 50000;` |
+| **Parameter Variable** | Method parameter | Exists during method execution | `void setName(String name)` |
+
+---
+
+### **Memory Allocation**
+
+* **Stack Memory:** Stores **local variables** & method calls.
+    
+* **Heap Memory:** Stores **objects and instance variables**.
+    
+* **Static Memory:** Stores **static variables** (shared across objects).
+    
+
+---
+
+## 3\. **Java Data Types**
+
+### A. **Primitive Data Types (8 types)**
+
+| Type | Size | Default | Example | Description |
+| --- | --- | --- | --- | --- |
+| byte | 1 B | 0 | `byte b = 10;` | Small integers |
+| short | 2 B | 0 | `short s = 100;` | Small integers |
+| int | 4 B | 0 | `int age = 25;` | Integer numbers |
+| long | 8 B | 0L | `long pop = 7800000000L;` | Large integers |
+| float | 4 B | 0.0f | `float price = 10.5f;` | Decimal numbers |
+| double | 8 B | 0.0d | `double pi = 3.14159;` | High precision decimal |
+| char | 2 B | '\\u0000' | `char grade = 'A';` | Single character |
+| boolean | 1 bit | false | `boolean isActive = true;` | true/false |
+
+---
+
+### B. **Reference / Non-Primitive Data Types**
+
+* Objects, Strings, Arrays, Interfaces, Classes
+    
+* Stored in **Heap Memory**
+    
+* Example:
+    
+
+```java
+String name = "John";
+int[] numbers = {1, 2, 3};
+```
+
+---
+
+## 4\. **Instance vs Static vs Local Variables**
+
+| Feature | Instance Variable | Static Variable | Local Variable |
+| --- | --- | --- | --- |
+| Scope | Object level | Class level | Method/block only |
+| Memory | Heap | Static memory | Stack memory |
+| Access | via object | via class or object | Only inside method/block |
+| Default Value | Yes | Yes | No (must initialize) |
+
+**Example:**
+
+```java
+class Employee {
+    int age;                   // instance variable
+    static String company = "OpenAI"; // static variable
+
+    void setSalary(double salary) {  // local variable
+        System.out.println("Salary: " + salary);
+    }
+}
+```
+
+---
+
+## 5\. **Variable Naming Rules**
+
+1. Must start with letter, `$`, or `_`
+    
+2. Cannot start with number
+    
+3. Case-sensitive (`age` ≠ `Age`)
+    
+4. Cannot use reserved keywords (`int`, `class`, etc.)
+    
+
+---
+
+## 6\. **Examples**
+
+### Example 1: Primitive Variables
+
+```java
+class Demo {
+    public static void main(String[] args) {
+        int age = 25;
+        float salary = 50000.50f;
+        char grade = 'A';
+        boolean isActive = true;
+
+        System.out.println("Age: " + age);
+        System.out.println("Salary: " + salary);
+        System.out.println("Grade: " + grade);
+        System.out.println("Active: " + isActive);
+    }
+}
+```
+
+### Example 2: Reference Variables
+
+```java
+class Demo {
+    public static void main(String[] args) {
+        String name = "John";
+        int[] numbers = {1, 2, 3};
+
+        System.out.println("Name: " + name);
+        System.out.println("Numbers[0]: " + numbers[0]);
+    }
+}
+```
+
+### Example 3: Instance vs Static
+
+```java
+class Employee {
+    int age; // instance
+    static String company = "OpenAI"; // static
+
+    void showAge() {
+        System.out.println("Age: " + age);
+    }
+
+    static void showCompany() {
+        System.out.println("Company: " + company);
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Employee e1 = new Employee();
+        e1.age = 25;
+        Employee e2 = new Employee();
+        e2.age = 30;
+
+        e1.showAge(); // 25
+        e2.showAge(); // 30
+        Employee.showCompany(); // OpenAI
+    }
+}
+```
+
+---
+
+## 7\. **Quick Visual Summary**
+
+```java
+Memory Allocation:
+
+Stack:           Heap:                  Static:
+---------------- -------------------    -------------------
+Local vars       Instance vars          Static vars
+Method calls     Objects                Shared across objects
+Temporary        Live with object       Class level
+```
+
+---
+
+✅ **Key Takeaways**
+
+1. Primitive types → stored in stack (local) or heap (instance).
+    
+2. Reference types → stored in heap.
+    
+3. `static` → shared across objects.
+    
+4. Variables must be **initialized before use** (except instance/static variables).
+    
+5. Scope determines **visibility and lifetime**.
