@@ -13,6 +13,9 @@ tags: codewithnini
 
 * Acts as a **bridge** between different software components.
     
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1759658423393/e69e84d4-d453-472b-ad20-df54d4410acc.png align="center")
+
 * Can be **local (within app)** or **web-based (over HTTP/HTTPS)**.
     
 
