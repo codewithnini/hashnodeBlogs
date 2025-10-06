@@ -194,7 +194,7 @@ In automation, XPath is often used when:
     1. `*` is commonly used in **dynamic locators** when element tag may change:
         
     
-    ```
+    ```java
     //*[@class='btn-primary']  // matches any element with class 'btn-primary'
     ```
     
@@ -240,7 +240,7 @@ In automation, XPath is often used when:
     2. **Attribute nodes** are widely used for dynamic locators:
         
     
-    ```
+    ```java
     //input[@id='username']
     //button[@class='btn-primary']
     ```
@@ -283,7 +283,7 @@ In automation, XPath is often used when:
     4. **Combine axes with predicates** for robust locators:
         
     
-    ```
+    ```java
     //div[@class='container']/descendant::li[position()=2]
     ```
     
@@ -323,7 +323,7 @@ In automation, XPath is often used when:
     5. **Use multiple predicates** carefully; order matters:
         
     
-    ```
+    ```java
     //ul/li[@class='active'][position()=1]
     ```
     
@@ -781,6 +781,328 @@ In automation, XPath is often used when:
 5. For regex-like filtering, use **JavaScript string methods** after selecting elements.2️⃣ **XPath Node Types**
     
 
+# 🧩 **XPath Interview Questions and Answers — Automation Testing**
+
+---
+
+## 🔹 **1\. What is XPath?**
+
+**Answer:**  
+XPath (XML Path Language) is a syntax used to **find elements** in an XML or HTML document.  
+In automation (like Selenium), it is used to **locate elements** on a webpage when other locators (ID, Name, CSS, etc.) are not sufficient.
+
+**Example:**
+
+```java
+driver.findElement(By.xpath("//input[@id='username']"));
+```
+
+---
+
+## 🔹 **2\. Types of XPath**
+
+| Type | Description | Example |
+| --- | --- | --- |
+| **Absolute XPath** | Starts from the root node (`html`) and goes step by step. | `/html/body/div/form/input` |
+| **Relative XPath** | Starts from anywhere in the DOM using `//`. Preferred in automation. | `//input[@id='username']` |
+
+✅ **Tip:** Always use *relative XPath* because it’s shorter and less fragile.
+
+---
+
+## 🔹 **3\. What are XPath axes?**
+
+Axes define **the relationship between nodes** in the XML/HTML tree.
+
+| Axis | Meaning | Example |
+| --- | --- | --- |
+| `ancestor` | Selects all ancestors (parent, grandparent) | `//input[@id='user']/ancestor::form` |
+| `child` | Selects child nodes | `//div[@id='main']/child::input` |
+| `parent` | Selects parent node | `//input[@id='user']/parent::div` |
+| `following` | Selects nodes after the current one | `//h2/following::input` |
+| `preceding` | Selects nodes before current one | `//label[@for='user']/preceding::input` |
+| `following-sibling` | Next sibling | `//label/following-sibling::input` |
+| `preceding-sibling` | Previous sibling | `//input/preceding-sibling::label` |
+| `self` | Selects the current node | `//input[@id='user']/self::input` |
+| `descendant` | Selects all child elements (any depth) | `//div[@id='main']/descendant::input` |
+
+---
+
+## 🔹 **4\. XPath Syntax Rules**
+
+| Symbol | Meaning | Example |
+| --- | --- | --- |
+| `//` | Select nodes anywhere | `//div` |
+| `/` | Select from root | `/html/body/div` |
+| `@` | Attribute | `//input[@name='email']` |
+| `*` | Any tag | `//*[@id='login']` |
+| `text()` | Node’s text value | `//a[text()='Login']` |
+| `.` | Current node | `./child::span` |
+
+---
+
+## 🔹 **5\. XPath Functions**
+
+| Function | Description | Example |
+| --- | --- | --- |
+| `contains()` | Partial match | `//input[contains(@id,'user')]` |
+| `starts-with()` | Prefix match | `//a[starts-with(@href,'https')]` |
+| `ends-with()` *(XPath 2.0)* | Suffix match | `//input[ends-with(@name,'name')]` |
+| `text()` | Match visible text | `//button[text()='Submit']` |
+| `normalize-space()` | Remove extra spaces | `//a[normalize-space(text())='Login']` |
+| `last()` | Select last element | `(//input)[last()]` |
+| `position()` | Element position | `(//input)[2]` |
+| `not()` | Negation | `//input[not(@type='hidden')]` |
+| `string-length()` | Length of text | `//p[string-length(text())>5]` |
+| `number()` | Convert text to number | `//p[number(@id)>10]` |
+
+---
+
+## 🔹 **6\. What is the difference between** `text()` and `.` ?
+
+| Function | Meaning | Example |
+| --- | --- | --- |
+| `text()` | Selects only **text nodes** | `//p[text()='Hello']` |
+| `.` | Selects **the node itself and its text** | `//p[.='Hello']` |
+
+---
+
+## 🔹 **7\. XPath using Multiple Attributes**
+
+**Example:**
+
+```java
+//input[@type='text' and @name='username']
+//button[@id='submit' or @class='btn-primary']
+```
+
+---
+
+## 🔹 **8\. How do you handle dynamic elements in XPath?**
+
+**Answer:**  
+Use **functions like** `contains()` or `starts-with()` when attributes change dynamically.
+
+**Example:**
+
+```java
+//input[contains(@id,'user_')]
+//div[starts-with(@class,'menu-item')]
+```
+
+---
+
+## 🔹 **9\. XPath with Index**
+
+**Example:**
+
+```java
+(//input[@type='text'])[3]
+```
+
+→ Selects the 3rd text input.
+
+---
+
+## 🔹 **10\. XPath using Text with Partial Match**
+
+```java
+//a[contains(text(),'Login')]
+//button[starts-with(text(),'Sign')]
+```
+
+---
+
+## 🔹 **11\. Difference Between** `contains()` and `starts-with()`
+
+| Function | Matches | Example |
+| --- | --- | --- |
+| `contains()` | Anywhere in string | `//input[contains(@id,'user')]` |
+| `starts-with()` | Only at beginning | `//input[starts-with(@id,'user')]` |
+
+---
+
+## 🔹 **12\. XPath using Parent-Child Relationship**
+
+```java
+//div[@class='form-group']/child::input
+//input[@id='email']/parent::div
+```
+
+---
+
+## 🔹 **13\. How do you find nth-child in XPath?**
+
+```java
+(//div[@class='card'])[2]
+```
+
+---
+
+## 🔹 **14\. XPath using** `following-sibling` and `preceding-sibling`
+
+```java
+//label[text()='Username']/following-sibling::input
+//input[@id='email']/preceding-sibling::label
+```
+
+---
+
+## 🔹 **15\. Difference Between** `following` and `following-sibling`
+
+| Axis | Meaning | Example |
+| --- | --- | --- |
+| `following` | All elements after current | `//h2/following::input` |
+| `following-sibling` | Only siblings after current | `//h2/following-sibling::input` |
+
+---
+
+## 🔹 **16\. XPath for Last Element**
+
+```java
+(//input[@type='text'])[last()]
+```
+
+---
+
+## 🔹 **17\. How do you find element inside iframe using XPath?**
+
+You must **switch to the iframe first**:
+
+```java
+driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='frame1']")));
+driver.findElement(By.xpath("//button[text()='Submit']")).click();
+```
+
+---
+
+## 🔹 **18\. Difference Between XPath and CSS Selector**
+
+| Feature | XPath | CSS Selector |
+| --- | --- | --- |
+| Syntax | XML path syntax | CSS rule syntax |
+| Direction | Supports both forward & backward | Only forward |
+| Text match | Yes (`text()`) | No direct way |
+| Performance | Slightly slower | Faster |
+| Readability | Complex | Cleaner |
+
+---
+
+## 🔹 **19\. What are Common XPath Errors?**
+
+| Error | Meaning |
+| --- | --- |
+| `InvalidSelectorException` | XPath syntax invalid |
+| `NoSuchElementException` | Element not found |
+| `StaleElementReferenceException` | Element changed in DOM |
+
+---
+
+## 🔹 **20\. Real-time XPath Examples in Selenium**
+
+```java
+//input[@placeholder='Search']
+//button[contains(@class,'submit-btn')]
+//div[@id='menu']//a[text()='Products']
+//span[contains(.,'Welcome')]
+```
+
+---
+
+## 🔹 **21\. XPath to Find Button Inside Specific Section**
+
+```java
+//div[@id='login-section']//button[text()='Login']
+```
+
+---
+
+## 🔹 **22\. Find Element Based on Text of Another Element**
+
+```java
+//label[text()='Email']/following::input[1]
+```
+
+---
+
+## 🔹 **23\. XPath to Find Link by Partial HREF**
+
+```java
+//a[contains(@href,'signup')]
+```
+
+---
+
+## 🔹 **24\. XPath to Get Element by Position in Group**
+
+```java
+(//div[@class='product'])[5]
+```
+
+---
+
+## 🔹 **25\. XPath for SVG Elements**
+
+```java
+//*[name()='svg']//*[name()='path']
+```
+
+---
+
+## 🔹 **26\. XPath with Logical Operators**
+
+```java
+//input[@type='text' and @name='user']
+//button[@id='submit' or @class='btn']
+```
+
+---
+
+## 🔹 **27\. XPath for Input Inside Table**
+
+```java
+//table[@id='userTable']//tr[2]/td[3]//input
+```
+
+---
+
+## 🔹 **28\. XPath to Get Parent of Element with Certain Text**
+
+```java
+//span[text()='Total']/parent::div
+```
+
+---
+
+## 🔹 **29\. XPath Using** `normalize-space()`
+
+```java
+//button[normalize-space(text())='Login']
+```
+
+→ Removes leading/trailing/multiple spaces before matching.
+
+---
+
+## 🔹 **30\. XPath with Variable in Selenium**
+
+```java
+String user = "admin";
+driver.findElement(By.xpath("//input[@value='" + user + "']")).click();
+```
+
+---
+
+# 🎯 **Pro Interview-Level Questions**
+
+| Question | Quick Answer |
+| --- | --- |
+| **Why use XPath when ID is available?** | When ID is dynamic or not unique. |
+| **What’s the performance impact of XPath?** | Slightly slower than CSS, but more flexible. |
+| **Which is better for text-based locators?** | XPath (supports `text()`). |
+| **What’s** `.` in XPath? | Refers to the current node. |
+| **Can you move backwards in DOM using XPath?** | Yes (e.g., `parent`, `preceding`, `ancestor`). |
+
 ## 🎯 Topics in XPath 1.0 (to cover via questions)
 
 Some of the main topics in XPath 1.0 that should be tested:
@@ -964,8 +1286,7 @@ Using the playground page, one can craft questions against its HTML structure (l
     
 70. Use **complex path chaining** combining many features above.
     
-
-1. Username input
+71. Username input
     
 
 ```bash
