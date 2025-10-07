@@ -544,7 +544,7 @@ Private Key: Decrypts → "Hello"
 
 When you visit a secure website (like [https://google.com](https://google.com)):
 
-1. Browser and server **exchange publi****c keys**.
+1. Browser and server **exchange publi\*\*\*\*c keys**.
     
 2. Browser **encrypts** your data using the server’s public key.
     
@@ -560,8 +560,8 @@ When you visit a secure website (like [https://google.com](https://google.com)):
 | Concept | Purpose | Key Type | Example Use |
 | --- | --- | --- | --- |
 | **Encryption** | Hide data | Public or Secret key | Sending secure data |
-| **D****ecryption** | Reveal data | Same or paired key | Reading secure data |
-| **Sym****metric Encryption** | Same key for both | Secret key | Database encryption |
+| **D\*\*\*\*ecryption** | Reveal data | Same or paired key | Reading secure data |
+| **Sym\*\*\*\*metric Encryption** | Same key for both | Secret key | Database encryption |
 | **Asymmetric Encryption** | Different keys | Public/Private | HTTPS, Email security |
 
 ## 🧩 **What is Encoding and Decoding?**
@@ -867,35 +867,35 @@ given()
 * Safer for public APIs
     
 
-# **RestAssur****ed**
+# **RestAssur\*\*\*\*ed**
 
-**RestAssured** is a **Java-based library** used for **testing RESTful A****PIs**.  
+**RestAssured** is a **Java-based library** used for **testing RESTful A\*\*\*\*PIs**.  
 It supports all **HTTP** requests (GET, POST, PUT, PATCH, DELETE, etc.) and validate responses easily without writing a lot of boilerplate code.
 
-Lets Assume as a tool that allows you to act like a browser or mobile app, but from your test scripts — so you can **send API calls, re****ceive responses, and verify** **them**.
+Lets Assume as a tool that allows you to act like a browser or mobile app, but from your test scripts — so you can **send API calls, re\*\*\*\*ceive responses, and verify** **them**.
 
 ---
 
-## **Key Point****s**
+## **Key Point\*\*\*\*s**
 
 * **Purpose** → Automates testing of REST APIs.
     
 * **Language** → Java (can also be used in Kotlin, Groovy, etc.).
     
-* **Inte****gration** → Works well with TestNG, JUnit, Maven, and Jenkins.
+* **Inte\*\*\*\*gration** → Works well with TestNG, JUnit, Maven, and Jenkins.
     
-* **Data f****ormats sup****ported** → JSON, XML, HTML, and plain text.
+* **Data formats supported** → JSON, XML, HTML, and plain text.
     
-* **Asse****rtions** → Built-in BDD-style syntax (`given-when-then`) and **Hamcrest match****ers** for validation.
+* **Asse\*\*\*\*rtions** → Built-in BDD-style syntax (`given-when-then`) and **Hamcrest match\*\*\*\*ers** for validation.
     
 
 ---
 
-## **Why QA & Au****tomation Testers U****se It**
+## **Why QA & Automation Testers Use It**
 
-1. No need to manually create `HttpURLConnection` or `HttpC``lient` code.
+1. No need to manually create `HttpURLConnection` or `HttpClient` code.
     
-2. Supports **BDD-style syntax** → `given().when().then``()` makes scripts easy to read.
+2. Supports **BDD-style syntax** → `given().when().then()` makes scripts easy to read.
     
 3. Can send requests with:
     
@@ -1059,1415 +1059,365 @@ a1.a().b().c();
 
 **Advantage of method chaining is the code optimization.**
 
-### Rest Assured Class Architecture
+# Rest Assured Class Architecture
 
-## 🧩 Core Components of RestAssured
+# 🧩 REST ASSURED ALL COMPONENTS
 
-### 1\. **RestAssured (Class)**
+## 1\. `io.restassured.RestAssured` (Main entry & config class)
 
-* **Role**: Serves as the entry point for initiating API requests.
+**Purpose / How used:**
+
+* Global configuration entry point
     
-* **Key Methods**:
+* Static methods for starting requests
     
-    * `given()`: Prepares a new request specification.
-        
-    * `when()`: Specifies the HTTP method to be executed.
-        
-    * `then()`: Validates the response and provides assertion methods.
-        
-    * `baseUri()`, `basePath()`, `port()`: Set global configurations for the API base URI, path, and port.
-        
-    * `auth()`: Configures authentication mechanisms.
-        
-    * `proxy()`: Sets up proxy configurations.
-        
-    * `config()`: Allows customization of the RestAssured configuration.
-        
+* Holds static fields for default request/response specs and config
+    
 
-### 2\. **RequestSpecification (Interface)**
-
-* **Role**: Defines the structure and configuration of an HTTP request.
-    
-* **Key Methods**:
-    
-    * `header()`, `queryParam()`, `formParam()`: Add headers and parameters to the request.
-        
-    * `body()`: Sets the request body.
-        
-    * `auth()`: Configures authentication for the request.
-        
-    * `config()`: Sets specific configurations for this request.
-        
-    * `spec()`: Allows reuse of existing request specifications.
-        
-
-### 3\. **RequestSender (Interface)**
-
-* **Role**: Represents the action of sending an HTTP request.
-    
-* **Key Methods**:
-    
-    * `get()`, `post()`, `put()`, `delete()`, `patch()`: Execute the corresponding HTTP methods.
-        
-    * `then()`: Returns a `Response` object for further validation.
-        
-
-### 4\. **Response (Interface)**
-
-* **Role**: Represents the HTTP response received after executing a request.
-    
-* **Key Methods**:
-    
-    * `getStatusCode()`, `getBody()`, `getHeader()`: Retrieve status code, body, and headers from the response.
-        
-    * `jsonPath()`, `xmlPath()`: Parse the response body as JSON or XML.
-        
-    * `then()`: Returns a `ValidatableResponse` for assertions.
-        
-
-### 5\. **ValidatableResponse (Interface)**
-
-* **Role**: Provides methods to validate and assert the response.
-    
-* **Key Methods**:
-    
-    * `statusCode()`, `body()`, `header()`: Assert specific aspects of the response.
-        
-    * `log()`: Logs the response for debugging purposes.
-        
-    * `extract()`: Extracts data from the response for further use.
-        
-
-### 6\. **AuthenticationSpecification (Interface)**
-
-* **Role**: Defines methods for configuring authentication mechanisms.
-    
-* **Key Methods**:
-    
-    * `basic()`, `certificate()`, `oauth2()`: Configure different authentication methods.
-        
-    * `preemptive()`: Sets up preemptive authentication.
-        
-
-### 7\. **Filter (Interface)**
-
-* **Role**: Allows interception and modification of requests and responses.
-    
-* **Key Implementations**:
-    
-    * `RequestLoggingFilter`, `ResponseLoggingFilter`: Log request and response details.
-        
-    * `AuthenticationFilter`: Handles authentication during request execution.
-        
-    * `LoggingFilter`: Provides logging capabilities for requests and responses.
-        
+| Method / Field | Return / Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `baseURI` | `String` | Set base URI for all requests | e.g. `RestAssured.baseURI = "`[`https://api.example.com`](https://api.example.com)`"` |
+| `basePath` | `String` | Set base path appended to baseURI | e.g. `RestAssured.basePath = "/v1"` |
+| `port` | `int` | Set default port | e.g. `RestAssured.port = 443` |
+| `requestSpecification` | `RequestSpecification` | Global default request spec | All requests use this if no spec given |
+| `responseSpecification` | `ResponseSpecification` | Global default response spec | Apply default validation |
+| `defaultParser` | `Parser` | Default parser for unknown content-types | e.g. `Parser.JSON` |
+| `authentication` | `AuthenticationScheme` | Default authentication scheme | Applied to all requests |
+| `urlEncodingEnabled(boolean)` | void | Enable or disable URL encoding | `RestAssured.urlEncodingEnabled = false` |
+| `given()` | `RequestSpecification` | Start building a request | `given().header(...).when().get(...)` |
+| `with()` | `RequestSpecification` | Alias for `given()` | Same as `given()` |
+| `when()` | `RequestSpecification` / `RequestSender` | For readability / chaining | Usually after `given()` |
+| `expect()` | `ResponseSpecification` | Validation alias (older style) | Equivalent to `.then()` |
+| `get(String path)` | `Response` | Send GET to path | Shortcut for `given().when().get(path)` |
+| `post(String path)` | `Response` | Send POST to path |  |
+| `put(String path)` | `Response` | Send PUT to path |  |
+| `delete(String path)` | `Response` | Send DELETE to path |  |
+| `patch(String path)` | `Response` | Send PATCH to path |  |
+| `options(String path)` | `Response` | Send OPTIONS |  |
+| `head(String path)` | `Response` | Send HEAD |  |
+| `config(RestAssuredConfig config)` | void | Set config settings | e.g. timeouts, SSL, encoders |
+| `reset()` | void | Reset all RestAssured config to defaults | Useful between tests |
+| `registerParser(String contentType, Parser parser)` | void | Custom mapping for content-type | e.g. for `text/plain` as JSON |
 
 ---
 
-## 🔄 Method Chaining Flow
+## 2\. `io.restassured.specification.RequestSpecification` (Interface)
 
-RestAssured's design supports method chaining through interfaces that return the same type or compatible types, enabling a fluent API. For example:
+**Purpose / How used:**
+
+* Builders for HTTP request: headers, query params, body, cookies, auth
+    
+* Returned by `given()` / `with()`
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `baseUri(String uri)` | `RequestSpecification` | Set URI for this request | Overrides global baseURI |
+| `basePath(String path)` | `RequestSpecification` | Set request base path |  |
+| `port(int port)` | `RequestSpecification` | Set request port |  |
+| `header(String name, Object value)` | `RequestSpecification` | Add single header |  |
+| `headers(Map<String, ?> headers)` | `RequestSpecification` | Add many headers |  |
+| `accept(String contentType)` | `RequestSpecification` | Set Accept header |  |
+| `contentType(String contentType)` | `RequestSpecification` | Set Content-Type header |  |
+| `body(Object body)` | `RequestSpecification` | Set request body | Accepts POJO, String, byte\[\], etc. |
+| `param(String name, Object value)` | `RequestSpecification` | Add parameter (query or form) |  |
+| `queryParam(String name, Object value)` | `RequestSpecification` | Add query parameter |  |
+| `pathParam(String name, Object value)` | `RequestSpecification` | Add path param |  |
+| `formParam(String name, Object value)` | `RequestSpecification` | For form data |  |
+| `cookie(String name, Object value)` | `RequestSpecification` | Add cookie |  |
+| `cookies(Map<String, ?> cookies)` | `RequestSpecification` | Add multiple cookies |  |
+| `auth()` | `AuthenticationSpecification` | For auth (basic, digest, oauth) |  |
+| `filter(Filter filter)` | `RequestSpecification` | Add filter (e.g. logging) |  |
+| `log()` | `RequestSpecification` | Logging DSL | Then `.all()`, `.headers()`, `.body()`, `.ifValidationFails()` |
+| `relaxedHTTPSValidation()` | `RequestSpecification` | Ignore SSL certificate issues | Useful in test env |
+| `spec(RequestSpecification specification)` | `RequestSpecification` | Apply an existing spec | Reuse prebuilt spec |
+| `when()` | `RequestSender` / `RequestSpecification` | Move to sending request stage | Usually next is `.get()`, `.post()`, etc. |
+
+---
+
+## 3\. `io.restassured.specification.ResponseSpecification` (Interface)
+
+**Purpose / How used:**
+
+* Define expected response behaviors that you reuse (status, body, headers)
+    
+* Used in `.then().spec(...)`
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `expectStatusCode(int code)` | `ResponseSpecification` | Expect HTTP code |  |
+| `statusCode(int code)` | `ResponseSpecification` | Alias in newer versions |  |
+| `expectContentType(String type)` | `ResponseSpecification` | Expected content-type |  |
+| `expectHeader(String name, Matcher<?> matcher)` | `ResponseSpecification` | Validate header |  |
+| `expectHeader(String name, String value)` | `ResponseSpecification` | Exact header value |  |
+| `expectBody(String path, Matcher<?> matcher)` | `ResponseSpecification` | Validate JSON/xml body |  |
+| `body(String path, Matcher<?> matcher)` | `ResponseSpecification` | Alias or newer style |  |
+| `log()` | `ResponseSpecification` | Logging DSL (response) | `.all()`, `.body()`, `.headers()` |
+| `spec(ResponseSpecification specification)` | `ResponseSpecification` | Combine specs | Chain validations |
+
+---
+
+## 4\. `io.restassured.builder.RequestSpecBuilder`
+
+**Purpose / How used:**
+
+* To build a `RequestSpecification` in a modular / reusable way
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `setBaseUri(String uri)` | `RequestSpecBuilder` | Set base URI |  |
+| `setBasePath(String path)` | `RequestSpecBuilder` | Set base path |  |
+| `setPort(int port)` | `RequestSpecBuilder` | Set port |  |
+| `addHeader(String name, Object value)` | `RequestSpecBuilder` | Add header |  |
+| `addQueryParam(String name, Object value)` | `RequestSpecBuilder` | Add query param |  |
+| `addPathParam(String name, Object value)` | `RequestSpecBuilder` | Add path param |  |
+| `setContentType(ContentType contentType)` | `RequestSpecBuilder` | Set content-type |  |
+| `setBody(Object body)` | `RequestSpecBuilder` | Add body |  |
+| `addCookie(String name, Object value)` | `RequestSpecBuilder` | Add cookie |  |
+| `setAuth(AuthenticationScheme auth)` | `RequestSpecBuilder` | Set auth scheme |  |
+| `setConfig(RestAssuredConfig config)` | `RequestSpecBuilder` | Set config for this spec |  |
+| `log(LogDetail detail)` | `RequestSpecBuilder` | Log detail |  |
+| `build()` | `RequestSpecification` | Create spec instance |  |
+
+---
+
+## 5\. `io.restassured.builder.ResponseSpecBuilder`
+
+**Purpose / How used:**
+
+* Build `ResponseSpecification` in reusable ways
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `expectStatusCode(int code)` | `ResponseSpecBuilder` | Expect HTTP code |  |
+| `expectContentType(ContentType type)` | `ResponseSpecBuilder` | Expect content type |  |
+| `expectHeader(String name, String value)` | `ResponseSpecBuilder` | Expected header |  |
+| `expectHeader(String name, Matcher<?> matcher)` | `ResponseSpecBuilder` | Header matcher |  |
+| `expectBody(String path, Matcher<?> matcher)` | `ResponseSpecBuilder` | Body assertion |  |
+| `expectResponseTime(Matcher<Long> matcher)` | `ResponseSpecBuilder` | Response time check |  |
+| `log(LogDetail detail)` | `ResponseSpecBuilder` | Logging detail for response |  |
+| `build()` | `ResponseSpecification` | Create the spec |  |
+
+---
+
+## 6\. `io.restassured.response.Response` (and associated interfaces)
+
+**Purpose / How used:**
+
+* Represents HTTP response
+    
+* Methods to extract status, headers, body, cookies, JSON/XML paths
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `getStatusCode()` | `int` | HTTP status code |  |
+| `getStatusLine()` | `String` | HTTP status line |  |
+| `getBody()` | `ResponseBody` | Response body object |  |
+| `asString()` | `String` | Body as string | Equivalent to `getBody().asString()` |
+| `getHeader(String name)` | `String` | Single header |  |
+| `getHeaders()` | `Headers` | All headers |  |
+| `getCookie(String name)` | `String` | Cookie value |  |
+| `getCookies()` | `Map<String, String>` | All cookies |  |
+| `jsonPath()` | `JsonPath` | JSON path parser |  |
+| `xmlPath()` | `XmlPath` | XML path parser |  |
+| `time()` | `long` | Response time in ms |  |
+| `then()` | `ValidatableResponse` | Move to validation | Use `.then().statusCode(...)` etc. |
+| `peek()` | `Response` | Print response to console, return response |  |
+| `prettyPrint()` | `String` | Print formatted body |  |
+| `as(Class<T> cls)` | `<T>` | Deserialize body into POJO |  |
+| `path(String path)` | generics | Extract value via json/xml path |  |
+
+---
+
+## 7\. `io.restassured.response.ValidatableResponse` / `ValidatableResponseOptions`
+
+**Purpose / How used:**
+
+* Returned by `.then()` or `.expect()`
+    
+* Used to validate response with matchers
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `statusCode(int code)` | `ValidatableResponse` | Validate HTTP status code |  |
+| `body(String path, Matcher<?> matcher)` | `ValidatableResponse` | Validate response body |  |
+| `header(String name, Matcher<?> matcher)` | `ValidatableResponse` | Validate header |  |
+| `contentType(ContentType type)` | `ValidatableResponse` | Validate content type |  |
+| `spec(ResponseSpecification spec)` | `ValidatableResponse` | Apply a spec |  |
+| `time(Matcher<Long> matcher)` | `ValidatableResponse` | Validate response time |  |
+| `log().all()` / `log().body()` / `log().headers()` | `ValidatableResponse` | Logging methods in validation stage |  |
+
+---
+
+## 8\. `io.restassured.specification.AuthenticationSpecification`
+
+**Purpose / How used:**
+
+* For specifying authentication (basic, digest, OAuth) in request building
+    
+
+| Method | Return Type | Use / Shortcut | Notes |
+| --- | --- | --- | --- |
+| `basic(String username, String password)` | `RequestSpecification` | Use Basic authentication |  |
+| `digest(String username, String password)` | `RequestSpecification` | Digest auth |  |
+| `preemptive()` | `PreemptiveAuthSpec` | For preemptive auth | Used before `.basic()` or `.oauth2()` |
+| `oauth2(String token)` | `RequestSpecification` | Use OAuth2 token |  |
+| `none()` | `RequestSpecification` | No auth |  |
+
+---
+
+## 9\. Logging & Filter-related classes (partial)
+
+**Purpose / How used:**
+
+* For debugging / intercepting requests & responses
+    
+
+| Class / Interface | Methods / Use | Shortcut / Typical Use |
+| --- | --- | --- |
+| `Filter` | `Response filter(FilterableRequestSpecification, FilterableResponseSpecification, FilterContext)` | Add to request spec, used to log or modify requests/responses |
+| `RequestLoggingFilter` | Uses Filter interface | `given().filter(new RequestLoggingFilter())` |
+| `ResponseLoggingFilter` | Logs response | `given().filter(new ResponseLoggingFilter())` |
+| `SessionFilter` | Captures session cookies | `SessionFilter session = new SessionFilter(); given().filter(session)...` |
+| `SpecificationQuerier` | `query(RequestSpecification)` & `query(ResponseSpecification)` | Inspect spec internals |
+
+---
+
+# 🧩 REST ASSURED – MISCELLANEOUS & SUPPORT CLASSES
+
+## 🔹 10. `io.restassured.path.json.JsonPath`
+
+**Purpose / How:** Extract values from JSON responses using path expressions (like XPath for JSON).
+
+| Method | Return Type | Description / Use |
+| --- | --- | --- |
+| `get(String path)` | `Object` | Get value using JSON path |
+| `getInt(String path)` | `int` | Extract integer value |
+| `getString(String path)` | `String` | Extract string value |
+| `getList(String path)` | `List<?>` | Extract list |
+| `getMap(String path)` | `Map<?,?>` | Extract map |
+| `setRoot(String path)` | `JsonPath` | Change root element |
+| `prettify()` | `String` | Pretty print JSON |
+| `from(String json)` | `JsonPath` | Static: create JsonPath from String |
+| `getBoolean(String path)` | `boolean` | Extract boolean |
+| `getDouble(String path)` | `double` | Extract double |
+| `param(String key, Object value)` | `JsonPath` | Add parameter in path expression |
+
+✅ Example:
 
 ```java
-given()
-    .baseUri("https://api.example.com")
-    .header("Authorization", "Bearer token")
-    .body("{ \"name\": \"John\" }")
-.when()
-    .post("/users")
-.then()
-    .statusCode(201)
-    .body("name", equalTo("John"));
+String name = response.jsonPath().getString("data[0].employee_name");
 ```
 
-In this example:
-
-* `given()` returns a `RequestSpecification`.
-    
-* Methods like `baseUri()`, `header()`, and `body()` return the same `RequestSpecification`, allowing further configuration.
-    
-* `when()` returns a `RequestSender`.
-    
-* `post()` executes the HTTP POST method and returns a `Response`.
-    
-* `then()` returns a `ValidatableResponse` for assertions.
-    
-
 ---
 
-## 🧩 Summary Table
+## 🔹 11. `io.restassured.path.xml.XmlPath`
 
-| **Component** | **Type** | **Role** |
-| --- | --- | --- |
-| `RestAssured` | Class | Entry point for initiating requests |
-| `RequestSpecification` | Interface | Defines request structure and configuration |
-| `RequestSender` | Interface | Represents the action of sending a request |
-| `Response` | Interface | Represents the HTTP response |
-| `ValidatableResponse` | Interface | Provides methods for response validation |
-| `AuthenticationSpecification` | Interface | Configures authentication mechanisms |
-| `Filter` | Interface | Allows interception and modification of requests and responses |
-
-## **1️⃣ Overview of** `RestAssured` Class
-
-* **Package**: `io.restassured.RestAssured`
-    
-* **Type**: Public class
-    
-* **Role**:  
-    The `RestAssured` class is the **entry point** for creating requests in RestAssured.  
-    It provides **static methods** to configure requests, set authentication, base URIs, logging, and more.
-    
-
----
-
-## **2️⃣ Key Static Fields**
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `baseURI` | String | Base URI for all requests (e.g., [`https://reqres.in`](https://reqres.in)) |
-| `basePath` | String | Base path appended to the base URI |
-| `port` | int | Port number for requests |
-| `authenticationScheme` | AuthenticationScheme | Default authentication scheme (basic, oauth, etc.) |
-| `filters` | List&lt;Filter&gt; | Default request/response filters applied globally |
-| `config` | RestAssuredConfig | Global configuration object (timeouts, encoder, decoder, SSL, etc.) |
-
----
-
-## **3️⃣ Key Static Methods**
-
-### **Request Initialization**
+**Purpose / How:** Extract values from XML responses.
 
 | Method | Return Type | Description |
 | --- | --- | --- |
-| `given()` | RequestSpecification | Start building a request; the most common entry point |
-| `when()` | RequestSender | Start defining the HTTP method to execute |
-| `then()` | ValidatableResponse | Starts response validation directly from a request |
+| `get(String path)` | `Object` | Get value from XML |
+| `getString(String path)` | `String` | Extract text |
+| `getList(String path)` | `List<?>` | Extract list |
+| `getMap(String path)` | `Map<?,?>` | Extract map |
+| `from(String xml)` | `XmlPath` | Create from string |
+| `setRoot(String path)` | `XmlPath` | Set XML root path |
 
----
-
-### **Configuration Methods**
-
-| Method | Description |
-| --- | --- |
-| `baseURI(String uri)` | Set the global base URI |
-| `basePath(String path)` | Set the global base path |
-| `port(int port)` | Set the global port |
-| `rootPath(String rootPath)` | Default JSON/XML root path for response validation |
-| `config(RestAssuredConfig config)` | Apply global configuration |
-| `filters(List<Filter> filters)` | Add filters globally |
-| `authentication = AuthenticationScheme` | Set default authentication globally |
-
----
-
-### **Authentication Methods**
-
-| Method | Description |
-| --- | --- |
-| `auth().basic(user, pass)` | Basic authentication |
-| `auth().digest(user, pass)` | Digest authentication |
-| `auth().oauth2(token)` | OAuth2 authentication |
-| `auth().preemptive().basic(user, pass)` | Preemptive authentication |
-
----
-
-### **Logging & Filters**
-
-* `filters()` – Apply global filters (logging, reporting)
-    
-* Common filters:
-    
-    * `RequestLoggingFilter`
-        
-    * `ResponseLoggingFilter`
-        
-    * `CustomFilter` (user-defined)
-        
-
----
-
-### **Example Usage**
+✅ Example:
 
 ```java
-import static io.restassured.RestAssured.*;
-
-public class RestAssuredExample {
-    public static void main(String[] args) {
-        // Global configuration
-        baseURI = "https://reqres.in";
-        port = 443;
-        basePath = "/api";
-
-        // Sending a POST request
-        given()
-            .header("Content-Type", "application/json")
-            .body("{\"name\":\"John\", \"job\":\"Developer\"}")
-        .when()
-            .post("/users")
-        .then()
-            .statusCode(201)
-            .log().all();
-    }
-}
-```
-
-**Explanation**:
-
-* `given()` – Starts the request specification.
-    
-* `when().post("/users")` – Sends the HTTP POST request.
-    
-* `then()` – Validates the response.
-    
-* `baseURI`, `basePath`, and `port` are global static fields of `RestAssured`.
-    
-
----
-
-### **4️⃣ Internal Architecture of RestAssured Class**
-
-1. **Static entry points**: `given()`, `when()`, `then()`
-    
-2. **Global configurations**: Base URI, base path, port, filters, and authentication.
-    
-3. **Delegation**:
-    
-    * `given()` returns `RequestSpecificationImpl`
-        
-    * `when()` returns `RequestSender`
-        
-    * `then()` returns `ValidatableResponseImpl`
-        
-4. **Filters & logging** are applied either globally (via `RestAssured.filters()`) or per request (via `RequestSpecification.filters()`).
-    
-
----
-
-### ✅ **Key Points**
-
-* `RestAssured` is a **static utility class**; you rarely instantiate it.
-    
-* Most operations use **method chaining** starting from `given()`.
-    
-* It acts as a **facade** hiding the internal request/response objects.
-    
-* Supports **global configuration** and **per-request customization**.
-    
-
-## **1️⃣ Overview of RequestSpecification**
-
-* **Package:** `io.restassured.specification`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `RequestSpecification` represents a **request configuration** in RestAssured.  
-    It contains **headers, query/form parameters, body, cookies, authentication, and more**.
-    
-* Returned by `RestAssured.given()` and acts as the starting point for building a request.
-    
-
----
-
-## **2️⃣ Key Methods of RequestSpecification**
-
-### **A. Base Configuration**
-
-| Method | Description |
-| --- | --- |
-| `baseUri(String uri)` | Sets the base URI for the request. |
-| `basePath(String path)` | Sets the base path to append to the URI. |
-| `port(int port)` | Sets the port for the request. |
-| `rootPath(String path)` | Sets a default root path for JSON/XML response validation. |
-| `config(RestAssuredConfig config)` | Apply request-specific configuration (timeouts, encoder/decoder, SSL). |
-
----
-
-### **B. Headers and Cookies**
-
-| Method | Description |
-| --- | --- |
-| `header(String name, Object value)` | Adds a single header. |
-| `headers(Map<String,Object>)` | Add multiple headers at once. |
-| `cookie(String name, Object value)` | Add a single cookie. |
-| `cookies(Map<String,Object>)` | Add multiple cookies. |
-
----
-
-### **C. Query, Form, Path Parameters**
-
-| Method | Description |
-| --- | --- |
-| `queryParam(String name, Object value)` | Add a query parameter to the URL. |
-| `queryParams(Map<String,Object>)` | Add multiple query parameters. |
-| `pathParam(String name, Object value)` | Add path parameter for dynamic URL segments. |
-| `formParam(String name, Object value)` | Add form parameters for `application/x-www-form-urlencoded` POST requests. |
-
----
-
-### **D. Request Body**
-
-| Method | Description |
-| --- | --- |
-| `body(Object object)` | Set the request body as string, JSON, or POJO. |
-| `body(String body)` | Set the raw string body. |
-| `body(byte[] bytes)` | Set binary data as body. |
-| `multiPart(String controlName, Object file)` | Add file or form parts for multipart requests. |
-
----
-
-### **E. Authentication**
-
-| Method | Description |
-| --- | --- |
-| `auth()` | Returns `AuthenticationSpecification` for configuring authentication. |
-| `auth().basic(user, pass)` | Basic auth. |
-| `auth().digest(user, pass)` | Digest auth. |
-| `auth().oauth2(token)` | OAuth2 token auth. |
-| `auth().preemptive().basic(user, pass)` | Preemptive authentication. |
-
----
-
-### **F. Logging and Filters**
-
-| Method | Description |
-| --- | --- |
-| `log().all()` | Log all request details. |
-| `log().headers()` | Log only headers. |
-| `filters(List<Filter> filters)` | Apply filters (logging, reporting, custom). |
-
----
-
-### **G. Miscellaneous**
-
-| Method | Description |
-| --- | --- |
-| `accept(String mimeType)` | Set the Accept header. |
-| `contentType(String mimeType)` | Set the Content-Type header. |
-| `spec(RequestSpecification spec)` | Reuse an existing request specification. |
-| `sessionId(String sessionId)` | Set session ID for request. |
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-import io.restassured.specification.RequestSpecification;
-
-public class RequestSpecExample {
-    public static void main(String[] args) {
-        RequestSpecification request = given()
-            .baseUri("https://reqres.in")
-            .basePath("/api")
-            .header("Content-Type", "application/json")
-            .queryParam("page", 2)
-            .body("{\"name\":\"John\",\"job\":\"Developer\"}")
-            .auth().basic("user", "pass");
-
-        request
-            .when().post("/users")
-            .then().statusCode(201)
-            .log().all();
-    }
-}
-```
-
-**Explanation**:
-
-1. `given()` → Returns `RequestSpecification`.
-    
-2. `.baseUri()`, `.basePath()`, `.header()`, `.body()` → Configure request.
-    
-3. `.auth()` → Add authentication.
-    
-4. `request.when().post()` → Send request.
-    
-5. `.then()` → Validate response.
-    
-
----
-
-## **4️⃣ Internal Flow**
-
-```java
-RestAssured.given() → RequestSpecificationImpl
-    └─ Stores all headers, params, body, cookies, authentication
-    └─ Can attach filters and logging
-    └─ Supports method chaining
-RequestSpecification → RequestSender (when()) → Response → ValidatableResponse (then())
+XmlPath xml = new XmlPath(response.asString());
+String city = xml.getString("Response.City");
 ```
 
 ---
 
-## **5️⃣ Key Points**
+## 🔹 12. `io.restassured.config.RestAssuredConfig`
 
-* `RequestSpecification` is **chainable**; most methods return the same object.
-    
-* Can be **global or reusable** by defining a `RequestSpecification` and passing it via `.spec()`.
-    
-* Encapsulates **all aspects of an HTTP request**: headers, params, body, cookies, authentication, logging.
-    
-* Core interface in **all RestAssured tests**.
-    
+**Purpose / How:** Central configuration for RestAssured.
 
-## **1️⃣ Overview of** `RequestSender`
+| Method | Return Type | Description / Use |
+| --- | --- | --- |
+| `newConfig()` | `RestAssuredConfig` | Create new config |
+| `encoderConfig(EncoderConfig config)` | `RestAssuredConfig` | Configure encoding |
+| `decoderConfig(DecoderConfig config)` | `RestAssuredConfig` | Configure decoding |
+| `logConfig(LogConfig config)` | `RestAssuredConfig` | Control logging |
+| `sessionConfig(SessionConfig config)` | `RestAssuredConfig` | Manage sessions |
+| `sslConfig(SSLConfig config)` | `RestAssuredConfig` | Manage SSL certificates |
+| `httpClientConfig(HttpClientConfig config)` | `RestAssuredConfig` | Configure Apache HTTPClient options |
+| `redirectConfig(RedirectConfig config)` | `RestAssuredConfig` | Manage redirect behavior |
 
-* **Package:** `io.restassured.specification`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `RequestSender` is responsible for **sending the HTTP request** built via `RequestSpecification`.  
-    It provides the HTTP method calls like `get()`, `post()`, `put()`, `delete()`, `patch()`, etc.
-    
-* Typically returned by `.when()` in RestAssured:
-    
+✅ Example:
 
 ```java
-given()            // RequestSpecification
-.when()            // returns RequestSender
-    .get("/users") // executes request
-.then();           // ValidatableResponse
+RestAssured.config = RestAssuredConfig.newConfig()
+     .sslConfig(new SSLConfig().relaxedHTTPSValidation())
+     .logConfig(new LogConfig().enableLoggingOfRequestAndResponseIfValidationFails());
 ```
 
 ---
 
-## **2️⃣ Key Methods of RequestSender**
+## 🔹 13. `io.restassured.http.ContentType`
 
-### **A. HTTP Methods**
+**Purpose / How:** Enum for supported content types.
 
-| Method | Description |
+| Constant | Meaning |
 | --- | --- |
-| `get(String path, Object... pathParams)` | Sends an HTTP GET request to the specified path. |
-| `post(String path, Object... pathParams)` | Sends an HTTP POST request to the specified path. |
-| `put(String path, Object... pathParams)` | Sends an HTTP PUT request to the specified path. |
-| `delete(String path, Object... pathParams)` | Sends an HTTP DELETE request to the specified path. |
-| `patch(String path, Object... pathParams)` | Sends an HTTP PATCH request to the specified path. |
-| `head(String path, Object... pathParams)` | Sends an HTTP HEAD request to the specified path. |
-| `options(String path, Object... pathParams)` | Sends an HTTP OPTIONS request to the specified path. |
+| `ContentType.JSON` | `application/json` |
+| `ContentType.XML` | `application/xml` |
+| `ContentType.TEXT` | `text/plain` |
+| `ContentType.HTML` | `text/html` |
+| `ContentType.URLENC` | `application/x-www-form-urlencoded` |
+| `ContentType.BINARY` | `application/octet-stream` |
+| `ContentType.ANY` | `*/*` |
 
-> All HTTP methods return a `Response` object.
-
----
-
-### **B. Formatted Requests**
-
-* Methods also exist to **send requests with dynamic path parameters**:
-    
+✅ Example:
 
 ```java
-get("/users/{id}", 2)       // id=2 will replace {id} in path
-post("/users/{id}", 3)      // id=3 will replace {id} in path
-```
-
-* This supports **path templating**.
-    
-
----
-
-### **C. Asynchronous and Specialized Requests**
-
-* Some versions/extensions of RestAssured support **async requests** using `async()` (advanced usage).
-    
-* Multipart requests are typically configured via `RequestSpecification` rather than `RequestSender`.
-    
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-
-public class RequestSenderExample {
-    public static void main(String[] args) {
-        given()
-            .baseUri("https://reqres.in")
-            .basePath("/api")
-            .queryParam("page", 2)
-        .when()
-            .get("/users")  // RequestSender executes GET
-        .then()
-            .statusCode(200)
-            .log().all();
-    }
-}
-```
-
-**Flow Explained:**
-
-1. `given()` → Returns `RequestSpecification`.
-    
-2. `.when()` → Returns `RequestSender`.
-    
-3. `.get("/users")` → Sends HTTP GET, returns `Response`.
-    
-4. `.then()` → Converts `Response` to `ValidatableResponse` for assertions.
-    
-
----
-
-## **4️⃣ Internal Flow**
-
-```java
-RequestSpecification → when() → RequestSender
-    └─ Executes HTTP request via Apache HttpClient / Java HTTP client
-    └─ Applies headers, body, params, cookies, filters
-    └─ Returns Response
-Response → then() → ValidatableResponse
+given().contentType(ContentType.JSON)
 ```
 
 ---
 
-## **5️⃣ Key Points**
+## 🔹 14. `io.restassured.parsing.Parser`
 
-* `RequestSender` is **stateless**; it simply executes the request built by `RequestSpecification`.
-    
-* Supports **all HTTP methods** (`GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `HEAD`, `OPTIONS`).
-    
-* Integrates **path parameters** and **query parameters** during execution.
-    
-* Works with **filters**, **authentication**, and **logging** applied in `RequestSpecification`.
-    
+**Purpose / How:** Defines how to parse response based on content type.
 
----
-
-If you want, I can prepare a **full RestAssured architecture diagram** showing **RequestSpecification → RequestSender → Response → ValidatableResponse**, including **filters and authentication flow** — it’s perfect for interview prep.
-
-## **1️⃣ Overview of** `Response`
-
-* **Package:** `io.restassured.response`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `Response` encapsulates all the information received from the server after an HTTP request.  
-    It provides **methods to access status codes, headers, cookies, body content**, and allows **parsing JSON/XML responses**.
-    
-* Returned by `RequestSender` methods like `get()`, `post()`, `put()`, `delete()`, etc.
-    
-
-```java
-Response response = given()
-                        .baseUri("https://reqres.in")
-                        .basePath("/api")
-                    .when()
-                        .get("/users/2");
-```
-
----
-
-## **2️⃣ Key Methods of Response**
-
-### **A. Status and Line**
-
-| Method | Description |
+| Constant | Description |
 | --- | --- |
-| `getStatusCode()` | Returns HTTP status code (e.g., 200, 404). |
-| `getStatusLine()` | Returns the full HTTP status line (e.g., "HTTP/1.1 200 OK"). |
-| `getDetailedCookies()` | Returns cookies as a map. |
-| `getContentType()` | Returns the Content-Type header. |
+| `Parser.JSON` | Parse as JSON |
+| `Parser.XML` | Parse as XML |
+| `Parser.HTML` | Parse as HTML |
+| `Parser.TEXT` | Parse as plain text |
+| `Parser.NONE` | No parsing |
 
----
-
-### **B. Headers**
-
-| Method | Description |
-| --- | --- |
-| `getHeader(String name)` | Returns the value of a specific header. |
-| `getHeaders()` | Returns all headers as `Headers` object. |
-| `hasHeaderWithName(String name)` | Checks if a header exists. |
-
----
-
-### **C. Cookies**
-
-| Method | Description |
-| --- | --- |
-| `getCookie(String name)` | Get a specific cookie. |
-| `getCookies()` | Returns all cookies as a `Map<String, String>`. |
-
----
-
-### **D. Response Body**
-
-| Method | Description |
-| --- | --- |
-| `getBody()` | Returns the body as a `ResponseBody` object. |
-| `asString()` | Returns body as a raw string. |
-| `asByteArray()` | Returns body as bytes. |
-| `as(InputStream.class)` | Returns body as input stream. |
-
----
-
-### **E. JSON/XML Parsing**
-
-| Method | Description |
-| --- | --- |
-| `jsonPath()` | Returns `JsonPath` object to query JSON body using GPath expressions. |
-| `xmlPath()` | Returns `XmlPath` object to query XML body using GPath expressions. |
-
-**Example:**
+✅ Example:
 
 ```java
-String firstName = response.jsonPath().getString("data.first_name");
-String lastName = response.jsonPath().getString("data.last_name");
+RestAssured.registerParser("text/plain", Parser.JSON);
 ```
 
 ---
 
-### **F. Validations**
+## 🔹 15. `io.restassured.authentication.*`
 
-* `then()` → Converts `Response` into `ValidatableResponse` for assertions.
-    
-* Example:
-    
+### 🔸 Common Classes:
 
-```java
-response.then().statusCode(200).body("data.id", equalTo(2));
-```
-
----
-
-### **G. Miscellaneous**
-
-| Method | Description |
+| Class / Interface | Purpose / Description |
 | --- | --- |
-| `prettyPrint()` | Prints response body in readable format. |
-| `prettyPeek()` | Prints response and returns it for chaining. |
-| `peek()` | Prints a summary of the response (status, headers). |
-| `path(String path)` | Extracts value from body using GPath. |
-| `as(Class<T> cls)` | Deserialize response body into a POJO. |
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-import io.restassured.response.Response;
-
-public class ResponseExample {
-    public static void main(String[] args) {
-        Response response = given()
-                                .baseUri("https://reqres.in")
-                                .basePath("/api")
-                            .when()
-                                .get("/users/2");
-
-        // Status and headers
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getHeader("Content-Type"));
-
-        // Body as string
-        System.out.println(response.asString());
-
-        // Extract JSON value
-        String firstName = response.jsonPath().getString("data.first_name");
-        System.out.println(firstName);
-
-        // Validatable
-        response.then().statusCode(200).body("data.id", equalTo(2));
-    }
-}
-```
-
----
-
-## **4️⃣ Internal Flow**
-
-```java
-RequestSpecification → RequestSender (when()) → Response
-    └─ Captures HTTP status code, headers, cookies, body
-    └─ Provides methods for parsing (JSON, XML)
-    └─ Supports logging and validation via then()
-```
-
----
-
-## **5️⃣ Key Points**
-
-* `Response` is **immutable**; it reflects the server’s returned data.
-    
-* Works seamlessly with **JSON/XML parsing**, **POJO deserialization**, and **GPath expressions**.
-    
-* Enables **method chaining** by converting into `ValidatableResponse`.
-    
-* Supports both **raw data access** (asString(), asByteArray()) and **structured access** (jsonPath(), xmlPath()).
-    
-
----
-
-If you want, I can continue with a **detailed deep dive into** `ValidatableResponse` next, completing the RestAssured **core interface chain** from `RequestSpecification → RequestSender → Response → ValidatableResponse`.
-
-## **1️⃣ Overview of** `ValidatableResponse`
-
-* **Package:** `io.restassured.response`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `ValidatableResponse` represents a **response after execution** that can be **validated/asserted**.  
-    It is returned by `Response.then()` and supports **method chaining** for fluent assertions.
-    
-
-```java
-ValidatableResponse validatable = 
-    given().when().get("/users/2").then();
-```
-
----
-
-## **2️⃣ Key Methods of ValidatableResponse**
-
-### **A. Status Code & Line Validation**
-
-| Method | Description |
-| --- | --- |
-| `statusCode(int expected)` | Validate exact HTTP status code. |
-| `statusLine(String expected)` | Validate the full status line. |
-| `statusCode(Matcher<Integer> matcher)` | Use Hamcrest matcher for status code validation. |
-
-**Example:**
-
-```java
-response.then().statusCode(200).statusLine("HTTP/1.1 200 OK");
-```
-
----
-
-### **B. Header Validation**
-
-| Method | Description |
-| --- | --- |
-| `header(String name, Matcher<?> matcher)` | Validate a specific header with a matcher. |
-| `headers(String name1, Matcher<?> m1, String name2, Matcher<?> m2, ...)` | Validate multiple headers at once. |
-| `contentType(String expected)` | Validate Content-Type header. |
-
----
-
-### **C. Body Validation**
-
-| Method | Description |
-| --- | --- |
-| `body(String path, Matcher<?> matcher)` | Validate JSON/XML response body using GPath. |
-| `body(Matcher<?> matcher)` | Validate full body content. |
-| `body(String path, Object... expectedValues)` | Validate body values at given path. |
-
-**Example:**
-
-```java
-response.then()
-        .body("data.id", equalTo(2))
-        .body("data.first_name", equalTo("Janet"));
-```
-
----
-
-### **D. Cookie Validation**
-
-| Method | Description |
-| --- | --- |
-| `cookie(String name, Matcher<?> matcher)` | Validate a specific cookie. |
-| `cookies(Matcher<Map<String, ?>> matcher)` | Validate all cookies. |
-
----
-
-### **E. Logging**
-
-| Method | Description |
-| --- | --- |
-| `log().all()` | Log status, headers, body. |
-| `log().headers()` | Log only headers. |
-| `log().body()` | Log only body. |
-| `log().ifValidationFails()` | Log only if a validation fails. |
-
----
-
-### **F. Extracting Data**
-
-* `extract()` returns `ExtractableResponse<Response>` to extract data for later use.
-    
-* Example:
-    
-
-```java
-String firstName = response.then()
-                           .extract()
-                           .path("data.first_name");
-```
-
----
-
-### **G. Advanced Validation**
-
-* Supports **Hamcrest matchers** for complex assertions:
-    
-
-```java
-response.then()
-        .body("data.id", allOf(greaterThan(0), lessThan(10)))
-        .body("data.first_name", startsWith("J"));
-```
-
-* Supports **multiple path assertions** in a single call.
-    
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-
-public class ValidatableResponseExample {
-    public static void main(String[] args) {
-        given()
-            .baseUri("https://reqres.in")
-            .basePath("/api")
-        .when()
-            .get("/users/2")
-        .then()
-            .statusCode(200)
-            .contentType("application/json; charset=utf-8")
-            .body("data.id", equalTo(2))
-            .body("data.first_name", equalTo("Janet"))
-            .log().all();
-    }
-}
-```
-
-**Explanation:**
-
-* `then()` → Converts `Response` into `ValidatableResponse`.
-    
-* `.statusCode()`, `.body()` → Validate status code and response body.
-    
-* `.log().all()` → Logs response details.
-    
-
----
-
-## **4️⃣ Internal Flow**
-
-```java
-RequestSpecification → RequestSender → Response → then() → ValidatableResponse
-    └─ Provides assertion methods
-    └─ Supports logging
-    └─ Allows extraction for further processing
-```
-
----
-
-## **5️⃣ Key Points**
-
-* `ValidatableResponse` is **immutable** and **chainable**.
-    
-* Supports **status, headers, body, cookies, and content-type validation**.
-    
-* Works seamlessly with **Hamcrest matchers** for flexible and readable assertions.
-    
-* `.extract()` allows you to **reuse response data** for subsequent requests or assertions.
-    
-* Usually the **last step in RestAssured chain** for validation.
-    
-
----
-
-✅ After this, we have fully covered **the RestAssured core chain**:
-
-```java
-RequestSpecification → RequestSender → Response → ValidatableResponse
-```
-
-## **1️⃣ Overview of** `ResponseSpecification`
-
-* **Package:** `io.restassured.specification`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `ResponseSpecification` defines **reusable response expectations**.  
-    Instead of writing the same assertions repeatedly, you can define a **response specification** and reuse it across multiple requests.
-    
-
-```java
-ResponseSpecification responseSpec = new ResponseSpecBuilder()
-                                        .expectStatusCode(200)
-                                        .expectContentType("application/json")
-                                        .build();
-```
-
-* Returned by `Response.then()` after applying a `ResponseSpecification`.
-    
-
----
-
-## **2️⃣ Key Methods**
-
-### **A. Status & Headers**
-
-| Method | Description |
-| --- | --- |
-| `expectStatusCode(int statusCode)` | Expect a specific status code. |
-| `expectStatusLine(String statusLine)` | Expect a full status line. |
-| `expectHeader(String name, Matcher<?> matcher)` | Expect a header with a specific value. |
-| `expectHeaders(Map<String, ?> headers)` | Expect multiple headers. |
-| `expectContentType(String contentType)` | Expect Content-Type of response. |
-
----
-
-### **B. Body Validation**
-
-| Method | Description |
-| --- | --- |
-| `expectBody(String path, Matcher<?> matcher)` | Expect JSON/XML path value using GPath. |
-| `expectBody(Matcher<?> matcher)` | Expect full body content to match. |
-
----
-
-### **C. Cookies**
-
-| Method | Description |
-| --- | --- |
-| `expectCookie(String name, Matcher<?> matcher)` | Expect a specific cookie. |
-| `expectCookies(Map<String, ?> cookies)` | Expect multiple cookies. |
-
----
-
-### **D. Miscellaneous**
-
-| Method | Description |
-| --- | --- |
-| `apply(Response response)` | Apply the specification to a `Response`. |
-| `log()` | Logging of response validation. |
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.specification.ResponseSpecification;
-
-public class ResponseSpecExample {
-    public static void main(String[] args) {
-        // Define a reusable response specification
-        ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .expectContentType("application/json; charset=utf-8")
-            .expectBody("data.id", equalTo(2))
-            .build();
-
-        // Use it in a request
-        given()
-            .baseUri("https://reqres.in")
-            .basePath("/api")
-        .when()
-            .get("/users/2")
-        .then()
-            .spec(responseSpec)
-            .log().all();
-    }
-}
-```
-
-**Explanation:**
-
-* `ResponseSpecBuilder` → Builds a reusable `ResponseSpecification`.
-    
-* `.expectStatusCode()`, `.expectBody()` → Define assertions.
-    
-* `.spec(responseSpec)` → Applies specification to the current response.
-    
-* `.log().all()` → Logs the validated response.
-    
-
----
-
-## **4️⃣ Benefits of ResponseSpecification**
-
-1. **Reusability:** Define common expectations once, use in multiple tests.
-    
-2. **Readability:** Keeps test code clean.
-    
-3. **Maintainability:** Update the spec once, all tests using it reflect changes.
-    
-4. **Integration with ValidatableResponse:** Applied via `.spec()` after `then()`.
-    
-
----
-
-## **5️⃣ Flow in RestAssured Chain**
-
-```java
-RequestSpecification → RequestSender → Response → then() → ValidatableResponse
-                                                                │
-                                                                └─ spec(ResponseSpecification)
-```
-
-* `ResponseSpecification` is **not mandatory**, but it’s great for **reusable validations**.
-    
-
-## **1️⃣ Overview of** `ResponseSpecification`
-
-* **Package:** `io.restassured.specification`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `ResponseSpecification` defines **reusable response expectations**.  
-    Instead of writing the same assertions repeatedly, you can define a **response specification** and reuse it across multiple requests.
-    
-
-```java
-ResponseSpecification responseSpec = new ResponseSpecBuilder()
-                                        .expectStatusCode(200)
-                                        .expectContentType("application/json")
-                                        .build();
-```
-
-* Returned by `Response.then()` after applying a `ResponseSpecification`.
-    
-
----
-
-## **2️⃣ Key Methods**
-
-### **A. Status & Headers**
-
-| Method | Description |
-| --- | --- |
-| `expectStatusCode(int statusCode)` | Expect a specific status code. |
-| `expectStatusLine(String statusLine)` | Expect a full status line. |
-| `expectHeader(String name, Matcher<?> matcher)` | Expect a header with a specific value. |
-| `expectHeaders(Map<String, ?> headers)` | Expect multiple headers. |
-| `expectContentType(String contentType)` | Expect Content-Type of response. |
-
----
-
-### **B. Body Validation**
-
-| Method | Description |
-| --- | --- |
-| `expectBody(String path, Matcher<?> matcher)` | Expect JSON/XML path value using GPath. |
-| `expectBody(Matcher<?> matcher)` | Expect full body content to match. |
-
----
-
-### **C. Cookies**
-
-| Method | Description |
-| --- | --- |
-| `expectCookie(String name, Matcher<?> matcher)` | Expect a specific cookie. |
-| `expectCookies(Map<String, ?> cookies)` | Expect multiple cookies. |
-
----
-
-### **D. Miscellaneous**
-
-| Method | Description |
-| --- | --- |
-| `apply(Response response)` | Apply the specification to a `Response`. |
-| `log()` | Logging of response validation. |
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.specification.ResponseSpecification;
-
-public class ResponseSpecExample {
-    public static void main(String[] args) {
-        // Define a reusable response specification
-        ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .expectContentType("application/json; charset=utf-8")
-            .expectBody("data.id", equalTo(2))
-            .build();
-
-        // Use it in a request
-        given()
-            .baseUri("https://reqres.in")
-            .basePath("/api")
-        .when()
-            .get("/users/2")
-        .then()
-            .spec(responseSpec)
-            .log().all();
-    }
-}
-```
-
-**Explanation:**
-
-* `ResponseSpecBuilder` → Builds a reusable `ResponseSpecification`.
-    
-* `.expectStatusCode()`, `.expectBody()` → Define assertions.
-    
-* `.spec(responseSpec)` → Applies specification to the current response.
-    
-* `.log().all()` → Logs the validated response.
-    
-
----
-
-## **4️⃣ Benefits of ResponseSpecification**
-
-1. **Reusability:** Define common expectations once, use in multiple tests.
-    
-2. **Readability:** Keeps test code clean.
-    
-3. **Maintainability:** Update the spec once, all tests using it reflect changes.
-    
-4. **Integration with ValidatableResponse:** Applied via `.spec()` after `then()`.
-    
-
----
-
-## **5️⃣ Flow in RestAssured Chain**
-
-```java
-RequestSpecification → RequestSender → Response → then() → ValidatableResponse
-                                                                │
-                                                                └─ spec(ResponseSpecification)
-```
-
-* `ResponseSpecification` is **not mandatory**, but it’s great for **reusable validations**.
-    
-
-## **1️⃣ Overview of** `ResponseSpecBuilder`
-
-* **Package:** `io.restassured.builder`
-    
-* **Type:** Class
-    
-* **Role:**  
-    `ResponseSpecBuilder` helps you **create reusable** `ResponseSpecification` objects.  
-    Instead of writing the same assertions for multiple tests, you define them once with a builder.
-    
-
-```java
-ResponseSpecification responseSpec = new ResponseSpecBuilder()
-                                        .expectStatusCode(200)
-                                        .expectContentType("application/json")
-                                        .build();
-```
-
-* `build()` → Returns a `ResponseSpecification` object.
-    
-
----
-
-## **2️⃣ Key Methods of ResponseSpecBuilder**
-
-### **A. Status and Line**
-
-| Method | Description |
-| --- | --- |
-| `expectStatusCode(int statusCode)` | Expect a specific HTTP status code. |
-| `expectStatusLine(String statusLine)` | Expect a full HTTP status line. |
-| `expectStatusCode(Matcher<Integer> matcher)` | Use Hamcrest matcher for status code. |
-
----
-
-### **B. Headers**
-
-| Method | Description |
-| --- | --- |
-| `expectHeader(String name, Matcher<?> matcher)` | Expect a specific header value. |
-| `expectHeaders(Map<String, ?> headers)` | Expect multiple headers at once. |
-| `expectContentType(String contentType)` | Expect a specific Content-Type header. |
-
----
-
-### **C. Body Validation**
-
-| Method | Description |
-| --- | --- |
-| `expectBody(String path, Matcher<?> matcher)` | Validate JSON/XML response body at a given path using GPath. |
-| `expectBody(Matcher<?> matcher)` | Validate entire response body. |
-| `expectBody(String path, Object... expectedValues)` | Validate body values for given path. |
-
----
-
-### **D. Cookies**
-
-| Method | Description |
-| --- | --- |
-| `expectCookie(String name, Matcher<?> matcher)` | Expect a specific cookie. |
-| `expectCookies(Map<String, ?> cookies)` | Expect multiple cookies. |
-
----
-
-### **E. Logging**
-
-| Method | Description |
-| --- | --- |
-| `log()` | Enable logging for response validation (optional). |
-
----
-
-### **F. Build**
-
-| Method | Description |
-| --- | --- |
-| `build()` | Builds the `ResponseSpecification` object. |
-
----
-
-## **3️⃣ Example Usage**
-
-```java
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.specification.ResponseSpecification;
-
-public class ResponseSpecBuilderExample {
-    public static void main(String[] args) {
-        // Build reusable response specification
-        ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .expectContentType("application/json; charset=utf-8")
-            .expectBody("data.id", equalTo(2))
-            .build();
-
-        // Apply the response spec in a request
-        given()
-            .baseUri("https://reqres.in")
-            .basePath("/api")
-        .when()
-            .get("/users/2")
-        .then()
-            .spec(responseSpec)   // Apply reusable spec
-            .log().all();
-    }
-}
-```
-
-**Explanation:**
-
-* `ResponseSpecBuilder` → Define common response expectations once.
-    
-* `.build()` → Returns `ResponseSpecification`.
-    
-* `.spec(responseSpec)` → Apply the specification to a response.
-    
-
----
-
-## **4️⃣ Benefits**
-
-1. **Reusability:** Define common response validations once and reuse.
-    
-2. **Readability:** Keeps test code clean and avoids repeated assertions.
-    
-3. **Maintainability:** Update the spec once, all tests reflect changes.
-    
-4. **Supports Method Chaining:** Fluent API for building complex validation rules.
-    
-
----
-
-✅ After this, we have covered all **builders in RestAssured**:
-
-```java
-RequestSpecBuilder → RequestSpecification → RequestSender → Response → ValidatableResponse → ResponseS
-```
-
-## **1️⃣ Overview of** `AuthenticationScheme`
-
-* **Package:** `io.restassured.authentication`
-    
-* **Type:** Interface
-    
-* **Role:**  
-    `AuthenticationScheme` is the **base interface** for all authentication types in RestAssured.  
-    It allows **RequestSpecification** to set authentication when sending requests.
-    
-* Implemented by classes like:
-    
-    * `BasicAuthScheme` → Basic Authentication
-        
-    * `DigestAuthScheme` → Digest Authentication
-        
-    * `OAuth2Scheme` → OAuth2 Authentication
-        
-    * `PreemptiveBasicAuthScheme` → Preemptive Basic Auth
-        
-* Typically used via `RequestSpecification.auth()`:
-    
-
-```java
-given().auth().basic("username", "password");
-```
-
-Internally, `basic()` creates a `BasicAuthScheme` object implementing `AuthenticationScheme`.
-
----
-
-## **2️⃣ Key Methods of AuthenticationScheme**
-
-| Method | Description |
-| --- | --- |
-| `void authenticate(RequestSpecification requestSpec)` | Applies the authentication to the request. |
-| `String getUsername()` | Returns username (for Basic/Digest). |
-| `String getPassword()` | Returns password (for Basic/Digest). |
-| `String getAccessToken()` | Returns access token (for OAuth2). |
-
-> Note: Exact methods depend on the implementing class. The interface ensures **any authentication scheme** can be applied to a request.
-
----
-
-## **3️⃣ Common Implementations**
-
-### **A. BasicAuthScheme**
-
-* Implements `AuthenticationScheme`.
-    
-* Adds **Basic HTTP authentication header**.
-    
-
-```java
-given().auth().basic("user", "pass");
-```
-
-### **B. DigestAuthScheme**
-
-* Implements `AuthenticationScheme`.
-    
-* Handles **Digest authentication** challenge-response.
-    
-
-```java
-given().auth().digest("user", "pass");
-```
-
-### **C. OAuth2Scheme**
-
-* Implements `AuthenticationScheme`.
-    
-* Adds **Bearer token** to `Authorization` header.
-    
-
-```java
-given().auth().oauth2("token");
-```
-
-### **D. PreemptiveBasicAuthScheme**
-
-* Implements `AuthenticationScheme`.
-    
-* Sends **Basic Auth header immediately** without waiting for server challenge.
-    
+| `AuthenticationScheme` | Parent interface for all authentication schemes |
+| `FormAuthScheme` | Handles form-based authentication |
+| `BasicAuthScheme` | For HTTP Basic Auth |
+| `OAuth2Scheme` | For OAuth 2.0 token auth |
+| `PreemptiveAuthSpec` | For sending auth header before server challenge |
+
+✅ Example:
 
 ```java
 given().auth().preemptive().basic("user", "pass");
@@ -2475,110 +1425,385 @@ given().auth().preemptive().basic("user", "pass");
 
 ---
 
-## **4️⃣ Usage Example**
+## 🔹 16. `io.restassured.filter.Filter` & Related
+
+**Purpose / How:**
+
+* Intercept requests/responses like middleware.
+    
+
+| Filter Class | Description |
+| --- | --- |
+| `RequestLoggingFilter` | Logs all request details |
+| `ResponseLoggingFilter` | Logs all response details |
+| `ErrorLoggingFilter` | Logs only when validation fails |
+| `FilterContext` | Holds context for filters |
+| `SessionFilter` | Captures session for login reuse |
+| `TimeFilter` | Measures request/response time |
+
+✅ Example:
+
+```java
+given()
+  .filter(new RequestLoggingFilter())
+  .filter(new ResponseLoggingFilter())
+  .when()
+  .get("/friends");
+```
+
+---
+
+## 🔹 17. `io.restassured.module.jsv.JsonSchemaValidator`
+
+**Purpose / How:** Validate JSON body against schema.
+
+| Method | Return Type | Description |
+| --- | --- | --- |
+| `matchesJsonSchema(File schemaFile)` | Matcher&lt;?&gt; | Validate JSON schema |
+| `matchesJsonSchemaInClasspath(String path)` | Matcher&lt;?&gt; | Validate schema from resources |
+
+✅ Example:
+
+```java
+.then().body(matchesJsonSchemaInClasspath("friend_schema.json"));
+```
+
+---
+
+## 🔹 18. `io.restassured.internal.ValidatableResponseImpl`
+
+**Purpose:**  
+Internal implementation of `ValidatableResponse`.  
+Automation testers rarely use directly, but good to know it powers `.then()` validations.
+
+---
+
+## 🔹 19. `io.restassured.matcher.RestAssuredMatchers`
+
+**Purpose / How:**  
+Extra matchers for XML / time / status validations.
+
+| Method | Matcher Type | Description |
+| --- | --- | --- |
+| `matchesXsd(File xsdFile)` | XML | Validate XML schema |
+| `matchesXsdInClasspath(String path)` | XML | Validate schema from resources |
+| `hasXPath(String expression)` | XML | Validate XML with XPath |
+| `hasXPath(String expression, Matcher<?> matcher)` | XML | Validate XML node value |
+| `hasStatusCode(int code)` | HTTP | Check status code |
+| `hasResponseTime(Matcher<Long> matcher)` | Performance | Validate response time |
+
+✅ Example:
+
+```java
+.then().body(RestAssuredMatchers.hasXPath("/friends/name", equalTo("Nini")));
+```
+
+---
+
+## 🔹 20. `io.restassured.common.mapper.TypeRef<T>`
+
+**Purpose / How:** Helps deserialize complex JSON objects into generic types like `List<Map<String,Object>>`.
+
+✅ Example:
+
+```java
+List<Map<String, Object>> friends =
+    response.as(new TypeRef<List<Map<String, Object>>>() {});
+```
+
+---
+
+## 🔹 21. `io.restassured.path.json.config.JsonPathConfig`
+
+| Method | Purpose |
+| --- | --- |
+| `defaultParserType(JsonPathConfig.NumberReturnType type)` | Control numeric parsing |
+| `charset(String charset)` | Define charset for JSON |
+| `defaultDeserializer(ObjectMapperDeserializer deserializer)` | Set default deserializer |
+
+---
+
+## 🔹 22. `io.restassured.path.xml.config.XmlPathConfig`
+
+| Method | Purpose |
+| --- | --- |
+| `namespaceAware(boolean aware)` | Handle namespaces |
+| `declareNamespace(String prefix, String uri)` | Map prefix for XPath |
+| `charset(String charset)` | Set charset |
+
+---
+
+## 🔹 23. `io.restassured.internal.mapping.ObjectMapperType`
+
+**Purpose:** Defines which object mapper to use.
+
+| Enum | Description |
+| --- | --- |
+| `GSON` | Use Gson for JSON |
+| `JACKSON_1` | Old Jackson |
+| `JACKSON_2` | Modern Jackson |
+| `JAXB` | For XML |
+
+✅ Example:
+
+```java
+RestAssured.config = RestAssured.config()
+     .objectMapperConfig(objectMapperConfig().defaultObjectMapperType(ObjectMapperType.JACKSON_2));
+```
+
+---
+
+## 🔹 24. `io.restassured.module.mockmvc.RestAssuredMockMvc`
+
+**Purpose / How:**  
+For **testing Spring REST controllers** without starting a full server.
+
+✅ Example:
+
+```java
+given()
+  .standaloneSetup(new FriendController())
+.when()
+  .get("/friend/1")
+.then()
+  .statusCode(200);
+```
+
+---
+
+# ✅ Summary – What You Now Have
+
+You now have a **complete master RestAssured API reference** for automation testers:
+
+* ✅ All core classes & interfaces
+    
+* ✅ All builder classes (specs)
+    
+* ✅ All filters, matchers, parsers, and configs
+    
+* ✅ JSON/XML path & schema validation utilities
+    
+* ✅ Plus extras (MockMVC, TypeRef, ObjectMapper)
+    
+
+# 🧭 REST ASSURED FRAMEWORK
+
+> 💡 Covers all Classes + Interfaces + Builders + Utility methods with short purpose & sample code.
+
+---
+
+## 🏗 1️⃣ Base Classes (Entry Points)
+
+| Class | Purpose | Shortcut / Example |
+| --- | --- | --- |
+| `RestAssured` | Main static class — entry point to the API | `given().when().get()` |
+| `RestAssuredConfig` | Holds all configurations (timeout, encoder, log) | `RestAssured.config = newConfig()` |
+| `RestAssuredMockMvc` | Used for testing **Spring MVC** controllers directly | `given().standaloneSetup(controller)` |
+| `RestAssuredWebTestClient` | For **Spring WebTestClient** tests | `given().webTestClient(webClient)` |
+
+---
+
+## ⚙️ 2️⃣ Core Interfaces and Implementations
+
+| Interface | Implementing Class | Purpose | Example |
+| --- | --- | --- | --- |
+| `RequestSpecification` | `RequestSpecImpl` | Defines all request details (headers, params, body) | `given().header("key","val")` |
+| `ResponseSpecification` | `ResponseSpecImpl` | Defines reusable response validations | `.then().spec(resSpec)` |
+| `Response` | `ResponseImpl` | Represents the actual HTTP Response | `Response res = given().get("/users")` |
+| `ValidatableResponse` | `ValidatableResponseImpl` | Allows chained assertions | `res.then().statusCode(200)` |
+
+---
+
+## 🧱 3️⃣ Builder Classes (Reusable Specs)
+
+| Builder | Used For | Example |
+| --- | --- | --- |
+| `RequestSpecBuilder` | Build reusable request templates | `new RequestSpecBuilder().setBaseUri(uri)` |
+| `ResponseSpecBuilder` | Build reusable response templates | `new ResponseSpecBuilder().expectStatusCode(200)` |
+| `SessionFilter` | To maintain session across multiple requests | `SessionFilter session = new SessionFilter()` |
+
+---
+
+## 🧩 4️⃣ Common Methods (in `RestAssured` class)
+
+| Method | Description | Shortcut |
+| --- | --- | --- |
+| `given()` | Starts request building | `given().baseUri(uri)` |
+| `when()` | Sends the request | `.when().get("/path")` |
+| `then()` | Validates response | `.then().statusCode(200)` |
+| `get(String path)` | Sends GET request | `get("/api/users")` |
+| `post(String path)` | Sends POST request | `post("/api/add")` |
+| `put(String path)` | Sends PUT request | `put("/api/update")` |
+| `delete(String path)` | Sends DELETE request | `delete("/api/delete")` |
+| `patch(String path)` | Sends PATCH request | `patch("/api/modify")` |
+| `options(String path)` | Sends OPTIONS request | `options("/api")` |
+| `head(String path)` | Sends HEAD request | `head("/api")` |
+| `authentication()` | Configure auth globally | `RestAssured.authentication = basic("user", "pass")` |
+| `reset()` | Reset all configurations | `RestAssured.reset()` |
+
+---
+
+## 🧰 5️⃣ RequestSpecification Methods (Request Builder)
+
+| Method | Purpose | Shortcut |
+| --- | --- | --- |
+| `baseUri(String)` | Set base URI | `.baseUri("`[`https://api.example.com`](https://api.example.com)`")` |
+| `basePath(String)` | Set base path | `.basePath("/v1")` |
+| `port(int)` | Set port | `.port(8080)` |
+| `header(String, Object)` | Add single header | `.header("Content-Type","json")` |
+| `headers(Map)` | Add multiple headers | `.headers(map)` |
+| `queryParam(String, Object)` | Add query parameter | `.queryParam("id",1)` |
+| `pathParam(String, Object)` | Add path parameter | `.pathParam("userId", 5)` |
+| `formParam(String, Object)` | Add form data | `.formParam("username","nini")` |
+| `cookie(String, Object)` | Add cookie | `.cookie("session","abc123")` |
+| `auth()` | Specify authentication | `.auth().basic("user","pass")` |
+| `body(Object)` | Set request body | `.body("{\"name\":\"Nini\"}")` |
+| `contentType(ContentType)` | Set content type | `.contentType(ContentType.JSON)` |
+| `accept(ContentType)` | Expected response type | `.accept(ContentType.JSON)` |
+| `multiPart(String, File)` | File upload | `.multiPart("file", new File("data.csv"))` |
+| `filter(Filter)` | Add filter (like logging, session) | `.filter(new RequestLoggingFilter())` |
+| `log().all()` | Log entire request | `.log().all()` |
+| `relaxedHTTPSValidation()` | Ignore SSL certificate issues | `.relaxedHTTPSValidation()` |
+
+---
+
+## 📦 6️⃣ Response Methods (after `.when().get()`)
+
+| Method | Purpose | Shortcut |
+| --- | --- | --- |
+| `statusCode()` | Get status code | `res.getStatusCode()` |
+| `statusLine()` | Get HTTP status line | `res.getStatusLine()` |
+| `time()` | Response time | `res.getTime()` |
+| `headers()` | Get all headers | `res.getHeaders()` |
+| `header("key")` | Get specific header | `res.getHeader("Content-Type")` |
+| `body()` | Get response body as String | `res.getBody().asString()` |
+| `path(String)` | Extract value by JSON path | `res.path("`[`data.id`](http://data.id)`")` |
+| `jsonPath()` | Returns JsonPath object | `res.jsonPath().get("`[`data.name`](http://data.name)`")` |
+| `xmlPath()` | Returns XmlPath object | `res.xmlPath().get("`[`root.id`](http://root.id)`")` |
+| `cookies()` | Get all cookies | `res.getCookies()` |
+| `prettyPrint()` | Print formatted response | `res.prettyPrint()` |
+
+---
+
+## 🧠 7️⃣ Response Validation Methods (`then()` section)
+
+| Method | Purpose | Example |
+| --- | --- | --- |
+| `statusCode(int)` | Validate status code | `.then().statusCode(200)` |
+| `statusLine(String)` | Validate status line | `.then().statusLine("HTTP/1.1 200 OK")` |
+| `header(String, Matcher)` | Validate specific header | `.then().header("Content-Type", equalTo("application/json"))` |
+| `body(String, Matcher)` | Validate JSON body field | `.then().body("name", equalTo("Nini"))` |
+| `body(String, Matcher, String, Matcher)` | Validate multiple fields | `.then().body("id", equalTo(1), "name", equalTo("Nini"))` |
+| `time(Matcher)` | Validate response time | `.then().time(lessThan(3000L))` |
+| `spec(ResponseSpecification)` | Apply predefined spec | `.then().spec(resSpec)` |
+| `log().all()` | Log full response | `.then().log().all()` |
+
+---
+
+## 🔐 8️⃣ Authentication Methods
+
+| Method | Description | Example |
+| --- | --- | --- |
+| `.auth().basic()` | Basic Auth | `.auth().basic("user", "pass")` |
+| `.auth().preemptive().basic()` | Preemptive Basic Auth | `.auth().preemptive().basic("user","pass")` |
+| `.auth().digest()` | Digest Auth | `.auth().digest("user","pass")` |
+| `.auth().oauth2()` | OAuth2 token | `.auth().oauth2("accessToken")` |
+| `.auth().form()` | Form-based auth | `.auth().form("user","pass")` |
+| `.auth().none()` | No auth | `.auth().none()` |
+
+---
+
+## 🧮 9️⃣ Common Matchers (Hamcrest)
+
+| Matcher | Meaning | Example |
+| --- | --- | --- |
+| `equalTo(x)` | Equals | `body("name", equalTo("Nini"))` |
+| `not(x)` | Not equal | `body("status", not("error"))` |
+| `hasItem(x)` | List contains | `body("names", hasItem("Nini"))` |
+| `hasItems(x,y)` | List contains multiple | `body("names", hasItems("Nini","Rita"))` |
+| `lessThan(x)` | Value less than | `time(lessThan(2000L))` |
+| `greaterThan(x)` | Value greater than | `time(greaterThan(100L))` |
+| `containsString(x)` | String contains substring | `body("message", containsString("success"))` |
+
+---
+
+## 💡 10️⃣ Logging Shortcuts
+
+| Method | Description |
+| --- | --- |
+| `.log().all()` | Logs all request or response |
+| `.log().body()` | Logs only body |
+| `.log().headers()` | Logs only headers |
+| `.log().uri()` | Logs URI |
+| `.log().method()` | Logs HTTP method |
+| `.log().ifValidationFails()` | Logs only if validation fails |
+
+---
+
+## 🧾 11️⃣ Config & Filters
+
+| Class / Method | Use |
+| --- | --- |
+| `LogConfig` | Controls what gets logged |
+| `EncoderConfig` | Configures encoding of requests |
+| `DecoderConfig` | Configures decoding of responses |
+| `SessionFilter` | Captures session cookies for reuse |
+| `RequestLoggingFilter` | Logs request |
+| `ResponseLoggingFilter` | Logs response |
+| `FilterableRequestSpecification` | Interface that allows modifying requests dynamically |
+
+---
+
+## 🧱 12️⃣ Advanced Utility Classes
+
+| Class | Purpose |
+| --- | --- |
+| `JsonPath` | Extract & traverse JSON easily |
+| `XmlPath` | Extract data from XML responses |
+| `Matcher` | Used for Hamcrest validations |
+| `SpecificationQuerier` | Inspect Request/Response Specs |
+| `FilterableRequestSpecification` | Modify or debug requests dynamically |
+| `RestAssuredConfig` | Customize timeout, encoder, log, etc. |
+
+---
+
+## ⚡ Quick Test Example (Full Chain)
 
 ```java
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 
-public class AuthenticationExample {
-    public static void main(String[] args) {
+public class APITest {
+    public void testUser() {
         given()
             .baseUri("https://reqres.in")
             .basePath("/api")
-            .auth().basic("user", "pass")   // BasicAuthScheme applied
+            .contentType("application/json")
+            .queryParam("page", 2)
+            .log().all()
         .when()
-            .get("/users/2")
+            .get("/users")
         .then()
+            .log().all()
             .statusCode(200)
-            .log().all();
+            .body("data[0].email", containsString("@"))
+            .time(lessThan(3000L));
     }
 }
 ```
 
-**Explanation:**
-
-1. `auth().basic()` → Creates a `BasicAuthScheme`.
-    
-2. `AuthenticationScheme.authenticate()` → Internally adds header to the request.
-    
-3. Request is executed with authentication.
-    
-
 ---
 
-## **5️⃣ Key Points**
+## 🧠 13️⃣ Framework Architecture (Summary Table)
 
-* `AuthenticationScheme` is **an interface**, so new authentication types can be added.
-    
-* Used by **RequestSpecification** to apply authentication before sending requests.
-    
-* Supports multiple types:
-    
-    * Basic
-        
-    * Digest
-        
-    * OAuth1/OAuth2
-        
-    * Preemptive authentication
-        
-* Works seamlessly with **RequestSpecBuilder** or **RequestSpecification** for reusable authentication.
-    
+| Layer | Class | Role |
+| --- | --- | --- |
+| Config | `ConfigReader` | Loads configuration |
+| Request | `RequestSpecFactory` | Builds base request spec |
+| Response | `ResponseSpecFactory` | Defines expected responses |
+| API Layer | `ApiClient` | Common request methods (GET, POST...) |
+| Test Layer | `BaseTest`, `SampleTests` | Reusable test structure |
+| Reporting | `ExtentManager`, `TestListener` | HTML report |
+| Execution | `testng.xml` | Controls suite execution |
 
 ---
-
-If you want, I can now create a **complete UML class/interface diagram for RestAssured** showing:
-
-```java
-RestAssured → RequestSpecification → RequestSender → Response → ValidatableResponse → ResponseSpecification
-+ RequestSpecBuilder, ResponseSpecBuilder
-+ AuthenticationScheme → Basic/Digest/OAuth
-+ Filters & Logging
-```
-
-### Sample Test Using Method chaining.
-
-### Before static import»»»
-
-```java
-package sampleTest;
-
-import org.testng.annotations.Test;
-
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-
-public class SampleTsetUsingMethodChaning {
-	@Test
-	public static void getAllEmployeesAvailable() {
-		
-	Response resp = RestAssured.get("http://49.249.28.218:8091/all-employees");
-	resp.prettyPeek();
-	}
-
-}
-```
-
-Here we use the class name to use the **get()** method.
-
-### After static import»»»
-
-```java
-package sampleTest;
-
-import static io.restassured.RestAssured.*;
-
-import org.testng.annotations.Test;
-
-public class SampleTsetUsingMethodChaning2 {
-	@Test
-	public static void getAllEmployeesAvailable() {
-		
-	get("http://49.249.28.218:8091/all-employees")
-	.prettyPeek();
-	}
-
-}
-```
-
-Here we not using the class name as reference ,this is the magic of **static** import.
