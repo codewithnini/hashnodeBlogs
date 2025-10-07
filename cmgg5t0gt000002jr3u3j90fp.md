@@ -169,9 +169,9 @@ public class FriendshipJDBC {
 
             // Connect to friendship_db
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/friendship_db?useSSL=false&serverTimezone=UTC",
+                    "jdbc:mysql://localhost:3306/friendship_db",
                     "root",
-                    "password" // change this to your MySQL password
+                    "Nini@123" // change this to your MySQL password
             );
 
             System.out.println("✅ Connected to friendship_db successfully!");
@@ -209,7 +209,7 @@ public class FriendshipJDBC {
 
 When you run this class, you’ll see:
 
-```bash
+```typescript
 ✅ Connected to friendship_db successfully!
 💖 Riya is Nini’s Bestie from Bangalore since 2019-03-15
 ```
