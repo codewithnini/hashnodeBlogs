@@ -99,6 +99,143 @@ con.close();
 
 ---
 
+# 💫 JDBC Practice Setup — Friendship Table.
+
+---
+
+## 🧱 **1️⃣ Database & Table Creation Script**
+
+Let’s create a small social-style table to store friendships 👇
+
+### 📘 SQL Script (Run in MySQL Workbench)
+
+```typescript
+-- Step 1: Create a new database
+CREATE DATABASE IF NOT EXISTS friendship_db;
+
+-- Step 2: Use the database
+USE friendship_db;
+
+-- Step 3: Create the friendship table
+CREATE TABLE friendship (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    person_name VARCHAR(50) NOT NULL,
+    friend_name VARCHAR(50) NOT NULL,
+    friendship_level VARCHAR(20) CHECK (friendship_level IN ('Bestie', 'Close', 'Good', 'Casual')),
+    connected_since DATE,
+    city VARCHAR(50)
+);
+
+-- Step 4: Insert some sample data
+INSERT INTO friendship (person_name, friend_name, friendship_level, connected_since, city)
+VALUES 
+('Nini', 'Riya', 'Bestie', '2019-03-15', 'Bangalore'),
+('Nini', 'Amit', 'Good', '2020-06-11', 'Pune'),
+('Nini', 'Sara', 'Close', '2021-01-25', 'Delhi'),
+('Nini', 'Raj', 'Casual', '2022-08-10', 'Hyderabad');
+```
+
+✅ After running this, you’ll have:
+
+```markdown
++----+-------------+-------------+------------------+----------------+-----------+
+| id | person_name | friend_name | friendship_level | connected_since | city      |
++----+-------------+-------------+------------------+----------------+-----------+
+| 1  | Nini        | Riya        | Bestie           | 2019-03-15     | Bangalore |
+| 2  | Nini        | Amit        | Good             | 2020-06-11     | Pune      |
+| 3  | Nini        | Sara        | Close            | 2021-01-25     | Delhi     |
+| 4  | Nini        | Raj         | Casual           | 2022-08-10     | Hyderabad |
++----+-------------+-------------+------------------+----------------+-----------+
+```
+
+---
+
+## ⚙️ **2️⃣ JDBC Connection Setup**
+
+Same structure as before, just change DB name and table name.
+
+```java
+import java.sql.*;
+
+public class FriendshipJDBC {
+    public static void main(String[] args) {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Load MySQL Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Connect to friendship_db
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/friendship_db?useSSL=false&serverTimezone=UTC",
+                    "root",
+                    "password" // change this to your MySQL password
+            );
+
+            System.out.println("✅ Connected to friendship_db successfully!");
+
+            // Create statement
+            stmt = con.createStatement();
+
+            // Example query: fetch Nini’s best friends
+            rs = stmt.executeQuery("SELECT * FROM friendship WHERE person_name='Nini' AND friendship_level='Bestie'");
+
+            // Process results
+            while (rs.next()) {
+                System.out.println("💖 " + rs.getString("friend_name") + " is Nini’s Bestie from " +
+                        rs.getString("city") + " since " + rs.getDate("connected_since"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+---
+
+## 🧪 **3️⃣ Example Output**
+
+When you run this class, you’ll see:
+
+```bash
+✅ Connected to friendship_db successfully!
+💖 Riya is Nini’s Bestie from Bangalore since 2019-03-15
+```
+
+---
+
+## 💡 **4️⃣ Practice Queries You Can Try**
+
+| Goal | SQL Query Example |
+| --- | --- |
+| Show all Nini’s friends | `SELECT * FROM friendship WHERE person_name='Nini';` |
+| Count total friends | `SELECT COUNT(*) FROM friendship WHERE person_name='Nini';` |
+| Find oldest friendship | `SELECT * FROM friendship ORDER BY connected_since ASC LIMIT 1;` |
+| Add a new friend | `INSERT INTO friendship (person_name, friend_name, friendship_level, connected_since, city) VALUES ('Nini', 'Kiran', 'Close', '2023-05-22', 'Mumbai');` |
+
+---
+
+## 🔍 **5️⃣ Interview Angle**
+
+| Question | Example Answer |
+| --- | --- |
+| How can you test DB data consistency in automation? | Use JDBC to validate backend records after UI/API actions. |
+| Which JDBC driver is used for MySQL? | `com.mysql.cj.jdbc.Driver` |
+| What type of result does `executeQuery()` return? | `ResultSet` |
+| What happens if DB credentials are wrong? | `SQLException: Access denied` is thrown. |
+
 ## 🔍 **5\. Example: Database Validation in Selenium/TestNG**
 
 Suppose you automate a registration form:
