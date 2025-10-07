@@ -7,6 +7,8 @@ tags: codewithnini
 
 ---
 
+["Click Here" get Repo from Github](https://github.com/codewithnini/JDBC-API)
+
 ## 🧩 **1\. What is JDBC API?**
 
 **JDBC (Java Database Connectivity)** is a **Java API** that allows Java programs to **connect to and interact with databases**.
@@ -148,16 +150,27 @@ VALUES
 +----+-------------+-------------+------------------+----------------+-----------+
 ```
 
+## 💡 **Practice Queries You Can Try**
+
+| Goal | SQL Query Example |
+| --- | --- |
+| Show all Nini’s friends | `SELECT * FROM friendship WHERE person_name='Nini';` |
+| Count total friends | `SELECT COUNT(*) FROM friendship WHERE person_name='Nini';` |
+| Find oldest friendship | `SELECT * FROM friendship ORDER BY connected_since ASC LIMIT 1;` |
+| Add a new friend | `INSERT INTO friendship (person_name, friend_name, friendship_level, connected_since, city) VALUES ('Nini', 'Kiran', 'Close', '2023-05-22', 'Mumbai');` |
+
 ---
 
-## ⚙️ **2️⃣ JDBC Connection Setup**
+# ⚙️ **JDBC Connection Setup**
+
+# 🔹 Using `Class.forName()`
 
 Same structure as before, just change DB name and table name.
 
 ```java
 import java.sql.*;
 
-public class FriendshipJDBC {
+public class FriendshipJDBCClassForName {
     public static void main(String[] args) {
         Connection con = null;
         Statement stmt = null;
@@ -205,7 +218,7 @@ public class FriendshipJDBC {
 
 ---
 
-## 🧪 **3️⃣ Example Output**
+## 🧪 **Example Output**
 
 When you run this class, you’ll see:
 
@@ -216,18 +229,7 @@ When you run this class, you’ll see:
 
 ---
 
-## 💡 **4️⃣ Practice Queries You Can Try**
-
-| Goal | SQL Query Example |
-| --- | --- |
-| Show all Nini’s friends | `SELECT * FROM friendship WHERE person_name='Nini';` |
-| Count total friends | `SELECT COUNT(*) FROM friendship WHERE person_name='Nini';` |
-| Find oldest friendship | `SELECT * FROM friendship ORDER BY connected_since ASC LIMIT 1;` |
-| Add a new friend | `INSERT INTO friendship (person_name, friend_name, friendship_level, connected_since, city) VALUES ('Nini', 'Kiran', 'Close', '2023-05-22', 'Mumbai');` |
-
----
-
-## 🔍 **5️⃣ Interview Angle**
+## 🔍 **Interview Angle**
 
 | Question | Example Answer |
 | --- | --- |
@@ -235,6 +237,162 @@ When you run this class, you’ll see:
 | Which JDBC driver is used for MySQL? | `com.mysql.cj.jdbc.Driver` |
 | What type of result does `executeQuery()` return? | `ResultSet` |
 | What happens if DB credentials are wrong? | `SQLException: Access denied` is thrown. |
+
+# 🔹 Using `DriverManager.registerDriver()`
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import com.mysql.cj.jdbc.Driver; // Make sure MySQL Connector JAR is in classpath
+
+public class FriendshipJDBCDriverRegister {
+
+    public static void main(String[] args) {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // 1️⃣ Register MySQL driver explicitly
+            Driver myDriver = new Driver();
+            DriverManager.registerDriver(myDriver);
+
+            // 2️⃣ Create connection
+            String url = "jdbc:mysql://localhost:3306/friendship_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            String user = "root";
+            String password = "Nini@123"; // your DB password
+
+            con = DriverManager.getConnection(url, user, password);
+            System.out.println("✅ Connected to MySQL DB successfully!");
+
+            // 3️⃣ Create statement & execute query
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT friend_name, friendship_level FROM friendship WHERE person_name='Nini'");
+
+            // 4️⃣ Process result
+            while (rs.next()) {
+                System.out.println("💖 Friend: " + rs.getString("friend_name") +
+                        " | Level: " + rs.getString("friendship_level"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 5️⃣ Close resources
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+---
+
+## ✅ Key Points
+
+1. **Driver registration**:
+    
+
+```bash
+Driver myDriver = new Driver();
+DriverManager.registerDriver(myDriver);
+```
+
+* Registers the driver explicitly with `DriverManager`.
+    
+
+2. **Connection URL**:
+    
+
+```bash
+jdbc:mysql://localhost:3306/friendship_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+```
+
+* `useSSL=false` → disable SSL for local testing
+    
+* `allowPublicKeyRetrieval=true` → required for MySQL 8+ if using `caching_sha2_password`
+    
+
+3. **Difference from** `Class.forName()`:
+    
+
+* `Class.forName()` loads the driver class, which registers itself automatically.
+    
+* `DriverManager.registerDriver()` explicitly registers a `Driver` instance. Both approaches work.
+    
+
+---
+
+✅ **Expected Output (Example)**
+
+```bash
+✅ Connected to MySQL DB successfully!
+💖 Friend: Riya | Level: Bestie
+💖 Friend: Amit | Level: Good
+💖 Friend: Sara | Level: Close
+💖 Friend: Raj | Level: Casual
+```
+
+## Let’s create a **comprehensive comparison table** showing **both JDBC driver registration approaches** — `Class.forName()` vs `DriverManager.registerDriver()` — **with every method used and their purpose**, tailored for an automation tester.
+
+---
+
+# 🔹 JDBC Driver Registration Comparison
+
+| Feature / Aspect | **Class.forName()** | **DriverManager.registerDriver()** |
+| --- | --- | --- |
+| **What it does** | Loads the driver class dynamically and automatically registers it with `DriverManager`. | Explicitly creates a driver instance and registers it with `DriverManager`. |
+| **Syntax Example** | `Class.forName("com.mysql.cj.jdbc.Driver");` | `Driver driver = new Driver(); DriverManager.registerDriver(driver);` |
+| **Driver Loading** | Implicit — JVM loads the class and static block inside the driver registers it automatically. | Explicit — you create an instance of the driver yourself. |
+| **Registration** | Automatic — no need to call register explicitly. | Manual — you must call `DriverManager.registerDriver()` to register the driver. |
+| **Required JAR** | Must have MySQL Connector JAR in classpath. | Must have MySQL Connector JAR in classpath. |
+| **Return Value** | None — just loads class. | None — but registers driver instance in `DriverManager`. |
+| **Exception Handling** | `ClassNotFoundException` if driver class not found. | `SQLException` if driver registration fails. |
+| **Typical Usage** | Most common in small automation projects; simpler and less code. | Used in legacy or very explicit setups; rare in modern automation frameworks. |
+| **Advantages** | Cleaner, less verbose, works well with Maven dependencies. | Fully explicit; can register multiple driver instances if needed. |
+| **Disadvantages** | Less control over driver instance; only one registration occurs per classload. | Verbose; usually unnecessary in modern projects. |
+| **When to Use** | Standard automation tests, Selenium, TestNG, API DB validation. | When you want full control over driver instance creation, or need multiple drivers registered manually. |
+
+---
+
+# 🔹 Common JDBC Methods (used in both approaches)
+
+| **Method** | **Class / Object** | **Purpose / Use** |
+| --- | --- | --- |
+| `getConnection(String url, String user, String password)` | `DriverManager` | Creates a connection to the database. |
+| `createStatement()` | `Connection` | Creates a `Statement` object to execute SQL queries. |
+| `executeQuery(String sql)` | `Statement` | Executes a SELECT query and returns a `ResultSet`. |
+| `executeUpdate(String sql)` | `Statement` | Executes INSERT, UPDATE, DELETE, or DDL queries. Returns number of affected rows. |
+| `next()` | `ResultSet` | Moves cursor to next row; returns `false` when no more rows. |
+| `getString(String columnLabel)` | `ResultSet` | Retrieves column value as String. |
+| `getInt(String columnLabel)` | `ResultSet` | Retrieves column value as Integer. |
+| `close()` | `Connection`, `Statement`, `ResultSet` | Closes resources to prevent memory leaks. |
+| `registerDriver(Driver driver)` | `DriverManager` | Explicitly registers a driver instance with DriverManager. |
+| `forName(String driverClass)` | `Class` | Dynamically loads a class by name; used for driver loading. |
+
+---
+
+# 🔹 Summary / Best Practice for Automation Testers
+
+1. **Use** `Class.forName()` in most Selenium + TestNG + JDBC projects — cleaner and standard.
+    
+2. **Use** `DriverManager.registerDriver()` if you need full control, or in legacy systems.
+    
+3. **Always close resources** (`ResultSet`, `Statement`, `Connection`) in `finally` or `@AfterClass`.
+    
+4. **Add parameters** to JDBC URL as needed:
+    
+    ```bash
+    useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    ```
+    
 
 ## 🔍 **5\. Example: Database Validation in Selenium/TestNG**
 
