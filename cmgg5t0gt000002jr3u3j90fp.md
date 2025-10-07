@@ -290,7 +290,7 @@ ResultSet rs = DBUtils.executeQuery("SELECT * FROM users");
 
 ---
 
-## 🧠 **3\.** [**DBUtils.java**](http://DBUtils.java) **(Reusable Utility Class)**
+## 🧠 **3.** [**DBUtils.java**](http://DBUtils.java) **(Reusable Utility Class)**
 
 ```typescript
 package utils;
@@ -344,7 +344,7 @@ public class DBUtils {
 
 ---
 
-## 🧪 **4\.** [**DBValidationTest.java**](http://DBValidationTest.java) **(TestNG Test Case)**
+## 🧪 **4.** [**DBValidationTest.java**](http://DBValidationTest.java) **(TestNG Test Case)**
 
 This simulates:
 
@@ -863,13 +863,13 @@ Add **Extent Reports** + others you already have 👇
 
 ---
 
-## 🧰 **3\.** [**DBUtils.java**](http://DBUtils.java) **(same as before)**
+## 🧰 **3.** [**DBUtils.java**](http://DBUtils.java) **(same as before)**
 
 *(Keep your existing version — no change needed.)*
 
 ---
 
-## 🧱 **4\.** [**ReportManager.java**](http://ReportManager.java) **(Extent Setup Utility)**
+## 🧱 **4.** [**ReportManager.java**](http://ReportManager.java) **(Extent Setup Utility)**
 
 ```typescript
 package utils;
@@ -900,7 +900,7 @@ public class ReportManager {
 
 ---
 
-## 🧪 **5\.** [**DBValidationReportTest.java**](http://DBValidationReportTest.java)
+## 🧪 **5.** [**DBValidationReportTest.java**](http://DBValidationReportTest.java)
 
 Combines Selenium + JDBC + Extent Report in a real-world test flow.
 
@@ -1040,7 +1040,7 @@ Report includes:
     
 * Build command:
     
-    ```
+    ```typescript
     mvn clean test -DsuiteXmlFile=testng.xml
     ```
     
