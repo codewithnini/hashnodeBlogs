@@ -1336,7 +1336,212 @@ driver.findElement(By.id("loginBtn")).click();
 String text = driver.findElement(By.id("msg")).getText();
 ```
 
-# 4️⃣ **Waits**
+# 4.🕐 **WAIT STATEMENTS in Selenium**
+
+Waiting is one of the **most important synchronization mechanisms** in Selenium to make sure the script and browser execute in sync.
+
+---
+
+## 🔹 Why Wait Is Needed
+
+* Selenium executes faster than browser rendering.
+    
+* If element loads late → `NoSuchElementException`.
+    
+* Wait helps Selenium **pause until element or condition is ready**.
+    
+
+---
+
+## 🧭 **Types of Waits**
+
+| Type | Nature | Package | Used for |
+| --- | --- | --- | --- |
+| **1\. Implicit Wait** | Global wait | `org.openqa.selenium` | Waits for element presence |
+| **2\. Explicit Wait** | Conditional wait | [`org.openqa.selenium.support`](http://org.openqa.selenium.support)`.ui.WebDriverWait` | Waits for specific condition |
+| **3\. Fluent Wait** | Advanced explicit wait | [`org.openqa.selenium.support`](http://org.openqa.selenium.support)`.ui.FluentWait` | Custom interval + exceptions |
+| **4\. Thread.sleep()** | Static wait (Java) | `java.lang.Thread` | Forcefully pause code |
+
+---
+
+## 🔸 1️⃣ Implicit Wait
+
+**Definition:**  
+Sets a default wait time for the WebDriver to search for elements before throwing an exception.
+
+**Syntax:**
+
+```java
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+```
+
+**Usage:**
+
+* Applies globally to all elements.
+    
+* Waits till element appears in DOM (not necessarily visible).
+    
+
+**Example:**
+
+```java
+WebDriver driver = new ChromeDriver();
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+driver.get("https://example.com");
+WebElement element = driver.findElement(By.id("username"));  // waits up to 10s
+```
+
+**⚠️ Limitations:**
+
+* Not condition-based.
+    
+* Only works for element presence, not for alert, URL, frame, etc.
+    
+* Not recommended to mix with Explicit Wait.
+    
+
+---
+
+## 🔸 2️⃣ Explicit Wait
+
+**Definition:**  
+Waits until a specific condition is true (like element visible, clickable, alert present, title, etc.)
+
+**Class:** `WebDriverWait`  
+**Extends:** `FluentWait`
+
+**Syntax:**
+
+```java
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+```
+
+---
+
+### 🔹 Common ExpectedConditions:
+
+| Condition | Method | Description |
+| --- | --- | --- |
+| Element visible | `visibilityOf(element)` / `visibilityOfElementLocated(locator)` | Element must be visible |
+| Element clickable | `elementToBeClickable(locator)` | Wait until clickable |
+| Element present | `presenceOfElementLocated(locator)` | Exists in DOM |
+| Element invisible | `invisibilityOfElementLocated(locator)` | Wait until disappears |
+| Alert present | `alertIsPresent()` | Wait for alert popup |
+| Frame available | `frameToBeAvailableAndSwitchToIt(locator)` | Wait + switch to frame |
+| Text present | `textToBePresentInElement(locator, text)` | Wait for text |
+| Title condition | `titleIs(String)` / `titleContains(String)` | Check page title |
+| URL condition | `urlContains(String)` / `urlToBe(String)` | Wait for navigation |
+
+**Example:**
+
+```java
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.elementToBeClickable(By.id("loginBtn"))).click();
+```
+
+---
+
+## 🔸 3️⃣ Fluent Wait
+
+**Definition:**  
+Customizable explicit wait that defines:
+
+* Timeout duration
+    
+* Polling frequency
+    
+* Ignored exceptions
+    
+
+**Class:** `FluentWait<T>`
+
+**Syntax:**
+
+```java
+Wait<WebDriver> wait = new FluentWait<>(driver)
+        .withTimeout(Duration.ofSeconds(30))
+        .pollingEvery(Duration.ofSeconds(5))
+        .ignoring(NoSuchElementException.class);
+
+WebElement element = wait.until(driver -> driver.findElement(By.id("username")));
+```
+
+**✅ Advantages:**
+
+* Checks repeatedly until timeout.
+    
+* Flexible — you can ignore exceptions or adjust polling rate.
+    
+
+---
+
+## 🔸 4️⃣ Thread.sleep()
+
+**Definition:**  
+A **hard wait** — Java thread pauses for a fixed duration.
+
+**Syntax:**
+
+```java
+Thread.sleep(5000);  // 5 seconds
+```
+
+**Drawback:**
+
+* Not intelligent (always waits full duration).
+    
+* Slows down test execution.
+    
+* Use only for temporary debugging.
+    
+
+---
+
+## ⚙️ **Combining Waits – Best Practice Example**
+
+```java
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); // for general load
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+// Login scenario
+driver.get("https://app.example.com");
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username"))).sendKeys("admin");
+wait.until(ExpectedConditions.elementToBeClickable(By.id("loginBtn"))).click();
+```
+
+---
+
+## 📋 **Cheat Sheet Summary Table**
+
+| Type | Class / Method | Example | Best Use Case |
+| --- | --- | --- | --- |
+| **Implicit Wait** | `driver.manage().timeouts().implicitlyWait()` | Global 10s wait | Page element load |
+| **Explicit Wait** | `new WebDriverWait(driver, Duration.ofSeconds(x)).until(ExpectedConditions...)` | Conditional wait | Element clickable / visible |
+| **Fluent Wait** | `new FluentWait(driver).withTimeout().pollingEvery().ignoring()` | Custom polling | Dynamic AJAX elements |
+| **Thread.sleep()** | `Thread.sleep(ms)` | Fixed pause | Temporary debugging |
+
+---
+
+## 🚀 **Advanced Tip — Custom ExpectedCondition**
+
+You can create your own condition:
+
+```java
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+wait.until(driver -> driver.findElement(By.id("status")).getText().equals("Ready"));
+```
+
+---
+
+## 🧩 **In Frameworks (Usage)**
+
+| Layer | Where Used | Why |
+| --- | --- | --- |
+| **BaseTest / DriverManager** | `implicitWait` setup | Global setting |
+| **PageObject (POM)** | `explicitWait` inside methods | Wait per element action |
+| **ReusableUtils** | `FluentWait` utility | For dynamic components |
+| **TestNG Hooks** | beforeMethod setup | Configure wait globally |
 
 ```java
 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
