@@ -8,6 +8,59 @@ tags: codewithnini
 
 ---
 
+| Topic No. | Topic | Subtopics |
+| --- | --- | --- |
+| 1 | 🧩 Introduction to Selenium Components | 📘 Selenium IDE, Selenium RC, WebDriver, Grid |
+| 2 | ⚙️ WebDriver Architecture | 📘 Client Libraries, Browser Drivers, W3C Protocol, Browser Engine |
+| 3 | 💻 Setting up Selenium Environment | 📘 IDE setup, Browser Drivers, Dependencies, Path configuration |
+| 4 | 🎯 Locators in Selenium | 📘 [By.id](http://By.id), [By.name](http://By.name), By.className, By.xpath, By.cssSelector, By.linkText, By.partialLinkText |
+| 5 | 🔍 XPath & CSS Selectors — Advanced | 📘 contains(), starts-with(), text(), axes, nth-child(), dynamic XPath |
+| 6 | 🖱️ WebElement Methods | 📘 click(), sendKeys(), getText(), getAttribute(), isDisplayed(), isEnabled(), isSelected(), clear() |
+| 7 | 🌐 Browser Commands | 📘 get(), navigate().to(), back(), forward(), refresh(), close(), quit() |
+| 8 | 🚪 Handling Alerts | 📘 alert(), prompt(), confirm(), accept(), dismiss(), getText(), sendKeys() |
+| 9 | 🧩 Handling Frames & iFrames | 📘 switchTo().frame(), defaultContent(), nested frames |
+| 10 | 🪟 Handling Multiple Tabs / Windows | 📘 getWindowHandles(), switchTo().window(), close specific tab |
+| 11 | 🎮 Mouse & Keyboard Actions | 📘 Actions class, moveToElement(), dragAndDrop(), doubleClick(), contextClick(), Robot class |
+| 12 | ⬇️ DropDowns using Select Class | 📘 selectByVisibleText(), selectByValue(), selectByIndex(), getOptions(), deselectAll() |
+| 13 | ⏳ Waits in Selenium | 📘 Implicit Wait, Explicit Wait, Fluent Wait, Thread.sleep(), PageLoadTimeout |
+| 14 | 📸 Screenshots & Page Titles | 📘 TakesScreenshot, getScreenshotAs(), getTitle() |
+| 15 | 📋 Web Tables | 📘 findElements(), row/column iteration, dynamic table handling |
+| 16 | 🧠 Handling Dynamic Elements | 📘 Dynamic XPath, Dynamic CSS Selectors, changing IDs/classes |
+| 17 | 🔗 JavaScriptExecutor | 📘 Execute JS commands, scrollIntoView(), click hidden elements |
+| 18 | 🛠 Page Scrolling & Window Management | 📘 scrollIntoView(), maximize(), minimize(), fullscreen() |
+| 19 | 🖱 Handling Checkboxes & Radio Buttons | 📘 select, deselect, isSelected(), validation |
+| 20 | 🔍 Working with Links & Images | 📘 Verify broken links, image visibility, alt text validation |
+| 21 | 🧩 Relative Locators | 📘 near(), above(), below(), toLeftOf(), toRightOf() (Selenium 4) |
+| 22 | 🧠 Shadow DOM Handling | 📘 Access shadow-root elements, executeScript() |
+| 23 | ⚙️ Browser Navigation Commands | 📘 back(), forward(), refresh(), navigate().to() |
+| 24 | 🔄 Page Refresh & Reload | 📘 driver.navigate().refresh(), Ctrl+R via Robot class |
+| 25 | 🧹 Waits & Synchronization Advanced | 📘 Fluent Wait with polling, ExpectedConditions, custom wait functions |
+| 26 | 🧩 Window Handles Advanced | 📘 Switching windows, closing specific tabs, multi-browser scenarios |
+| 27 | 🖱 Advanced User Interactions | 📘 Mouse hover, drag-drop, keyboard shortcuts, double click, right click |
+| 28 | 🪟 Alert Handling Advanced | 📘 Authentication pop-ups, JS prompts, confirmation alerts |
+| 29 | 🔍 Working with Lists | 📘 findElements(), iteration, filtering, extracting text |
+| 30 | 📋 Working with Nested Tables | 📘 Traverse rows/columns, dynamic content, XPath for nested tables |
+| 31 | 🧠 Handling Disabled / Hidden Elements | 📘 JS click, Actions click, JavaScriptExecutor methods |
+| 32 | 🔗 Browser Developer Tools Integration | 📘 Console logs, Network logs, Chrome DevTools Protocol |
+| 33 | 🧩 Selenium Grid Basics | 📘 Hub & Node, Parallel Execution, Cross-Browser Testing |
+| 34 | 🧱 Selenium Grid Advanced | 📘 Hub scaling, RemoteWebDriver, Docker Grid setup |
+| 35 | 🖱 File Upload / Download Automation | 📘 sendKeys() for file input, AutoIt, Robot class |
+| 36 | 📸 Capturing Screenshots | 📘 Full page, element screenshots, on failure in TestNG/Framework |
+| 37 | ⬇️ Handling DropDowns Multi-Select | 📘 select multiple options, deselectAll(), getAllSelectedOptions() |
+| 38 | 🧩 Page Object Model (POM) Basics | 📘 Page classes, initElements(), reusable WebElements |
+| 39 | 🧠 Page Factory Implementation | 📘 @FindBy, initElements(), lazy initialization of elements |
+| 40 | 🔍 Handling Dynamic Locators | 📘 dynamic IDs, XPath functions (contains, starts-with), parameterized locators |
+| 41 | ⚙️ Selenium Wait Utilities | 📘 Custom Wait methods, polling intervals, reusable wait class |
+| 42 | 🧹 Synchronization Best Practices | 📘 Implicit vs Explicit, Avoid Thread.sleep(), dynamic wait handling |
+| 43 | 🧩 Automating Real-Time Scenarios | 📘 Login forms, Form submission, Navigation validation, Alerts |
+| 44 | 🔗 Advanced Selenium 4 Features | 📘 Relative Locators, Native DevTools, CDP integration, W3C Protocol |
+| 45 | 🖱 Advanced Keyboard & Mouse | 📘 Ctrl+C, Ctrl+V via Robot, drag-and-drop, right-click, double-click |
+| 46 | 🪟 Tabs & Window Management Advanced | 📘 Switch to child windows, close popup, focus handling |
+| 47 | 🔍 Validating Web Elements | 📘 isDisplayed(), isEnabled(), isSelected(), getText(), getAttribute() |
+| 48 | 🧠 Handling iFrames & Nested Frames | 📘 switchTo().frame(), defaultContent(), nested frames navigation |
+| 49 | 📋 Tables & Grid Automation | 📘 Dynamic row/column handling, data validation, iteration |
+| 50 | 💡 Best Practices in Selenium | 📘 Reusable methods, clean locators, dynamic waits, maintainable scripts |
+
 # 🔹 **Introduction to Selenium**
 
 ## ✅ **What is Selenium?**
