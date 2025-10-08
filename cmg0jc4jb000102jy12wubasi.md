@@ -1543,13 +1543,173 @@ wait.until(driver -> driver.findElement(By.id("status")).getText().equals("Ready
 | **ReusableUtils** | `FluentWait` utility | For dynamic components |
 | **TestNG Hooks** | beforeMethod setup | Configure wait globally |
 
-```java
-driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+.
 
-// Explicit wait
-WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+---
+
+## 🧩here’s your **ready-to-use, interview-standard** `WaitUtils` class that you can directly plug into your Selenium framework.
+
+It contains all types of waits — **Explicit**, **Fluent**, and a few useful **utility methods** that every automation tester should know.
+
+---
+
+## 🧩 [**WaitUtils.java**](http://WaitUtils.java) **— Selenium Wait Utility Class**
+
+```java
+package utils;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
+import java.time.Duration;
+import java.util.function.Function;
+
+public class WaitUtils {
+
+    private WebDriver driver;
+
+    // Constructor
+    public WaitUtils(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    // 🔹 1. Implicit Wait (Global)
+    public void setImplicitWait(long seconds) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
+    }
+
+    // 🔹 2. Wait for Element to be Visible
+    public WebElement waitForVisibility(By locator, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    // 🔹 3. Wait for Element to be Clickable
+    public WebElement waitForClickability(By locator, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    // 🔹 4. Wait for Element to be Present in DOM
+    public WebElement waitForPresence(By locator, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    // 🔹 5. Wait for Element to be Invisible
+    public boolean waitForInvisibility(By locator, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    // 🔹 6. Wait for Alert to be Present
+    public Alert waitForAlert(int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    // 🔹 7. Wait for Title to Contain
+    public boolean waitForTitleContains(String titlePart, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.titleContains(titlePart));
+    }
+
+    // 🔹 8. Wait for URL to Contain
+    public boolean waitForURLContains(String urlPart, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.urlContains(urlPart));
+    }
+
+    // 🔹 9. Fluent Wait Example
+    public WebElement fluentWait(final By locator, int timeoutSeconds, int pollingSeconds) {
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeoutSeconds))
+                .pollingEvery(Duration.ofSeconds(pollingSeconds))
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class);
+
+        return wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return driver.findElement(locator);
+            }
+        });
+    }
+
+    // 🔹 10. Custom Wait Until Text Appears
+    public boolean waitForTextToBePresent(By locator, String text, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+    }
+
+    // 🔹 11. Thread Sleep (Hard Wait)
+    public void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
 ```
+
+---
+
+## 🧠 **How to Use (Example in Test or Page Class)**
+
+```java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import utils.WaitUtils;
+
+public class LoginTest {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://example.com/login");
+
+        WaitUtils wait = new WaitUtils(driver);
+
+        // Example 1: Wait for username field
+        WebElement username = wait.waitForVisibility(By.id("username"), 10);
+        username.sendKeys("nini");
+
+        // Example 2: Wait for button to be clickable
+        WebElement loginBtn = wait.waitForClickability(By.id("loginBtn"), 10);
+        loginBtn.click();
+
+        // Example 3: Wait for URL to change
+        wait.waitForURLContains("dashboard", 10);
+
+        driver.quit();
+    }
+}
+```
+
+---
+
+## 🧾 **WaitUtils Methods Summary Table**
+
+| Method | Wait Type | Description | Best Use |
+| --- | --- | --- | --- |
+| `setImplicitWait()` | Implicit | Global element wait | Initial driver setup |
+| `waitForVisibility()` | Explicit | Waits for element visible | Inputs, buttons |
+| `waitForClickability()` | Explicit | Waits for clickable element | Buttons, links |
+| `waitForPresence()` | Explicit | Waits till element exists in DOM | Lazy-loaded items |
+| `waitForInvisibility()` | Explicit | Waits till element disappears | Loading spinner |
+| `waitForAlert()` | Explicit | Waits for alert | Alert handling |
+| `waitForTitleContains()` | Explicit | Waits for title match | Page navigation |
+| `waitForURLContains()` | Explicit | Waits for URL change | Page redirects |
+| `fluentWait()` | Fluent | Polling-based wait | Dynamic/AJAX elements |
+| `waitForTextToBePresent()` | Explicit | Waits for text | Status messages |
+| `sleep()` | Hard wait | Static pause | Debugging only |
+
+---
+
+## 🧱 **Best Practices**
+
+✅ Use **Explicit Wait** for element-based synchronization.  
+✅ Use **Fluent Wait** for AJAX-heavy or dynamic content.  
+✅ Avoid `Thread.sleep()` unless debugging.  
+✅ Don’t mix implicit + explicit waits.  
+✅ Define waits in a **utility class** (like `WaitUtils`) for reusability.
 
 ---
 
